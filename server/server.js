@@ -9,8 +9,8 @@ const express = require('express'),
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const user = require('./routes/user');
-app.use('/user', user)
+const user = require('./routes/api/user');
+app.use('/users', user)
 
 const port = process.env.PORT || 3001;
 
