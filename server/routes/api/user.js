@@ -22,13 +22,13 @@ router.post('/register', (req, res) => {
     })
 })
 
-router.patch('/edit', async (req, res) => {
-  let { ...args } = req.body
-  const user = await User.findById(req.body.id)
+// router.patch('/edit', async (req, res) => {
+//   let { ...args } = req.body
+//   const user = await User.findById(req.body.id)
 
-  for( key in req.body) {
-    user[key] = req.body[key]
-  }
+//   for( key in req.body) {
+//     user[key] = req.body[key]
+//   }
 
   user.save()
   .then(user => {
