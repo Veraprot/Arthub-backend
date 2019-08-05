@@ -1,13 +1,24 @@
+//fonts 
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-$background: #fafafa;
-$roboto-regular: 'Roboto', sans-serif;
+//variables 
+@import "utilities/variables";
+
+//styles
+@import url('login.scss');
+@import url('form.scss');
+
 .navbar-wrapper {
   padding: 26px 20px;
 }
 
+.main {
+  min-height: 100vh;
+}
+
 .navbar-wrapper, 
 .main {
-  background-color: $background;
+  background-color: $dark-white;
   font-family: $roboto-regular;
 }
+

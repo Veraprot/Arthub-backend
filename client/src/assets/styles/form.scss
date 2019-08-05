@@ -1,0 +1,13 @@
+@import "utilities/variables";
+
+.field {
+    input {
+      font-size: 16px;
+      line-height: 1.2em;
+      padding: 5px;
+      background-color: $dark-white;
+      border: $border-shadow;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+}

@@ -5,6 +5,7 @@ import About from './components/layout/About'
 import Dashboard from './components/Profile/Dashboard'
 import Login from './components/auth/Login'
 import './assets/styles/app.scss'
+
 function App() {
   return (
     <BrowserRouter>
