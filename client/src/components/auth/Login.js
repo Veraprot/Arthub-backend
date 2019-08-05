@@ -1,10 +1,15 @@
-import React from 'react'
-import {Form, Button} from 'semantic-ui-react'
+import React, { useState } from 'react'
+import {Form, Button } from 'semantic-ui-react'
 function Login() {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(event)
+  }
+
   return (
-    <div class="form-container">
-      <h1 class="logo-field">Arthub</h1>
-      <Form>
+    <div className="form-container">
+      <h1 className="logo-field">Arthub</h1>
+      <Form onSubmit={handleSubmit}>
         <Form.Field>
           <input placeholder='Username or Email' />
         </Form.Field>

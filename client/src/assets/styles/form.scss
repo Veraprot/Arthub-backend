@@ -20,4 +20,12 @@
   border: 1px solid #e6e6e6;
   border-radius: 1px;
   background-color: $white;
+
+  form {
+    padding: 10px 20px;
+
+    input {
+      width: 80%;
+    }
+  }
 }
