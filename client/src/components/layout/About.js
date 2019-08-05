@@ -1,6 +1,7 @@
 import  React from "react";
-
-function About() {
+import { connect } from 'react-redux';
+function About(props) {
+  console.log(props)
   return (
     <div>
       About
@@ -8,4 +9,8 @@ function About() {
   )
 }
 
-export default About;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, About);
