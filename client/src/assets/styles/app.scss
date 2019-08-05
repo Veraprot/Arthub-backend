@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+$background: #fafafa;
+$roboto-regular: 'Roboto', sans-serif;
+.navbar-wrapper {
+  padding: 26px 20px;
+}
+
+.navbar-wrapper, 
+.main {
+  background-color: $background;
+  font-family: $roboto-regular;
+}
