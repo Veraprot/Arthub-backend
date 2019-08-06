@@ -11,15 +11,7 @@ exports.testRoute = (req, res) => {
 
 exports.registerUser = (req, res) => {
   const {name, email, password, avatar} = req.body
-  
-  // let user = new User({name, email, password, avatar})
-  // user.save() 
-  //   .then(result => {
-  //     res.json({result})
-  //   })
-  //   .catch(err => {
-  //     res.json(err)
-  //   })
+
   User.findOne({ email }).then(user => {
     if (user) {
       return res.status(400).json({error: 'Email already exists'});
