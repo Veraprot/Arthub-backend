@@ -1,16 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 
 import {Form, Button } from 'semantic-ui-react'
 import { loginUser } from '../../actions/authActions'
+
 function Login(props) {
-
-  const [state, setState] = useState([]);
-
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(event.target)
-    console.log(state)
     let email = event.target["email"].value
     let password = event.target["password"].value
     props.loginUser({email, password})

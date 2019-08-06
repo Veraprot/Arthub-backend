@@ -2,6 +2,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const secretOrKey = process.env.SECRET_OR_KEY;
 
 exports.testRoute = (req, res) => {
@@ -46,16 +47,13 @@ exports.registerUser = (req, res) => {
 
 exports.loginUser = (req, res) => {
   const {email, password} = req.body
-
   User.findOne({email}).then(user => {
     // Check for user
     if (!user) {
       return res.status(404).json({error: 'User not found'});
     }
 
-    console.log(user)
     // check password 
-
     bcrypt.compare(password, user.password)
       .then(isMatch => {
         if (isMatch) {
