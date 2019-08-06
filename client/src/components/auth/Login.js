@@ -1,9 +1,19 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux';
+
 import {Form, Button } from 'semantic-ui-react'
-function Login() {
+import { loginUser } from '../../actions/authActions'
+function Login(props) {
+
+  const [state, setState] = useState([]);
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(event)
+    console.log(event.target)
+    console.log(state)
+    let email = event.target["email"].value
+    let password = event.target["password"].value
+    props.loginUser({email, password})
   }
 
   return (
@@ -11,10 +21,10 @@ function Login() {
       <h1 className="logo-field">Arthub</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Field>
-          <input placeholder='Username or Email' />
+          <input type="email" name="email" placeholder='Username or Email' />
         </Form.Field>
         <Form.Field>
-          <input placeholder='Password' />
+          <input type="password" name="password" placeholder='Password' />
         </Form.Field>
         <Button type='submit'>Submit</Button>
       </Form>
@@ -22,4 +32,5 @@ function Login() {
   )
 }
 
-export default Login
+// export default Login
+export default connect(null, { loginUser })(Login);
