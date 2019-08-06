@@ -1,6 +1,8 @@
 import {SET_CURRENT_USER} from './types';
 import axios from 'axios'
 import jwt_decode from 'jwt-decode';
+import setHeaders from '../utils/setHeaders'
+
 const apiRoot = process.env.REACT_APP_API_ROOT
 
 export const loginUser = (userData) => dispatch => {
@@ -10,10 +12,15 @@ export const loginUser = (userData) => dispatch => {
       const { token } = res.data
       localStorage.setItem('jwtToken', token);
       const decoded = jwt_decode(token);
-      console.log('decoded', decoded)
+      setHeaders(token);
+      dispatch(setCurrentUser(decoded));
     })
-  dispatch({
-    type: SET_CURRENT_USER,
-    payload: userData
-  })
 }
+
+// Set logged in user
+export const setCurrentUser = decoded => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: decoded
+  };
+};
