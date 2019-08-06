@@ -11,6 +11,7 @@
   "author": "vera protopopova",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
