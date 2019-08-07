@@ -11,20 +11,20 @@ const express = require('express'),
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// CORS config
-var whitelist = ['http://localhost:3000']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
+// // CORS config
+// var whitelist = ['*']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 
-// Then pass them to cors:
-app.use(cors(corsOptions));
+// // Then pass them to cors:
+// app.use(cors(corsOptions));
 
 const user = require('./routes/api/user');
 app.use('/users', user)

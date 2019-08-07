@@ -21,7 +21,34 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  }, 
+  
+  friends: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      }
+    }
+  ], 
+
+  friendInvitations: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      }
+    }
+  ], 
+
+  friendRequests: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      }
+    }
+  ]
 });
 
 module.exports = User = mongoose.model('users', UserSchema);
