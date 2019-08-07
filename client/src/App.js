@@ -6,6 +6,7 @@ import Dashboard from './components/profile/Dashboard'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 
+import MessageBoard from './components/messages/MessageBoard'
 import { Provider } from 'react-redux';
 import store from './store';
 import './assets/styles/app.scss'
@@ -41,6 +42,7 @@ function App() {
           <Route exact path="/user" component={Dashboard} />
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
+          <Route exact path="/messages/:name" component={MessageBoard}/>
         </div>
       </BrowserRouter>
     </Provider>
