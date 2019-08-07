@@ -39,7 +39,7 @@ function App() {
         <div className="main">
           <Route exact path="/about" component={About} />
           <Route exact path="/user" component={Dashboard} />
-          <Route exact path="/" component={Login}/>
+          <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
         </div>
       </BrowserRouter>
