@@ -85,3 +85,26 @@ exports.editUser = async (req, res) => {
     res.json({user})
   })
 }
+
+exports.addFriend = async (req, res) => {
+  let {id, friendId} = req.body
+
+  let user = await User.findById(id)
+
+  let friend = await User.findById(friendId)
+  console.log(friend)
+  console.log(user)
+  // User.findOneAndUpdate(
+  //   {id: req.body.id},
+  //   {$set: somethign},
+  //   {new: true}
+  // ).then(user => {
+  //     console.log(id)
+  //     res.json({user})
+  //   })
+}
+
+exports.acceptFriend = (req, res) => {
+  let {id} = req.body
+  
+}

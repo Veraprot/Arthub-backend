@@ -11,4 +11,8 @@ router.post('/login', users.loginUser)
 
 router.patch('/edit', users.editUser)
 
+router.patch('/add-friend', users.addFriend)
+
+router.patch('/accept-friend', users.acceptFriend)
+
 module.exports = router
