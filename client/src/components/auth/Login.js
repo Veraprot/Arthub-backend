@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
 import {Form, Button } from 'semantic-ui-react'
 import { loginUser } from '../../actions/authActions'
 
 function Login(props) {
+  console.log(props)
+
+  useEffect(() => {
+    if(props.auth.isAuthenticated) {
+      props.history.push('/user')
+    }
+  }, [props.auth.isAuthenticated])
+
   const handleSubmit = (event) => {
     event.preventDefault()
     let email = event.target["email"].value
@@ -28,5 +36,9 @@ function Login(props) {
   )
 }
 
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
 // export default Login
-export default connect(null, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser })(Login);
