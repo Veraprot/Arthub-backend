@@ -5,8 +5,6 @@ import {Form, Button } from 'semantic-ui-react'
 import { loginUser } from '../../actions/authActions'
 
 function Login(props) {
-  console.log(props)
-
   useEffect(() => {
     if(props.auth.isAuthenticated) {
       props.history.push('/user')
