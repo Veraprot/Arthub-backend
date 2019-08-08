@@ -17,10 +17,10 @@ exports.registerUser = (req, res) => {
       return res.status(400).json({error: 'Email already exists'});
     } else {
       const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
+        name,
+        email,
         avatar,
-        password: req.body.password
+        password
       });
 
       bcrypt.genSalt(10, (err, salt) => {
