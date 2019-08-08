@@ -7,7 +7,7 @@ function ConversationsList(props) {
   const renderFriends = () => {
     return props.user.friends.map( friend => {
       return(
-        <div>
+        <div key={friend.user}>
           {friend.user}
         </div>
       )
