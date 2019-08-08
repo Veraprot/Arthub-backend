@@ -103,6 +103,7 @@ exports.addFriend = async (req, res) => {
 
 
 exports.acceptFriend = async (req, res) => {
+  // please refactor this 
   let {id, invitorId} = req.body
 
   let user = await User.findById(id)
