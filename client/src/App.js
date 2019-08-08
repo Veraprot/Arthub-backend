@@ -13,6 +13,7 @@ import './assets/styles/app.scss'
 import setHeaders from './utils/setHeaders';
 import jwt_decode from 'jwt-decode';
 import { setCurrentUser, logoutUser } from './actions/authActions';
+import PrivateRoute from './components/common/PrivateRoute';
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -39,10 +40,10 @@ function App() {
       <Navbar/>
         <div className="main">
           <Route exact path="/about" component={About} />
-          <Route exact path="/user" component={Dashboard} />
+          <PrivateRoute exact path="/user" component={Dashboard} />
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
-          <Route exact path="/messages/:name" component={MessageBoard}/>
+          <PrivateRoute exact path="/messages/:name" component={MessageBoard}/>
         </div>
       </BrowserRouter>
     </Provider>

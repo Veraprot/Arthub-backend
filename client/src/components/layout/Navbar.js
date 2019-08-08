@@ -1,11 +1,19 @@
 import  React  from "react";
+import { connect } from 'react-redux';
 
-function Navbar() {
+import { logoutUser } from '../../actions/authActions'
+
+function Navbar(props) {
+  const handleClick = () => {
+    props.logoutUser()
+  }
+
   return (
     <div className="navbar-wrapper">
       hi
+      <button onClick={handleClick}>logout</button>
     </div>
   )
 }
 
-export default Navbar;
+export default connect(null, {logoutUser})(Navbar);
