@@ -89,7 +89,6 @@ exports.addFriend = async (req, res) => {
   let {id, friendId} = req.body
 
   let user = await User.findById(id)
-
   let friend = await User.findById(friendId)
 
   user.friendRequests.unshift({ user: friendId });
@@ -99,8 +98,7 @@ exports.addFriend = async (req, res) => {
   let updatedFriend = friend.save()
   
   Promise.all([updatedUser, updatedFriend])
-    .then( values => {
-      console.log('got to here', values)
+    .then(() => {
       res.json({
         message: 'friend request sent'
       })
