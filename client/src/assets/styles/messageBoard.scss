@@ -1,16 +1,17 @@
 .message-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  min-height: 100vh;
 
   .convertations-list {
     display: flex; 
-    min-width: 20%;
-
+    width: 25%;
+    flex-direction: column;
+    border-right: 2px solid rgba(0, 0, 0, .06);
     .profile-view-container {
       .avatar-container {
-        width: 150px;
-        height: 150px;
+        width: 50px;
+        height: 50px;
         overflow: hidden;
         border-radius: 100%;
 
@@ -19,5 +20,9 @@
         }
       }
     }
+  }
+
+  .chat-container {
+    width: 75%;
   }
 }

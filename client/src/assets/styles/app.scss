@@ -9,7 +9,8 @@
 @import url('messageBoard.scss');
 
 .navbar-wrapper {
-  padding: 26px 20px;
+  height: $navbar-height;
+  border-bottom: 1px solid rgba(0, 0, 0, .06);
 }
 
 .main {
