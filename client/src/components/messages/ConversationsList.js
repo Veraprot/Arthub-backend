@@ -3,6 +3,17 @@ import { connect } from 'react-redux'
  
 function ConversationsList(props) {
   console.log(props.user)
+
+  const renderFriends = () => {
+    return props.user.friends.map( friend => {
+      return(
+        <div>
+          {friend.user}
+        </div>
+      )
+    })
+  }
+
   return (
     <div className="convertations-list">
       <div className="profile-view-container">
@@ -12,6 +23,9 @@ function ConversationsList(props) {
         <div className="user-settings-container"> 
 
         </div>
+      </div>
+      <div className="friends-list">
+        {renderFriends()}
       </div>
     </div>
   )
