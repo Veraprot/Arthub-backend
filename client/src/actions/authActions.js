@@ -6,7 +6,6 @@ import setHeaders from '../utils/setHeaders'
 const apiRoot = process.env.REACT_APP_API_ROOT
 
 export const loginUser = (userData) => dispatch => {
-  console.log(axios.defaults.headers)
   axios.post(`${apiRoot}/users/login`, userData)
     .then(res => {
       const { token } = res.data

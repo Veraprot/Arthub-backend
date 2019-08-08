@@ -1,6 +1,8 @@
 import React from "react";
-
+import { connect } from 'react-redux'
+ 
 function ConversationsList(props) {
+  console.log(props)
   return (
     <div>
       Convos
@@ -8,4 +10,7 @@ function ConversationsList(props) {
   )
 }
 
-export default ConversationsList;
+const mapStateToProps = state => ({
+  user: state.auth
+})
+export default connect(mapStateToProps)(ConversationsList);
