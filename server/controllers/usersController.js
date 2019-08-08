@@ -101,6 +101,38 @@ exports.addFriend = async (req, res) => {
     })
 }
 
-exports.acceptFriend = (req, res) => {
-  let {id} = req.body
+
+exports.acceptFriend = async (req, res) => {
+  let {id, invitorId} = req.body
+
+  let user = await User.findById(id)
+  let invitor = await User.findById(invitorId)
+
+  const inviteReferenceIndex = user.friendInvitations
+    .map(invitation => invitation.user.toString())
+    .indexOf(invitorId);
+
+  const inviteReference = user.friendInvitations[inviteReferenceIndex]
+
+  user.friendInvitations.splice(inviteReferenceIndex, 1);
+  user.friends.push(inviteReference)
+
+  const requestReferenceIndex = invitor.friendRequests
+  .map(request => request.user.toString())
+  .indexOf(id);
+
+  const requestReference = invitor.friendRequests[requestReferenceIndex]
+
+  invitor.friendRequests.splice(requestReferenceIndex, 1);
+  invitor.friends.push(requestReference)
+
+  let updatedUser = user.save()
+  let updatedInvitor = invitor.save()
+
+  Promise.all([updatedUser, updatedInvitor])
+  .then(() => {
+    res.json({
+      message: 'friend request accepted'
+    })
+  })
 }
