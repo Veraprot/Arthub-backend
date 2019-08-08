@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/authActions'
 
 function Navbar(props) {
-  console.log('propppopops')
-  console.log(props.auth.user.name)
-  console.log('propppopops')
   const handleClick = () => {
     props.logoutUser()
   }
@@ -31,7 +28,7 @@ function Navbar(props) {
 
   return (
     <div className="navbar-wrapper">
-      {isAuthenticated ? authLinks : guestLinks}
+      {props.auth.isAuthenticated ? authLinks : guestLinks}
     </div>
   )
 }
