@@ -11,10 +11,27 @@ function Navbar(props) {
     props.logoutUser()
   }
 
-  return (
-    <div className="navbar-wrapper">
+  const guestLinks = (
+    <>
+      <Link to="/register">
+        Sign Up
+      </Link>
+      <Link to="/login">
+        Login
+      </Link>
+    </>
+  );
+
+  const authLinks = (
+    <>
       <button onClick={handleClick}>logout</button>
       <Link to={`/messages/${props.auth.user.name}`}>messages</Link>
+    </>
+  );
+
+  return (
+    <div className="navbar-wrapper">
+      {isAuthenticated ? authLinks : guestLinks}
     </div>
   )
 }
