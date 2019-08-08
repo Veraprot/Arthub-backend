@@ -73,7 +73,6 @@ exports.loginUser = (req, res) => {
 }
 
 exports.editUser = async (req, res) => {
-  let { ...args } = req.body
   const user = await User.findById(req.body.id)
 
   for( key in req.body) {
