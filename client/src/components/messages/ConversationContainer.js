@@ -2,7 +2,7 @@ import React from "react";
 
 function ConverstationContainer(props) {
   return (
-    <div>
+    <div className="chat-container">
       current conversation
     </div>
   )

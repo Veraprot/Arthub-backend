@@ -4,10 +4,9 @@ import ConverstationContainer from './ConversationContainer'
 
 function MessageBoard(props) {
   return (
-    <div>
-      MessageBoard id: {props.match.params.name}
+    <div className="message-section">
       <ConversationsList/>
-      <ConverstationContainer/>
+      <ConverstationContainer currentUser={props.match.params.name}/>
     </div>
   )
 }
