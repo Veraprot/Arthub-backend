@@ -5,10 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const secretOrKey = process.env.SECRET_OR_KEY;
 
-exports.testRoute = (req, res) => {
-    res.json({mes: 'what do you want'})
-}
-
 exports.registerUser = (req, res) => {
   const {name, email, password, avatar} = req.body
 
@@ -107,5 +103,4 @@ exports.addFriend = async (req, res) => {
 
 exports.acceptFriend = (req, res) => {
   let {id} = req.body
-  
 }
