@@ -9,7 +9,10 @@ function Login(props) {
     if(props.auth.isAuthenticated) {
       props.history.push('/user')
     }
-  }, [props.auth.isAuthenticated])
+    else if(props.errors.notFound) {
+      props.history.push('/register')
+    }
+  }, [props.auth.isAuthenticated, props.errors])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -18,17 +21,6 @@ function Login(props) {
     props.loginUser({email, password})
   }
 
-  const showErrors = () => {
-    console.log(props.errors)
-    if(props.errors.notFound) {
-      props.history.push('/register')
-    }
-    return(
-      <div>errrrroooor</div>
-    )
-  }
-
-  console.log(props.errors)
   return (
     <div className="form-container">
       <h1 className="logo-field">Arthub</h1>
@@ -41,9 +33,6 @@ function Login(props) {
         </Form.Field>
         <Button type='submit'>Submit</Button>
       </Form>
-      {props.errors.notFound &&
-        showErrors()
-      }
     </div>
   )
 }
