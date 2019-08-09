@@ -21,7 +21,7 @@ function ConversationsList(props) {
             <img className="profile-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPSysKN4CPaJbicNW2tNU-CgOiL6UxNkrNpmkH1VootIR6MkqXQ" alt=""/>
         </div>
         <div className="user-settings-container"> 
-
+            something will go here
         </div>
       </div>
       <div className="friends-list">
