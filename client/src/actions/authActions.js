@@ -1,4 +1,4 @@
-import {SET_CURRENT_USER} from './types';
+import {SET_CURRENT_USER, GET_ERRORS, CLEAR_ERRORS} from './types';
 import axios from 'axios'
 import jwt_decode from 'jwt-decode';
 import setHeaders from '../utils/setHeaders'
@@ -14,6 +14,11 @@ export const loginUser = (userData) => dispatch => {
       setHeaders(token);
       dispatch(setCurrentUser(decoded));
     })
+    .catch(err => {
+      if(err.response.status === 404) {
+        dispatch(setErrors({notFound: err.response.data.error}))
+      }
+    })
 }
 
 // Set logged in user
@@ -23,6 +28,19 @@ export const setCurrentUser = decoded => {
     payload: decoded
   };
 };
+
+export const setErrors = error => {
+  return {
+    type: GET_ERRORS, 
+    payload: error
+  }
+}
+
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS, 
+  }
+}
 
 export const logoutUser = () => dispatch => {
   localStorage.removeItem('jwtToken');

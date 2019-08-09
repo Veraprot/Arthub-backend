@@ -18,6 +18,17 @@ function Login(props) {
     props.loginUser({email, password})
   }
 
+  const showErrors = () => {
+    console.log(props.errors)
+    if(props.errors.notFound) {
+      props.history.push('/register')
+    }
+    return(
+      <div>errrrroooor</div>
+    )
+  }
+
+  console.log(props.errors)
   return (
     <div className="form-container">
       <h1 className="logo-field">Arthub</h1>
@@ -30,12 +41,16 @@ function Login(props) {
         </Form.Field>
         <Button type='submit'>Submit</Button>
       </Form>
+      {props.errors.notFound &&
+        showErrors()
+      }
     </div>
   )
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  errors: state.errors
 });
 
 // export default Login
