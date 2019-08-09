@@ -28,27 +28,10 @@ const UserSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
-      }
+      },
+      status: String,
     }
   ], 
-
-  friendInvitations: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-      }
-    }
-  ], 
-
-  friendRequests: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-      }
-    }
-  ]
 });
 
 module.exports = User = mongoose.model('users', UserSchema);

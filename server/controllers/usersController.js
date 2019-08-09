@@ -87,10 +87,11 @@ exports.addFriend = async (req, res) => {
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  user.friendRequests.unshift({ user: friendId });
+  user.friends.unshift({ user: friendId, status: 'requested' });
   let updatedUser = user.save()
 
-  friend.friendInvitations.unshift({user: id})
+
+  friend.friends.unshift({user: id, status: 'pending'})
   let updatedFriend = friend.save()
   
   Promise.all([updatedUser, updatedFriend])
@@ -104,33 +105,22 @@ exports.addFriend = async (req, res) => {
 
 exports.acceptFriend = async (req, res) => {
   // please refactor this 
-  let {id, invitorId} = req.body
+  let {id, friendId} = req.body
 
   let user = await User.findById(id)
-  let invitor = await User.findById(invitorId)
+  let friend = await User.findById(friendId)
 
-  const inviteReferenceIndex = user.friendInvitations
-    .map(invitation => invitation.user.toString())
-    .indexOf(invitorId);
+  let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
 
-  const inviteReference = user.friendInvitations[inviteReferenceIndex]
+  let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
 
-  user.friendInvitations.splice(inviteReferenceIndex, 1);
-  user.friends.push(inviteReference)
+  userFriendRef.status = 'accepted'
+  friendsFriendRef.status = 'accepted'
 
-  const requestReferenceIndex = invitor.friendRequests
-  .map(request => request.user.toString())
-  .indexOf(id);
+  updatedUser = user.save()
+  updatedFriend = friend.save()
 
-  const requestReference = invitor.friendRequests[requestReferenceIndex]
-
-  invitor.friendRequests.splice(requestReferenceIndex, 1);
-  invitor.friends.push(requestReference)
-
-  let updatedUser = user.save()
-  let updatedInvitor = invitor.save()
-
-  Promise.all([updatedUser, updatedInvitor])
+  Promise.all([updatedUser, updatedFriend])
   .then(() => {
     res.json({
       message: 'friend request accepted'
