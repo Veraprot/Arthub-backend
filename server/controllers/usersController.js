@@ -127,14 +127,3 @@ exports.acceptFriend = async (req, res) => {
     })
   })
 }
-
-exports.getFriends = (req, res) => {
-  const { id } = req.body
-
-  User.findById(id)
-    .then(user => {
-      res.json({
-        friends: user
-      })
-    })
-}

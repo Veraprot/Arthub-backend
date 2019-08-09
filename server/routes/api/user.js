@@ -11,8 +11,6 @@ router.patch('/edit', users.editUser)
 
 router.patch('/add-friend', users.addFriend)
 
-router.post('/friends', users.getFriends)
-
 router.patch('/accept-friend', users.acceptFriend)
 
 module.exports = router
