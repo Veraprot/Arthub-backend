@@ -32,7 +32,7 @@ if (localStorage.jwtToken) {
     window.location.href = '/login';
   }
 }
-
+ 
 function App() {
   return (
     <Provider store={store}>
