@@ -1,23 +1,43 @@
 import React from 'react'
 import {Form, Button} from 'semantic-ui-react'
-function Register() {
+import { registerUser } from '../../actions/authActions'
+import { connect } from 'react-redux';
+
+function Register(props) {
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(event)
+    let name = event.target["name"].value
+    let email = event.target["email"].value
+    let password = event.target["password"].value
+    let passwordConfirm = event.target["confirmation"].value
+
+    const newUser = {
+      name, 
+      email,
+      password, 
+      passwordConfirm
+    };
+
+    props.registerUser(newUser, props.history)
   }
+
   return (
       <div className="form-container">
         <h1 className="logo-field">Arthub</h1>
 
         <Form onSubmit={handleSubmit}>
-          <Form.Field>
-            <input placeholder='Username or Email' />
+        <Form.Field>
+            <input name="name" placeholder='name' />
           </Form.Field>
           <Form.Field>
-            <input placeholder='Password' />
+            <input name="email" placeholder='Username or Email' />
           </Form.Field>
           <Form.Field>
-            <input placeholder='Password Confirmation' />
+            <input name="password" placeholder='Password' />
+          </Form.Field>
+          <Form.Field>
+            <input name="confirmation" placeholder='Password Confirmation' />
           </Form.Field>
           <Button primary type='submit'>Submit</Button>
         </Form>
@@ -25,4 +45,8 @@ function Register() {
   )
 }
 
-export default Register
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { registerUser })(Register);

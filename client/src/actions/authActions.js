@@ -21,6 +21,14 @@ export const loginUser = (userData) => dispatch => {
     })
 }
 
+export const registerUser = (userData, history) => dispatch => {
+  axios.post(`${apiRoot}/users/register`, userData)
+    .then(res => {
+      console.log(res)
+      history.push('/login')
+    })
+}
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
