@@ -13,9 +13,15 @@ exports.create = (req, res) => {
     conversation.recipients.push({recipient})
   })
 
-  console.log(conversation)
   conversation.save()
-    .then(() => res.json({
-      conversation
-    }))
+  Conversation.populate(
+    conversation, 
+    {
+      path: "recipients.recipient", 
+      select: ["name", "email", "avatar"]
+    }, 
+
+    function(err, conversation) {
+    res.json({conversation})
+   });
 }
