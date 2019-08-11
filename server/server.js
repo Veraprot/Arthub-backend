@@ -29,6 +29,11 @@ app.get('/', (req, res) => {
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(() => {
-    app.listen(port, () => console.log(`Server running on port ${port}`));
+    const server = app.listen(port, () => console.log(`Server running on port ${port}`));
+    const io = require('./socket').init(server)
+    io.on('connection', socket => {
+      console.log('client connected')
+    });
   })
+  .catch(err => console.log(err))
 

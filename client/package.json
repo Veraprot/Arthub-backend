@@ -15,7 +15,8 @@
     "react-toasts": "^3.0.3",
     "redux": "^4.0.4",
     "sass": "^1.22.9",
-    "semantic-ui-react": "^0.87.3"
+    "semantic-ui-react": "^0.87.3",
+    "socket.io-client": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
