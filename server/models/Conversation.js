@@ -10,7 +10,7 @@ const ConversationSchema = new Schema({
 
   recipients: [
     {
-      user: {
+      recipient: {
         type: Schema.Types.ObjectId,
         ref: 'users'
       }

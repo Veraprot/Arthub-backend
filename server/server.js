@@ -21,6 +21,9 @@ app.use(cors(corsOptions));
 const user = require('./routes/api/user');
 app.use('/users', user)
 
+const conversation = require('./routes/api/conversation');
+app.use('/conversations', conversation)
+
 const port = process.env.PORT || 3001;
 
 app.get('/', (req, res) => {
