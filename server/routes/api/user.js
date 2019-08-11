@@ -13,4 +13,6 @@ router.patch('/add-friend', users.addFriend)
 
 router.patch('/accept-friend', users.acceptFriend)
 
+router.get('/friends', users.getFriends)
+
 module.exports = router

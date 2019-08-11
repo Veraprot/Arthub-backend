@@ -35,7 +35,9 @@ exports.registerUser = (req, res) => {
 
 exports.loginUser = (req, res) => {
   const {email, password} = req.body
-  User.findOne({email}).then(user => {
+  User.findOne({email})
+  .populate('friends.user', ['name', 'email', 'avatar'])
+  .exec((err, user) => {
     // Check for user
     if (!user) {
       return res.status(404).json({error: 'User not found'});
@@ -125,5 +127,15 @@ exports.acceptFriend = async (req, res) => {
     res.json({
       message: 'friend request accepted'
     })
+  })
+}
+
+exports.getFriends = async (req, res) => {
+  let {id} = req.body
+
+  User.findById(id)
+    .populate('friends.user', ['name', 'email', 'avatar'])
+    .exec((error, user) => {
+      res.json({user})
   })
 }
