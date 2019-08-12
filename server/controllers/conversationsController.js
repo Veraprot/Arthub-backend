@@ -1,4 +1,6 @@
 const Conversation = require('../models/Conversation');
+const User = require('../models/User');
+
 const io = require('../socket')
 
 exports.create = (req, res) => {
@@ -12,6 +14,12 @@ exports.create = (req, res) => {
 
   recipient.forEach(user => {
     conversation.users.push({user})
+
+    User.findById(user)
+      .then(user => {
+        user.conversations.push({conversation})
+        user.save()
+      })
   })
 
   conversation.save()
