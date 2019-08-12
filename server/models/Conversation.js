@@ -8,9 +8,9 @@ const ConversationSchema = new Schema({
     required: true
   },
 
-  recipients: [
+  users: [
     {
-      recipient: {
+      user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
       }
