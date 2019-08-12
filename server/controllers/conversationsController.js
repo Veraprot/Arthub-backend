@@ -22,6 +22,10 @@ exports.create = (req, res) => {
     }, 
 
     function(err, conversation) {
+    if(err) {
+      console.log(err)
+      return;
+    }
     res.json({conversation})
    });
 }
