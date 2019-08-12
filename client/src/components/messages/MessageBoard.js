@@ -4,8 +4,11 @@ import ConverstationContainer from './ConversationContainer'
 import openSocket from 'socket.io-client'
 
 function MessageBoard(props) {
-  openSocket('http://localhost:3001')
-  
+  const socket = openSocket('http://localhost:3001')
+  socket.on('conversation', data => {
+    console.log('why', data)
+  })
+
   return (
     <div className="message-section">
       <ConversationsList/>

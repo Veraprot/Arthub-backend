@@ -1,4 +1,5 @@
 const Conversation = require('../models/Conversation');
+const io = require('../socket');
 
 exports.create = (req, res) => {
   const{name, friend} = req.body
@@ -26,6 +27,7 @@ exports.create = (req, res) => {
       console.log(err)
       return;
     }
+    io.getIO().emit('conversation', {action: 'create', conversation: conversation})
     res.json({conversation})
    });
 }
