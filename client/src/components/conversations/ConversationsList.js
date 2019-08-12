@@ -14,10 +14,6 @@ function ConversationsList(props) {
     })
   }
 
-  const addFriendsToNewGroup = (event) => {
-    console.log(event.target)
-  }
-
   return (
     <div className="convertations-list">
       <div className="profile-view-container">

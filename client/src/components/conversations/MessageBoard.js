@@ -7,6 +7,7 @@ import FriendsList from './FriendsList'
 function MessageBoard(props) {
   const socket = openSocket('http://localhost:3001')
   socket.on('conversation', data => {
+    // when new conversation is added
     console.log(data)
   })
 

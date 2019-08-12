@@ -35,7 +35,7 @@ exports.create = (req, res) => {
       console.log(err)
       return
     }
-    io.getIO().emit('conversation', {action: 'create', data: conversation})
+    io.getIO().emit('conversation', {conversation: conversation})
     res.json({conversation})
    });
 }
