@@ -14,6 +14,10 @@ function ConversationsList(props) {
     })
   }
 
+  const addFriendsToNewGroup = (event) => {
+    console.log(event.target)
+  }
+
   return (
     <div className="convertations-list">
       <div className="profile-view-container">
@@ -26,6 +30,9 @@ function ConversationsList(props) {
       </div>
       <div className="friends-list">
         {renderFriends()}
+      </div>
+      <div className="new-conversation">
+        <button onClick={props.openNewConversation}>+</button>
       </div>
     </div>
   )

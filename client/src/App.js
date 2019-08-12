@@ -6,7 +6,7 @@ import Dashboard from './components/profile/Dashboard'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 
-import MessageBoard from './components/messages/MessageBoard'
+import MessageBoard from './components/conversations/MessageBoard'
 import { Provider } from 'react-redux';
 import store from './store';
 import './assets/styles/app.scss'
