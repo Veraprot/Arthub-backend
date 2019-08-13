@@ -3,16 +3,22 @@ const User = require('../models/User');
 
 const io = require('../socket')
 
+exports.getUserConversations = (req, res) => {
+  const {id} = req.body
+  console.log('here', req.params.userId)
+  User.findById(id)
+    .then(user => console.log(user))
+}
+
 exports.create = (req, res) => {
   const{name, recipient} = req.body
-  console.log(recipient)
-
+  let users = [req.params.userId, ...recipient]
   let conversation = new Conversation({
     name, 
     users: []
   });
 
-  recipient.forEach(user => {
+  users.forEach(user => {
     conversation.users.push({user})
 
     User.findById(user)

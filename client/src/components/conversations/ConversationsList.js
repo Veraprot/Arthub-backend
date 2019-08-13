@@ -41,6 +41,7 @@ function ConversationsList(props) {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user
+  user: state.auth.user,
+  conversations: state.conversations
 })
 export default connect(mapStateToProps)(ConversationsList);

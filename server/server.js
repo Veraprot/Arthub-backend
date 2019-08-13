@@ -22,13 +22,10 @@ const user = require('./routes/api/user');
 app.use('/users', user)
 
 const conversation = require('./routes/api/conversation');
-app.use('/conversations', conversation)
+
+app.use('/users/:userId/conversations', conversation)
 
 const port = process.env.PORT || 3001;
-
-app.get('/', (req, res) => {
-  res.json({ msg: 'hii' })
-})
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(() => {
