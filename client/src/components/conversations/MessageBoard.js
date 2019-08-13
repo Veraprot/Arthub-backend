@@ -12,14 +12,14 @@ function MessageBoard(props) {
   })
 
   const [friendsModal, setFriendsModal] = useState(false)
-
+  
   const toggleFriendsModal = () => {
     setFriendsModal(!friendsModal)
   }
    
   return (
     <div className="message-section">
-      <ConversationsList openNewConversation={toggleFriendsModal}/>
+      <ConversationsList openNewConversation={toggleFriendsModal} />
       <ConverstationContainer currentUser={props.match.params.name}/>
       {
         friendsModal && 

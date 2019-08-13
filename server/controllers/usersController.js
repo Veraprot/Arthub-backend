@@ -36,6 +36,7 @@ exports.registerUser = (req, res) => {
 exports.loginUser = (req, res) => {
   const {email, password} = req.body
   User.findOne({email})
+  .select('-conversations')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .exec((err, user) => {
     // Check for user

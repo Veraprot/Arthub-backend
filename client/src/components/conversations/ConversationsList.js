@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 function ConversationsList(props) {
   console.log(props.user)
 
-  const renderFriends = () => {
+  const renderSuggestions = () => {
     return props.user.friends.map( friend => {
       return(
         <div key={friend.user._id}>
@@ -12,6 +12,10 @@ function ConversationsList(props) {
         </div>
       )
     })
+  }
+
+  const renderConversations = () => {
+    return 
   }
 
   return (
@@ -25,7 +29,9 @@ function ConversationsList(props) {
         </div>
       </div>
       <div className="friends-list">
-        {renderFriends()}
+        {renderConversations()}
+        <div className="separator">=================</div>
+        {renderSuggestions()}
       </div>
       <div className="new-conversation">
         <button onClick={props.openNewConversation}>+</button>
