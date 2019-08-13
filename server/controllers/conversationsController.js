@@ -3,11 +3,14 @@ const User = require('../models/User');
 
 const io = require('../socket')
 
-exports.getUserConversations = (req, res) => {
-  const {id} = req.body
-  console.log('here', req.params.userId)
-  User.findById(id)
-    .then(user => console.log(user))
+exports.getUserConversations = async (req, res) => {
+  const { userId } = req.params
+
+User.findById(userId)
+  .populate('conversations.conversation')
+  .exec((err, user)=> {
+    res.json({userId, conversations: user.conversations})
+  })
 }
 
 exports.create = (req, res) => {
