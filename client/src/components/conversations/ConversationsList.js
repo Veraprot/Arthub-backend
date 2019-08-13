@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from 'react-redux'
  
 function ConversationsList(props) {
-  console.log(props.user)
 
   const renderSuggestions = () => {
     return props.user.friends.map( friend => {
@@ -15,7 +14,14 @@ function ConversationsList(props) {
   }
 
   const renderConversations = () => {
-    return 
+    return props.conversations.map(conversation => {
+      console.log(conversation)
+      return(
+        <div key={conversation._id}>
+          hi
+        </div>
+      )
+    }) 
   }
 
   return (
@@ -42,6 +48,7 @@ function ConversationsList(props) {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  conversations: state.conversations
+  conversations: state.conversations.all,
+  activeConversation: state.conversations.active
 })
 export default connect(mapStateToProps)(ConversationsList);

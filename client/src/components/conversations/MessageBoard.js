@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ConversationsList from './ConversationsList'
 import ConverstationContainer from './ConversationContainer'
 import openSocket from 'socket.io-client'
 import FriendsList from './FriendsList'
+import {connect} from 'react-redux'
+
+import { getConversations } from '../../actions/conversationActions'
 
 function MessageBoard(props) {
   const socket = openSocket('http://localhost:3001')
@@ -16,7 +19,12 @@ function MessageBoard(props) {
   const toggleFriendsModal = () => {
     setFriendsModal(!friendsModal)
   }
-   
+  
+  useEffect(() => {
+    console.log(props)
+    props.getConversations(props.currentUser._id)
+  }, [])
+
   return (
     <div className="message-section">
       <ConversationsList openNewConversation={toggleFriendsModal} />
@@ -29,4 +37,9 @@ function MessageBoard(props) {
   )
 }
 
-export default MessageBoard;
+const mapStateToProps = state => ({
+  currentUser: state.auth.user, 
+  conversations: state.conversations
+}); 
+
+export default connect(mapStateToProps, {getConversations})(MessageBoard);

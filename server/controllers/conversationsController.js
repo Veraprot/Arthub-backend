@@ -9,7 +9,7 @@ exports.getUserConversations = async (req, res) => {
 User.findById(userId)
   .populate('conversations.conversation')
   .exec((err, user)=> {
-    res.json({userId, conversations: user.conversations})
+    res.json(user.conversations)
   })
 }
 

@@ -6,5 +6,5 @@ import conversationReducer from './conversationReducer';
 export default combineReducers({
   auth: authReducer, 
   errors: errorReducer, 
-  conversation: conversationReducer
+  conversations: conversationReducer
 })

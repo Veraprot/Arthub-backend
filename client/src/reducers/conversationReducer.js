@@ -1,17 +1,17 @@
 import { GET_CONVERSATIONS } from '../actions/types';
 
 const initialState = {
-  isAuthenticated: false,
-  convos: []
+  active: [],
+  all: []
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CONVERSATIONS:
-      console.log(action.payload)
       return {
         ...state,
-        conversations: action.payload.conversations
+        active: action.payload[0],
+        all: action.payload
       };
     default:
       return state;
