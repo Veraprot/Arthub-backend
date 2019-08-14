@@ -7,17 +7,17 @@ exports.getUserConversations = async (req, res) => {
   const { userId } = req.params
 
 User.findById(userId)
-  // .populate({
-  //   path: 'conversations',
-  //   // select: ['-conversation'],
-  //   populate: {
-  //     path: 'users.user', 
-  //     select: ['-conversations', '-friends', '-password']
-  //   }
-  // })
+  .select('conversations')
+  .populate({
+    path: 'conversations',
+    populate: {
+      path: 'users.user', 
+      select: ['-conversations', '-friends', '-password']
+    }
+  })
   .exec((err, user)=> {
     console.log(user)
-    res.json(user)
+    res.json(user.conversations)
   })
 }
 

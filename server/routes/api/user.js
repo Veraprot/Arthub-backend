@@ -15,4 +15,5 @@ router.patch('/accept-friend', users.acceptFriend)
 
 router.get('/friends', users.getFriends)
 
+// router.get('/test', users.test)
 module.exports = router
