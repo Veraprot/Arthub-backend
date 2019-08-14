@@ -7,7 +7,7 @@ function ConversationsList(props) {
     console.log(conversation.users)
     return conversation.users.map(user => {
       return (
-        <div>
+        <div key={user._id}> 
           {user.name}
         </div>
       )

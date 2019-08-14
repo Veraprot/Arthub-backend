@@ -12,7 +12,7 @@ User.findById(userId)
     path: 'conversations',
     populate: {
       path: 'users',
-      select: ['name']
+      select: ['_id', 'name']
     }
   })
   .exec((err, user)=> {
@@ -45,7 +45,7 @@ exports.create = (req, res) => {
     conversation, 
     {
       path: "users", 
-      select: ["name", "email", "avatar"]
+      select: ["_id", "name", "email", "avatar"]
     }, 
 
     function(err, conversation) {

@@ -8,9 +8,9 @@ import {connect} from 'react-redux'
 import { getConversations } from '../../actions/conversationActions'
 
 function MessageBoard(props) {
+  
   const socket = openSocket('http://localhost:3001')
   socket.on('conversation', data => {
-    // when new conversation is added
     console.log(data)
   })
 
@@ -21,7 +21,6 @@ function MessageBoard(props) {
   }
   
   useEffect(() => {
-    console.log(props)
     props.getConversations(props.currentUser._id)
   }, [])
 
