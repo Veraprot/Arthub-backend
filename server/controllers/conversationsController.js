@@ -9,7 +9,10 @@ exports.getUserConversations = async (req, res) => {
 User.findById(userId)
   .populate({
     path: 'conversations.conversation',
-    populate: {path: 'users.user'}
+    populate: {
+      path: 'users.user', 
+      select: ['-conversations', '-friends', '-password']
+    }
   })
   .exec((err, user)=> {
     res.json(user.conversations)
