@@ -34,11 +34,9 @@ const UserSchema = new Schema({
   ], 
 
   conversations: [
-    {
-      conversation: {
-        type: Schema.Types.ObjectId,
-        ref: 'conversations'
-      }
+    { 
+      type: Schema.Types.ObjectId,
+      ref: 'conversations'
     }
   ]
 });
