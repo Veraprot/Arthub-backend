@@ -13,12 +13,18 @@ function ConversationsList(props) {
     })
   }
 
+  const conversationParticipants = (conversation) => {
+    console.log(conversation.users)
+    return conversation.users.map(user => {
+      return user.name
+    })
+  }
+
   const renderConversations = () => {
     return props.conversations.map(conversation => {
-      console.log(conversation)
       return(
         <div key={conversation._id}>
-          hi
+          {conversationParticipants(conversation)}
         </div>
       )
     }) 

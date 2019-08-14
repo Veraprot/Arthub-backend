@@ -11,8 +11,8 @@ User.findById(userId)
   .populate({
     path: 'conversations',
     populate: {
-      path: 'users.user', 
-      select: ['-conversations', '-friends', '-password']
+      path: 'users',
+      select: ['name']
     }
   })
   .exec((err, user)=> {
