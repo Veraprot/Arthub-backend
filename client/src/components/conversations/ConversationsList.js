@@ -3,20 +3,14 @@ import { connect } from 'react-redux'
  
 function ConversationsList(props) {
 
-  const renderSuggestions = () => {
-    return props.user.friends.map( friend => {
-      return(
-        <div key={friend.user._id}>
-          {friend.user.name}
-        </div>
-      )
-    })
-  }
-
   const conversationParticipants = (conversation) => {
     console.log(conversation.users)
     return conversation.users.map(user => {
-      return user.name
+      return (
+        <div>
+          {user.name}
+        </div>
+      )
     })
   }
 
@@ -42,8 +36,6 @@ function ConversationsList(props) {
       </div>
       <div className="friends-list">
         {renderConversations()}
-        <div className="separator">=================</div>
-        {renderSuggestions()}
       </div>
       <div className="new-conversation">
         <button onClick={props.openNewConversation}>+</button>
