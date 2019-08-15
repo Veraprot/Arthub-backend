@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from "react";
 import { connect } from 'react-redux'
 import openSocket from 'socket.io-client'
-import { getMessages, getConversations } from '../../actions/conversationActions'
+import { getMessages, getConversations, sendMessage, setNewMessage } from '../../actions/conversationActions'
 
 function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
-  const [messages, setMessages] = useState(false)
+  const [loaded, setLoaded] = useState(false)
   const socket = openSocket('http://localhost:3001')
-  socket.on('messages', data => {
-    // console.log(data)
+  socket.on('message', data => {
+    console.log(data)
+    props.setNewMessage(data)
   })
+
   useEffect(() => {
     if(props.conversations.active.length > 0) {
       props.getMessages(props.currentUser._id, props.conversations.active)
@@ -19,12 +21,14 @@ function ConverstationContainer(props) {
   }, [props.conversations.active])
 
   useEffect(() => {
-    setMessages(true)
+    setLoaded(true)
   }, [props.conversations.messages])
+
 
   const handleUserInput = (event) => {
     if (event.key === 'Enter') {
       console.log('send message')
+      props.sendMessage(props.currentUser._id, props.conversations.active, userInput)
     }  else {
       setUserInput(event.target.value)
     }
@@ -43,11 +47,11 @@ function ConverstationContainer(props) {
       return loadMessage(message)
     })
   }
-  
+
   return (
     <div className="chat-container">
       <div>
-        {messages ? (
+        {loaded ? (
            loadAllMessages()
         ) : (
           <div>loading</div>
@@ -65,4 +69,4 @@ const mapStateToProps = state => ({
   conversations: state.conversations
 }); 
 
-export default connect(mapStateToProps, {getMessages, getConversations})(ConverstationContainer);
+export default connect(mapStateToProps, {getMessages, getConversations, sendMessage, setNewMessage})(ConverstationContainer);

@@ -1,4 +1,4 @@
-import { GET_CONVERSATIONS, SET_CONVERSATION, GET_MESSAGES } from '../actions/types';
+import { GET_CONVERSATIONS, SET_CONVERSATION, GET_MESSAGES, SET_NEW_MESSAGE } from '../actions/types';
 
 const initialState = {
   active: '',
@@ -27,6 +27,16 @@ export default function(state = initialState, action) {
           messages: action.payload,
         };
 
+    case SET_NEW_MESSAGE:
+      console.log(state.messages)
+      console.log(action.payload)
+    return {
+      ...state,
+      messages: [
+        ...state.messages, 
+        action.payload
+      ],
+    };
     default:
       return state;
   }

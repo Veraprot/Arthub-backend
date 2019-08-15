@@ -33,7 +33,6 @@ exports.addMessage = async (req, res) => {
         console.log(err)
         return
       }
-
       io.getIO().emit('message', message)
       res.json({message})
     }
