@@ -1,19 +1,12 @@
 import React, {useState, useEffect} from "react";
 import ConversationsList from './ConversationsList'
 import ConverstationContainer from './ConversationContainer'
-import openSocket from 'socket.io-client'
 import FriendsList from './FriendsList'
 import {connect} from 'react-redux'
 
 import { getConversations } from '../../actions/conversationActions'
 
 function MessageBoard(props) {
-  
-  const socket = openSocket('http://localhost:3001')
-  socket.on('conversation', data => {
-    console.log(data)
-  })
-
   const [friendsModal, setFriendsModal] = useState(false)
   
   const toggleFriendsModal = () => {

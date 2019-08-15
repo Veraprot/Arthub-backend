@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from 'react-redux'
- 
+import openSocket from 'socket.io-client'
+
 function ConversationsList(props) {
+  const socket = openSocket('http://localhost:3001')
+  socket.on('conversation', data => {
+    console.log(data)
+  })
 
   const conversationParticipants = (conversation) => {
     console.log(conversation.users)
