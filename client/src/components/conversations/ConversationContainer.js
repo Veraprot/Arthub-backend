@@ -30,24 +30,29 @@ function ConverstationContainer(props) {
     }
   }
 
-  const loadMessages = () => {
-    return props.conversations.messages.map(message => {
-      console.log(message.content)
+  const loadMessage = (message) => {
       return (
         <div key={message._id}>
           {message.content}
         </div>
       )
-    })
   }
 
+  const loadAllMessages = () => {
+    return props.conversations.messages.map(message => {
+      return loadMessage(message)
+    })
+  }
+  
   return (
     <div className="chat-container">
-      {messages ? (
-        loadMessages()
-      ) : (
-        <div>loading</div>
-      )}
+      <div>
+        {messages ? (
+           loadAllMessages()
+        ) : (
+          <div>loading</div>
+        )}
+      </div>
       <div className="message-input-container">
       <input value={userInput} placeholder="Type your message here..." className="message"  onChange={handleUserInput} onKeyPress={handleUserInput}/>
       </div>
