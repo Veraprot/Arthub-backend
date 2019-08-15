@@ -10,10 +10,8 @@ const ConversationSchema = new Schema({
 
   users: [
     {
-      // user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-      // }
+      type: Schema.Types.ObjectId,
+      ref: 'users'
     }
   ],
 
