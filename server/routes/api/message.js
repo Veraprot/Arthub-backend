@@ -5,6 +5,6 @@ const messages = require('../../controllers/messagesController')
 
 router.post('/create', messages.addMessage)
 
-// router.get('/', messages.getConversationMessages)
+router.get('/', messages.getMessages)
 
 module.exports = router

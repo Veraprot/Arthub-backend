@@ -8,7 +8,6 @@ exports.addMessage = async (req, res) => {
   const {content} = req.body
   const {userId, conversationId} = req.params
 
-  console.log(content)
   let message = new Message({
     content, 
     user: userId, 
@@ -39,4 +38,16 @@ exports.addMessage = async (req, res) => {
       res.json({message})
     }
   )
+}
+
+exports.getMessages = (req, res) => {
+  const {conversationId} = req.params
+
+  Conversation.findById(conversationId)
+    .populate('messages', ['content'])
+    .exec((err, conversation) => {
+      console.log(conversation)
+      io.getIO().emit('message', conversation.messages)
+      res.json(conversation.messages)
+    })
 }

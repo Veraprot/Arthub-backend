@@ -34,4 +34,4 @@ const mapStateToProps = state => ({
   conversations: state.conversations
 }); 
 
-export default connect(mapStateToProps, {getConversations, currentConversation})(MessageBoard);
+export default connect(mapStateToProps, {getConversations, getMessages})(MessageBoard);
