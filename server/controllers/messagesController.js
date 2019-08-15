@@ -15,7 +15,28 @@ exports.addMessage = async (req, res) => {
     conversation: conversationId
   })
   message.save()
-  io.getIO().emit('message', message)
-  res.json(message)
-  console.log(message)
+
+  Conversation.findById(conversationId)
+    .then(conversation => {
+      conversation.messages.push(message._id)
+      conversation.save()
+    })
+  
+  Message.populate(
+    message, 
+    {
+      path: "user", 
+      select: ["_id", "name", "email", "avatar"]
+    }, 
+    
+    function(err, message) {
+      if(err) {
+        console.log(err)
+        return
+      }
+
+      io.getIO().emit('message', message)
+      res.json({message})
+    }
+  )
 }
