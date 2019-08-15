@@ -15,15 +15,11 @@ const ConversationSchema = new Schema({
     }
   ],
 
-  messages: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-      },
-      message: String,
-    }
-  ], 
+  messages: {
+    type: Schema.Types.ObjectId,
+    ref: 'messages'
+  }
+
 });
 
 module.exports = User = mongoose.model('conversations', ConversationSchema);
