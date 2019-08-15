@@ -22,8 +22,10 @@ const user = require('./routes/api/user');
 app.use('/users', user)
 
 const conversation = require('./routes/api/conversation');
-
 app.use('/users/:userId/conversations', conversation)
+
+const message = require('./routes/api/message');
+app.use('/users/:userId/conversations/:conversationId/messages', message)
 
 const port = process.env.PORT || 3001;
 

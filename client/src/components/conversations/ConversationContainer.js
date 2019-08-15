@@ -1,6 +1,12 @@
 import React, {useState} from "react";
+import { connect } from 'react-redux'
+import openSocket from 'socket.io-client'
 
 function ConverstationContainer(props) {
+  const socket = openSocket('http://localhost:3001')
+  socket.on('messages', data => {
+    console.log(data)
+  })
 
   const [userInput, setUserInput] = useState('')
 
