@@ -44,7 +44,7 @@ exports.getMessages = (req, res) => {
   const {conversationId} = req.params
 
   Conversation.findById(conversationId)
-    .populate('messages', ['content'])
+    .populate('messages', ['content', 'user'])
     .exec((err, conversation) => {
       console.log(conversation)
       io.getIO().emit('message', conversation.messages)
