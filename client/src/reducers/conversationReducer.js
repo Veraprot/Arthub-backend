@@ -3,7 +3,7 @@ import { GET_CONVERSATIONS, SET_CONVERSATION, GET_MESSAGES } from '../actions/ty
 const initialState = {
   active: '',
   all: [], 
-  activeMessages: []
+  messages: []
 };
 
 export default function(state = initialState, action) {
@@ -24,7 +24,7 @@ export default function(state = initialState, action) {
     case GET_MESSAGES:
         return {
           ...state,
-          activeMessages: action.payload,
+          messages: action.payload,
         };
 
     default:
