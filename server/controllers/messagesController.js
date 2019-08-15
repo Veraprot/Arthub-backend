@@ -42,12 +42,10 @@ exports.addMessage = async (req, res) => {
 
 exports.getMessages = (req, res) => {
   const {conversationId} = req.params
-
   Conversation.findById(conversationId)
     .populate('messages', ['content', 'user'])
     .exec((err, conversation) => {
-      console.log(conversation)
-      io.getIO().emit('message', conversation.messages)
+      io.getIO().emit('messages', conversation.messages)
       res.json(conversation.messages)
     })
 }

@@ -16,7 +16,6 @@ User.findById(userId)
     }
   })
   .exec((err, user)=> {
-    console.log(user)
     res.json(user.conversations)
   })
 }
@@ -36,7 +35,6 @@ exports.create = (req, res) => {
       .then(user => {
         user.conversations.push(conversation)
         user.save()
-        console.log(user.conversations)
       })
   })
 

@@ -1,15 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from 'react-redux'
 import openSocket from 'socket.io-client'
+import { getConversations } from '../../actions/conversationActions'
 
 function ConversationsList(props) {
   const socket = openSocket('http://localhost:3001')
-  socket.on('conversation', data => {
-    console.log(data)
-  })
+  // socket.on('conversation', data => {
+  //   // something will go here
+  // })
+  useEffect(() => {
+    props.getConversations(props.currentUser._id)
+  }, [])
 
   const conversationParticipants = (conversation) => {
-    console.log(conversation.users)
     return conversation.users.map(user => {
       return (
         <div key={user._id}> 
@@ -50,8 +53,8 @@ function ConversationsList(props) {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  currentUser: state.auth.user, 
   conversations: state.conversations.all,
   activeConversation: state.conversations.active
 })
-export default connect(mapStateToProps)(ConversationsList);
+export default connect(mapStateToProps, {getConversations})(ConversationsList);

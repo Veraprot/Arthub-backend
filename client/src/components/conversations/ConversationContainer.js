@@ -1,12 +1,20 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from 'react-redux'
 import openSocket from 'socket.io-client'
+import { getMessages, getConversations } from '../../actions/conversationActions'
 
 function ConverstationContainer(props) {
   const socket = openSocket('http://localhost:3001')
   socket.on('messages', data => {
     console.log(data)
   })
+  useEffect(() => {
+    if(props.conversations.active.length > 0) {
+      props.getMessages(props.currentUser._id, props.conversations.active)
+    } else  {
+      console.log('loading conversations')
+    }
+  }, [props.conversations.active])
 
   const [userInput, setUserInput] = useState('')
 
@@ -27,4 +35,9 @@ function ConverstationContainer(props) {
   )
 }
 
-export default ConverstationContainer;
+const mapStateToProps = state => ({
+  currentUser: state.auth.user, 
+  conversations: state.conversations
+}); 
+
+export default connect(mapStateToProps, {getMessages, getConversations})(ConverstationContainer);
