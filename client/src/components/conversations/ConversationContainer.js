@@ -12,8 +12,6 @@ function ConverstationContainer(props) {
   // but why????? 
   useEffect(() => {
     socket.on('message', data => {
-      console.log('dataaaa')
-      console.log(data)
       props.setNewMessage(data)
       setUserInput("")
     })
