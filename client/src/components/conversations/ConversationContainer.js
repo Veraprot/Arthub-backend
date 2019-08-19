@@ -15,6 +15,7 @@ function ConverstationContainer(props) {
       console.log('dataaaa')
       console.log(data)
       props.setNewMessage(data)
+      setUserInput("")
     })
   }, [])
   
