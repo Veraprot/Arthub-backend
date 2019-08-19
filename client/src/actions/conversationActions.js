@@ -15,7 +15,7 @@ export const getConversations = (userId) => dispatch => {
 
 
 export const getMessages = (userId, conversationId) => dispatch => {
-  axios.get(`${apiRoot}/users/${userId}/conversations/${conversationId}/messages`)
+  axios.get(`${apiRoot}/conversations/${conversationId}/messages`)
     .then(res => {
       dispatch({
         type: GET_MESSAGES, 
