@@ -35,6 +35,7 @@ export const sendMessage = (userId, conversationId, message) => dispatch => {
 }
 
 export const setNewMessage = (data) => dispatch => {
+  console.log(data)
   dispatch({
     type: SET_NEW_MESSAGE, 
     payload: data

@@ -1,13 +1,8 @@
 import React, {useEffect} from "react";
 import { connect } from 'react-redux'
-import openSocket from 'socket.io-client'
 import { getConversations } from '../../actions/conversationActions'
 
 function ConversationsList(props) {
-  const socket = openSocket('http://localhost:3001')
-  // socket.on('conversation', data => {
-  //   // something will go here
-  // })
   useEffect(() => {
     props.getConversations(props.currentUser._id)
   }, [])

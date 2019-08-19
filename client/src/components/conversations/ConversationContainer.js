@@ -3,20 +3,26 @@ import { connect } from 'react-redux'
 import openSocket from 'socket.io-client'
 import { getMessages, getConversations, sendMessage, setNewMessage } from '../../actions/conversationActions'
 
+const socket = openSocket('http://localhost:3001')
+
 function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
   const [loaded, setLoaded] = useState(false)
-  const socket = openSocket('http://localhost:3001')
-  socket.on('message', data => {
-    console.log(data)
-    props.setNewMessage(data)
-  })
 
+  // but why????? 
+  useEffect(() => {
+    socket.on('message', data => {
+      console.log('dataaaa')
+      console.log(data)
+      props.setNewMessage(data)
+    })
+  }, [])
+  
   useEffect(() => {
     if(props.conversations.active.length > 0) {
       props.getMessages(props.currentUser._id, props.conversations.active)
     } else  {
-      // console.log('loading conversations')
+      console.log('loading conversations')
     }
   }, [props.conversations.active])
 
@@ -26,6 +32,7 @@ function ConverstationContainer(props) {
 
 
   const handleUserInput = (event) => {
+    // event.preventDefault()
     if (event.key === 'Enter') {
       console.log('send message')
       props.sendMessage(props.currentUser._id, props.conversations.active, userInput)

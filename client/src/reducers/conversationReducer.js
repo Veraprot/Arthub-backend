@@ -28,15 +28,13 @@ export default function(state = initialState, action) {
         };
 
     case SET_NEW_MESSAGE:
-      console.log(state.messages)
-      console.log(action.payload)
-    return {
-      ...state,
-      messages: [
-        ...state.messages, 
-        action.payload
-      ],
-    };
+      return {
+        ...state,
+        messages: [
+          ...state.messages, 
+          action.payload
+        ],
+      };
     default:
       return state;
   }
