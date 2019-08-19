@@ -25,9 +25,10 @@ export const getMessages = (userId, conversationId) => dispatch => {
 }
 
 export const sendMessage = (userId, conversationId, message) => dispatch => {
-  axios.post(`${apiRoot}/users/${userId}/conversations/${conversationId}/messages/create`, 
+  axios.post(`${apiRoot}/conversations/${conversationId}/messages/create`, 
   { 
-    content: message
+    content: message, 
+    userId
   })
     .then(res => {
       console.log(res.data)

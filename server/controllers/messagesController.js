@@ -5,8 +5,8 @@ const Message = require('../models/Message');
 const io = require('../socket')
 
 exports.addMessage = async (req, res) => {
-  const {content} = req.body
-  const {userId, conversationId} = req.params
+  const {userId, content} = req.body
+  const {conversationId} = req.params
 
   let message = new Message({
     content, 
