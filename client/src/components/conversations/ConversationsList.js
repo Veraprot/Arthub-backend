@@ -1,11 +1,18 @@
 import React, {useEffect} from "react";
 import { connect } from 'react-redux'
 import { getConversations, setActiveConversation } from '../../actions/conversationActions'
+import openSocket from 'socket.io-client'
 
+const socket = openSocket('http://localhost:3001')
 function ConversationsList(props) {
   useEffect(() => {
     props.getConversations(props.currentUser._id)
   }, [])
+
+  // useEffect(() => {
+  //   console.log(props.activeConversation)
+  //   socket.emit('chatroom', props.activeConversation)
+  // }, [props.activeConversation])
 
   const conversationParticipants = (conversation) => {
     return conversation.users.map(user => {
