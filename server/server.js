@@ -39,7 +39,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
       socket.on('chatroom', function(chatroom) {
         console.log('chatroom', chatroom)
         socket.join(chatroom);
-    });
+      });
     });
   })
   .catch(err => console.log(err))
