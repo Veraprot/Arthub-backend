@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { connect } from 'react-redux'
-import { getConversations } from '../../actions/conversationActions'
+import { getConversations, setActiveConversation } from '../../actions/conversationActions'
 
 function ConversationsList(props) {
   useEffect(() => {
@@ -19,10 +19,15 @@ function ConversationsList(props) {
     })
   }
 
+  const switchToConversation = (id) => {
+    props.setActiveConversation(id)
+  }
+
   const renderConversations = () => {
     return props.conversations.map(conversation => {
+      console.log(conversation)
       return(
-        <div key={conversation._id}>
+        <div key={conversation._id} onClick={() => switchToConversation(conversation._id)}>
           {conversationParticipants(conversation)}
         </div>
       )
@@ -54,4 +59,4 @@ const mapStateToProps = state => ({
   conversations: state.conversations.all,
   activeConversation: state.conversations.active
 })
-export default connect(mapStateToProps, {getConversations})(ConversationsList);
+export default connect(mapStateToProps, {getConversations, setActiveConversation})(ConversationsList);

@@ -22,7 +22,6 @@ export default function(state = initialState, action) {
         };
 
     case GET_MESSAGES:
-        console.log(action.payload)
         return {
           ...state,
           messages: action.payload,

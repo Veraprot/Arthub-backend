@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_CONVERSATIONS, GET_MESSAGES, SET_NEW_MESSAGE} from './types'
+import {GET_CONVERSATIONS, GET_MESSAGES, SET_NEW_MESSAGE, SET_CONVERSATION} from './types'
 
 const apiRoot = process.env.REACT_APP_API_ROOT
 
@@ -13,6 +13,12 @@ export const getConversations = (userId) => dispatch => {
     })
 }
 
+export const setActiveConversation = (conversationId) => dispatch => {
+  dispatch({
+    type: SET_CONVERSATION, 
+    payload: conversationId
+  })
+}
 
 export const getMessages = (userId, conversationId) => dispatch => {
   axios.get(`${apiRoot}/conversations/${conversationId}/messages`)
