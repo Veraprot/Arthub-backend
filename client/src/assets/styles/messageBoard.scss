@@ -15,6 +15,7 @@
     width: 25%;
     flex-direction: column;
     border-right: 2px solid rgba(0, 0, 0, .06);
+
     .profile-view-container {
       .avatar-container {
         width: 50px;
@@ -35,8 +36,16 @@
     flex-direction: column;
     justify-content: space-between;
 
-    .messages-container{
+    .messages-container {
       overflow-y: scroll;
+      width: calc(100% - 50px);
+      margin: 5px auto;
+      
+      .message {
+        &.admin {
+          text-align: right;
+        }
+      }
     }
 
     .message-input-container {
