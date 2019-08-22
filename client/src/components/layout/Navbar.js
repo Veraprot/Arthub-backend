@@ -23,7 +23,7 @@ function Navbar(props) {
   const authLinks = (
     <>
       <button onClick={handleClick}>logout</button>
-      <Link to={`/messages/`}>messages</Link>
+      <Link to={`/conversations/`}>messages</Link>
     </>
   );
   return (

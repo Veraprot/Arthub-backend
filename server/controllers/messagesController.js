@@ -8,6 +8,14 @@ exports.addMessage = async (req, res) => {
   const {userId, content} = req.body
   const {conversationId} = req.params
 
+  User.findById(userId)
+    .then(user => {
+      console.log("===================")
+      console.log(user.conversations)
+      console.log(conversationId)
+      console.log("===================")
+    })
+
   let message = new Message({
     content, 
     user: userId, 
@@ -21,24 +29,24 @@ exports.addMessage = async (req, res) => {
       conversation.save()
     })
   
-  // Message.populate(
-  //   message, 
-  //   {
-  //     path: "user", 
-  //     select: ["_id"]
-  //   }, 
+  Message.populate(
+    message, 
+    {
+      path: "user", 
+      select: ["_id"]
+    }, 
     
-  //   function(err, message) {
-  //     if(err) {
-  //       console.log(err)
-  //       return
-  //     }
+    function(err, message) {
+      if(err) {
+        console.log(err)
+        return
+      }
       console.log(conversationId)
       io.getIO().in(conversationId).emit('message', message)
-      console.log('this blah', message)
+
       res.json({message})
-  //   }
-  // )
+    }
+  )
 }
 
 exports.getMessages = (req, res) => {

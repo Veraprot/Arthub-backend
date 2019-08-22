@@ -1,18 +1,11 @@
 import React, {useEffect} from "react";
 import { connect } from 'react-redux'
 import { getConversations, setActiveConversation } from '../../actions/conversationActions'
-import openSocket from 'socket.io-client'
 
-const socket = openSocket('http://localhost:3001')
 function ConversationsList(props) {
   useEffect(() => {
     props.getConversations(props.currentUser._id)
   }, [])
-
-  // useEffect(() => {
-  //   console.log(props.activeConversation)
-  //   socket.emit('chatroom', props.activeConversation)
-  // }, [props.activeConversation])
 
   const conversationParticipants = (conversation) => {
     return conversation.users.map(user => {
@@ -47,8 +40,10 @@ function ConversationsList(props) {
             <img className="profile-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPSysKN4CPaJbicNW2tNU-CgOiL6UxNkrNpmkH1VootIR6MkqXQ" alt=""/>
         </div>
         <div className="user-settings-container"> 
-            something will go here
+            {props.currentUser.name}
         </div>
+        <br/>
+        <br/>
       </div>
       <div className="friends-list">
         {renderConversations()}

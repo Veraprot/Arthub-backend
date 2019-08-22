@@ -12,11 +12,14 @@ function ConverstationContainer(props) {
   useEffect(() => {
       // Connected, let's sign-up for to receive messages for this room
     socket.on('message', data => {
+      console.log('data', data)
+      console.log(props.currentUser._id)
       props.setNewMessage(props.currentUser._id, data)
     })
   }, [])
   
   useEffect(() => {    
+    console.log('chatroom is', props.conversations.active)
     socket.emit('chatroom', props.conversations.active)
     props.getMessages(props.currentUser._id, props.conversations.active)
   }, [props.conversations.active])
