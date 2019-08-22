@@ -22,12 +22,14 @@ export default function(state = initialState, action) {
         };
 
     case GET_MESSAGES:
+        console.log(action.payload)
         return {
           ...state,
           messages: action.payload,
         };
 
     case SET_NEW_MESSAGE:
+      console.log(action.payload)
       return {
         ...state,
         messages: [

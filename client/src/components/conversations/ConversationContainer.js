@@ -12,7 +12,7 @@ function ConverstationContainer(props) {
 
   useEffect(() => {
     socket.on('message', data => {
-      props.setNewMessage(data)
+      props.setNewMessage(props.currentUser._id, data)
       setUserInput("")
     })
   }, [])
