@@ -44,13 +44,15 @@ function ConverstationContainer(props) {
   }
 
   const loadMessage = (message) => {
-      let adminMessage = ""
+      let isAdmin = ""
       if (message.admin) {
-        adminMessage = "admin"
+        isAdmin = "admin"
       }
       return (
-        <div key={message._id} className={"message" + " " + adminMessage}>
-          {message.content}
+        <div key={message._id} className={"message-row" + " " + isAdmin}>
+          <div className={"message-box"}>
+            <span>{message.content}</span>
+          </div>
         </div>
       )
   }
