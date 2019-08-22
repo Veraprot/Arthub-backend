@@ -33,9 +33,8 @@ function ConverstationContainer(props) {
   const scrollToBottom = () => {
     messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
   }
-  
+
   const handleUserInput = (event) => {
-    // event.preventDefault()
     if (event.key === 'Enter') {
       console.log('send message')
       props.sendMessage(props.currentUser._id, props.conversations.active, userInput)

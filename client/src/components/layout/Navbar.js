@@ -2,10 +2,11 @@ import  React  from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/authActions'
+import { withRouter } from 'react-router'
 
 function Navbar(props) {
   const handleClick = () => {
-    props.logoutUser()
+    props.logoutUser(props.history)
   }
 
   const guestLinks = (
@@ -22,10 +23,10 @@ function Navbar(props) {
   const authLinks = (
     <>
       <button onClick={handleClick}>logout</button>
-      <Link to={`/messages/${props.auth.user.name}`}>messages</Link>
+      <Link to={`/messages/`}>messages</Link>
     </>
   );
-
+  console.log(props)
   return (
     <div className="navbar-wrapper">
       {props.auth.isAuthenticated ? authLinks : guestLinks}
@@ -36,4 +37,4 @@ function Navbar(props) {
 const mapStateToProps = state => ({
   auth: state.auth
 })
-export default connect(mapStateToProps, {logoutUser})(Navbar);
+export default connect(mapStateToProps, {logoutUser})(withRouter(Navbar));

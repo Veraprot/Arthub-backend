@@ -49,8 +49,9 @@ export const clearErrors = () => {
   }
 }
 
-export const logoutUser = () => dispatch => {
+export const logoutUser = (history) => dispatch => {
   localStorage.removeItem('jwtToken');
   setHeaders(false);
   dispatch(setCurrentUser({}));
+  history.push('/login')
 }

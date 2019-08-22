@@ -12,7 +12,7 @@ function Login(props) {
     else if(props.errors.notFound) {
       props.history.push('/register')
     }
-  }, [props.auth.isAuthenticated, props.errors])
+  }, [props.auth.isAuthenticated, props.errors, props.history])
 
   const handleSubmit = (event) => {
     event.preventDefault()
