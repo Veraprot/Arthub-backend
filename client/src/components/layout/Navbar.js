@@ -26,7 +26,6 @@ function Navbar(props) {
       <Link to={`/messages/`}>messages</Link>
     </>
   );
-  console.log(props)
   return (
     <div className="navbar-wrapper">
       {props.auth.isAuthenticated ? authLinks : guestLinks}

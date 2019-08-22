@@ -28,7 +28,6 @@ export default function(state = initialState, action) {
         };
 
     case SET_NEW_MESSAGE:
-      console.log(action.payload)
       return {
         ...state,
         messages: [

@@ -9,13 +9,6 @@ const socket = openSocket('http://localhost:3001')
 
 function MessageBoard(props) {
   const [friendsModal, setFriendsModal] = useState(false)
-  
-  useEffect(() => {
-    socket.on('connect', function() {
-      // Connected, let's sign-up for to receive messages for this room
-      console.log('connected', props)
-   });
-  }, [])
 
   const toggleFriendsModal = () => {
     setFriendsModal(!friendsModal)

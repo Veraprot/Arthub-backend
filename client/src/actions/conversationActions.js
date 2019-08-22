@@ -40,9 +40,6 @@ export const sendMessage = (userId, conversationId, message) => dispatch => {
     content: message, 
     userId
   })
-    .then(res => {
-      console.log(res.data)
-    })
 }
 
 export const setNewMessage = (userId, data) => dispatch => {

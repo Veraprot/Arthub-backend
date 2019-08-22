@@ -11,9 +11,6 @@ function ConverstationContainer(props) {
 
   useEffect(() => {
       // Connected, let's sign-up for to receive messages for this room
-    socket.emit('chatroom', props.conversations.active);
-    console.log('connected', props)
-
     socket.on('message', data => {
       props.setNewMessage(props.currentUser._id, data)
       setUserInput("")
@@ -35,7 +32,6 @@ function ConverstationContainer(props) {
 
   const handleUserInput = (event) => {
     if (event.key === 'Enter') {
-      console.log('send message')
       props.sendMessage(props.currentUser._id, props.conversations.active, userInput)
     }  else {
       setUserInput(event.target.value)

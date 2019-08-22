@@ -25,7 +25,6 @@ function ConversationsList(props) {
 
   const renderConversations = () => {
     return props.conversations.map(conversation => {
-      console.log(conversation)
       return(
         <div key={conversation._id} onClick={() => switchToConversation(conversation._id)}>
           {conversationParticipants(conversation)}
