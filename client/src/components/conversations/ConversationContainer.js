@@ -4,13 +4,16 @@ import openSocket from 'socket.io-client'
 import { getMessages, getConversations, sendMessage, setNewMessage } from '../../actions/conversationActions'
 
 const socket = openSocket('http://localhost:3001')
-
 function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
   const [loaded, setLoaded] = useState(false)
   const messageContainerRef = React.createRef();
 
   useEffect(() => {
+      // Connected, let's sign-up for to receive messages for this room
+    socket.emit('chatroom', props.conversations.active);
+    console.log('connected', props)
+
     socket.on('message', data => {
       props.setNewMessage(props.currentUser._id, data)
       setUserInput("")
@@ -18,11 +21,7 @@ function ConverstationContainer(props) {
   }, [])
   
   useEffect(() => {
-    if(props.conversations.active.length > 0) {
-      props.getMessages(props.currentUser._id, props.conversations.active)
-    } else  {
-      console.log('loading conversations')
-    }
+    props.getMessages(props.currentUser._id, props.conversations.active)
   }, [props.conversations.active])
 
   useEffect(() => {

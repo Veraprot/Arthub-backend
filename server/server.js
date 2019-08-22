@@ -33,9 +33,13 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(() => {
     const server = app.listen(port, () => console.log(`Server running on port ${port}`));
     const io = require('./socket').init(server)
-    // io.on('connection', socket => {
-    //   console.log('client connected')
-    // });
+    io.on('connection', socket => {
+      console.log('client connected')
+      socket.on('chatroom', function(chatroom) {
+        console.log('chatroom', chatroom)
+        socket.join(chatroom);
+    });
+    });
   })
   .catch(err => console.log(err))
 
