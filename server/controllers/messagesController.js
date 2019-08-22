@@ -8,6 +8,14 @@ exports.addMessage = async (req, res) => {
   const {userId, content} = req.body
   const {conversationId} = req.params
 
+  User.findById(userId)
+    .then(user => {
+      console.log("===================")
+      console.log(user.conversations)
+      console.log(conversationId)
+      console.log("===================")
+    })
+
   let message = new Message({
     content, 
     user: userId, 
@@ -25,7 +33,7 @@ exports.addMessage = async (req, res) => {
     message, 
     {
       path: "user", 
-      select: ["_id", "name", "email", "avatar"]
+      select: ["_id"]
     }, 
     
     function(err, message) {
@@ -33,8 +41,9 @@ exports.addMessage = async (req, res) => {
         console.log(err)
         return
       }
-      io.getIO().emit('message', message)
-      console.log('this blah', message)
+      console.log(conversationId)
+      io.getIO().in(conversationId).emit('message', message)
+
       res.json({message})
     }
   )

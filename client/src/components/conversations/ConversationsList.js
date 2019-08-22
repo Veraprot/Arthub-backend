@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { connect } from 'react-redux'
-import { getConversations } from '../../actions/conversationActions'
+import { getConversations, setActiveConversation } from '../../actions/conversationActions'
 
 function ConversationsList(props) {
   useEffect(() => {
@@ -9,18 +9,24 @@ function ConversationsList(props) {
 
   const conversationParticipants = (conversation) => {
     return conversation.users.map(user => {
-      return (
-        <div key={user._id}> 
-          {user.name}
-        </div>
-      )
+      if (user._id !== props.currentUser._id) {
+        return (
+          <div key={user._id}> 
+            {user.name}
+          </div>
+        )
+      }
     })
+  }
+
+  const switchToConversation = (id) => {
+    props.setActiveConversation(id)
   }
 
   const renderConversations = () => {
     return props.conversations.map(conversation => {
       return(
-        <div key={conversation._id}>
+        <div key={conversation._id} onClick={() => switchToConversation(conversation._id)}>
           {conversationParticipants(conversation)}
         </div>
       )
@@ -34,8 +40,10 @@ function ConversationsList(props) {
             <img className="profile-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPSysKN4CPaJbicNW2tNU-CgOiL6UxNkrNpmkH1VootIR6MkqXQ" alt=""/>
         </div>
         <div className="user-settings-container"> 
-            something will go here
+            {props.currentUser.name}
         </div>
+        <br/>
+        <br/>
       </div>
       <div className="friends-list">
         {renderConversations()}
@@ -52,4 +60,4 @@ const mapStateToProps = state => ({
   conversations: state.conversations.all,
   activeConversation: state.conversations.active
 })
-export default connect(mapStateToProps, {getConversations})(ConversationsList);
+export default connect(mapStateToProps, {getConversations, setActiveConversation})(ConversationsList);

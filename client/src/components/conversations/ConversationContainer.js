@@ -4,25 +4,24 @@ import openSocket from 'socket.io-client'
 import { getMessages, getConversations, sendMessage, setNewMessage } from '../../actions/conversationActions'
 
 const socket = openSocket('http://localhost:3001')
-
 function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
   const [loaded, setLoaded] = useState(false)
   const messageContainerRef = React.createRef();
 
   useEffect(() => {
+      // Connected, let's sign-up for to receive messages for this room
     socket.on('message', data => {
-      props.setNewMessage(data)
-      setUserInput("")
+      console.log('data', data)
+      console.log(props.currentUser._id)
+      props.setNewMessage(props.currentUser._id, data)
     })
   }, [])
   
-  useEffect(() => {
-    if(props.conversations.active.length > 0) {
-      props.getMessages(props.currentUser._id, props.conversations.active)
-    } else  {
-      console.log('loading conversations')
-    }
+  useEffect(() => {    
+    console.log('chatroom is', props.conversations.active)
+    socket.emit('chatroom', props.conversations.active)
+    props.getMessages(props.currentUser._id, props.conversations.active)
   }, [props.conversations.active])
 
   useEffect(() => {
@@ -33,21 +32,26 @@ function ConverstationContainer(props) {
   const scrollToBottom = () => {
     messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
   }
-  
+
   const handleUserInput = (event) => {
-    // event.preventDefault()
     if (event.key === 'Enter') {
-      console.log('send message')
       props.sendMessage(props.currentUser._id, props.conversations.active, userInput)
+      setUserInput("")
     }  else {
       setUserInput(event.target.value)
     }
   }
 
   const loadMessage = (message) => {
+      let isAdmin = ""
+      if (message.admin) {
+        isAdmin = "admin"
+      }
       return (
-        <div key={message._id} className="message">
-          {message.content}
+        <div key={message._id} className={"message-row" + " " + isAdmin}>
+          <div className={"message-box"}>
+            <span>{message.content}</span>
+          </div>
         </div>
       )
   }

@@ -15,6 +15,7 @@
     width: 25%;
     flex-direction: column;
     border-right: 2px solid rgba(0, 0, 0, .06);
+
     .profile-view-container {
       .avatar-container {
         width: 50px;
@@ -35,12 +36,37 @@
     flex-direction: column;
     justify-content: space-between;
 
-    .messages-container{
+    .messages-container {
       overflow-y: scroll;
+      width: calc(100% - 50px);
+      margin: 5px auto;
+      
+      .message-row {
+        display: flex;
+
+        &.admin {      
+          justify-content: flex-end;
+
+          .message-box {
+            background-color: $medium-grey;
+            text-align: right;
+            color: $black;
+          }
+        }
+
+        .message-box {
+          background-color: $friend-message;
+          margin-bottom: 10px;
+          max-width: 70%;
+          padding: 5px 12px;
+          border-radius: 1.3em;
+          color: $white;
+        }
+      }
     }
 
     .message-input-container {
-      background-color: rgba(0, 0, 0, .05);
+      background-color: $medium-grey;
       border-radius: 18px;
       display: flex;
       margin: 8px 8px 8px 0;

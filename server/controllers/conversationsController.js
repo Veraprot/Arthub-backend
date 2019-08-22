@@ -43,7 +43,7 @@ exports.create = (req, res) => {
     conversation, 
     {
       path: "users", 
-      select: ["_id", "name", "email", "avatar"]
+      select: ["_id", "name"]
     }, 
 
     function(err, conversation) {

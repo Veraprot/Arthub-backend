@@ -43,7 +43,7 @@ function App() {
           <PrivateRoute exact path="/user" component={Dashboard} />
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
-          <PrivateRoute exact path="/messages/:name" component={MessageBoard}/>
+          <PrivateRoute exact path="/conversations/" component={MessageBoard}/>
         </div>
       </BrowserRouter>
     </Provider>
