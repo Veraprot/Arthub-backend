@@ -1,9 +1,14 @@
 @import "utilities/variables";
 
-.message-section {
+.message-board {
   display: flex;
   flex-direction: row;
-  min-height: $main-height;
+
+  .convertations-list, 
+  .chat-section {
+    overflow-y: auto;
+    height: $main-height;
+  }
 
   .convertations-list {
     display: flex; 
@@ -24,11 +29,15 @@
     }
   }
 
-  .chat-container {
+  .chat-section {
     width: 75%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    .messages-container{
+      overflow-y: scroll;
+    }
 
     .message-input-container {
       background-color: rgba(0, 0, 0, .05);

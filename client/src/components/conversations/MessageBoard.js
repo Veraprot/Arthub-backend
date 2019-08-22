@@ -12,7 +12,7 @@ function MessageBoard(props) {
   }
   
   return (
-    <div className="message-section">
+    <div className="message-board">
       <ConversationsList openNewConversation={toggleFriendsModal} />
       <ConverstationContainer currentUser={props.match.params.name}/>
       {

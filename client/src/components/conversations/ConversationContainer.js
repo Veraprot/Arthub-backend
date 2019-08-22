@@ -8,10 +8,10 @@ const socket = openSocket('http://localhost:3001')
 function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
   const [loaded, setLoaded] = useState(false)
+  const messageContainerRef = React.createRef();
 
   useEffect(() => {
     socket.on('message', data => {
-      console.log('runs')
       props.setNewMessage(data)
       setUserInput("")
     })
@@ -27,9 +27,13 @@ function ConverstationContainer(props) {
 
   useEffect(() => {
     setLoaded(true)
+    scrollToBottom()
   }, [props.conversations.messages])
 
-
+  const scrollToBottom = () => {
+    messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+  }
+  
   const handleUserInput = (event) => {
     // event.preventDefault()
     if (event.key === 'Enter') {
@@ -42,7 +46,7 @@ function ConverstationContainer(props) {
 
   const loadMessage = (message) => {
       return (
-        <div key={message._id}>
+        <div key={message._id} className="message">
           {message.content}
         </div>
       )
@@ -55,8 +59,8 @@ function ConverstationContainer(props) {
   }
 
   return (
-    <div className="chat-container">
-      <div>
+    <div className="chat-section">
+      <div className="messages-container" ref={messageContainerRef}>
         {loaded ? (
            loadAllMessages()
         ) : (
