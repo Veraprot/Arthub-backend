@@ -9,9 +9,9 @@ function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
   const [loaded, setLoaded] = useState(false)
 
-  // but why????? 
   useEffect(() => {
     socket.on('message', data => {
+      console.log('runs')
       props.setNewMessage(data)
       setUserInput("")
     })
