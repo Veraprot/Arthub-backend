@@ -9,11 +9,13 @@ function ConversationsList(props) {
 
   const conversationParticipants = (conversation) => {
     return conversation.users.map(user => {
-      return (
-        <div key={user._id}> 
-          {user.name}
-        </div>
-      )
+      if (user._id !== props.currentUser._id) {
+        return (
+          <div key={user._id}> 
+            {user.name}
+          </div>
+        )
+      }
     })
   }
 
