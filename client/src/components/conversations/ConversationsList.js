@@ -21,10 +21,7 @@ function ConversationsList(props) {
   }
 
   const switchToConversation = (id) => {
-    console.log('old', props.activeConversation)
-    console.log('new', id)
     socket.emit('unsubscribe', props.activeConversation)
-
     props.setActiveConversation(id)
   }
 

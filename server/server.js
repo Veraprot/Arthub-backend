@@ -35,6 +35,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
     const io = require('./socket').init(server)
     const socketOps = require('./socketOps')
     socketOps.allSocketOps(io)
+
   })
   .catch(err => console.log(err))
 

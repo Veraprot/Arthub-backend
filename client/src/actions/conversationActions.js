@@ -44,6 +44,7 @@ export const sendMessage = (userId, conversationId, message) => dispatch => {
 
 export const setNewMessage = (userId, data) => dispatch => {
   data.admin = checkMessageAuthor(userId, data.user._id)
+
   dispatch({
     type: SET_NEW_MESSAGE, 
     payload: data

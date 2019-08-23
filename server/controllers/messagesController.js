@@ -8,16 +8,6 @@ exports.addMessage = async (req, res) => {
   const {userId, content} = req.body
   const {conversationId} = req.params
 
-  User.findById(userId)
-    .then(user => {
-      console.log("===================")
-      console.log('user id', userId)
-      console.log('user conversations', user.conversations)
-      console.log('conversation id', conversationId)
-      console.log('message', content)
-      console.log("===================")
-    })
-
   let message = new Message({
     content, 
     user: userId, 
@@ -43,6 +33,7 @@ exports.addMessage = async (req, res) => {
         console.log(err)
         return
       }
+
       io.getIO().in(conversationId).emit('message', message)
 
       res.json({message})
