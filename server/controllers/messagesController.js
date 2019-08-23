@@ -2,7 +2,7 @@ const Conversation = require('../models/Conversation');
 const User = require('../models/User');
 const Message = require('../models/Message');
 
-const io = require('../socket')
+const io = require('../socketUtils/socket')
 
 exports.addMessage = async (req, res) => {
   const {userId, content} = req.body

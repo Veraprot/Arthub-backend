@@ -1,7 +1,7 @@
 const Conversation = require('../models/Conversation');
 const User = require('../models/User');
 
-const io = require('../socket')
+const io = require('../socketUtils/socket')
 
 exports.getUserConversations = async (req, res) => {
   const { userId } = req.params
