@@ -11,8 +11,10 @@ exports.addMessage = async (req, res) => {
   User.findById(userId)
     .then(user => {
       console.log("===================")
-      console.log(user.conversations)
-      console.log(conversationId)
+      console.log('user id', userId)
+      console.log('user conversations', user.conversations)
+      console.log('conversation id', conversationId)
+      console.log('message', content)
       console.log("===================")
     })
 
@@ -41,7 +43,6 @@ exports.addMessage = async (req, res) => {
         console.log(err)
         return
       }
-      console.log(conversationId)
       io.getIO().in(conversationId).emit('message', message)
 
       res.json({message})
