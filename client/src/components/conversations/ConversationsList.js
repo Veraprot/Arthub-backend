@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { connect } from 'react-redux'
 import { getConversations, setActiveConversation } from '../../actions/conversationActions'
+import {socket} from '../../utils/socket'
 
 function ConversationsList(props) {
   useEffect(() => {
@@ -20,6 +21,10 @@ function ConversationsList(props) {
   }
 
   const switchToConversation = (id) => {
+    console.log('old', props.activeConversation)
+    console.log('new', id)
+    socket.emit('unsubscribe', props.activeConversation)
+
     props.setActiveConversation(id)
   }
 

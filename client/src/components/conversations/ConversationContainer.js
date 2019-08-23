@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { connect } from 'react-redux'
-import io from 'socket.io-client'
+import {socket} from '../../utils/socket'
 import { getMessages, getConversations, sendMessage, setNewMessage } from '../../actions/conversationActions'
-
-const socket = io('http://localhost:3001')
+// const socket = io('http://localhost:3001')
 
 function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
@@ -13,13 +12,14 @@ function ConverstationContainer(props) {
   useEffect(() => {
     console.log(props.conversations.active)
     socket.on('message', data => {
+      console.log(data)
       props.setNewMessage(props.currentUser._id, data)
     })
   }, [])
   
   useEffect(() => {    
     // console.log('chatroom is', props.conversations.active)
-    socket.emit('chatroom', props.conversations.active)
+    socket.emit('subscribe', props.conversations.active)
     props.getMessages(props.currentUser._id, props.conversations.active)
   }, [props.conversations.active])
 
