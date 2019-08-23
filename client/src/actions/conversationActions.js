@@ -43,7 +43,6 @@ export const sendMessage = (userId, conversationId, message) => dispatch => {
 }
 
 export const setNewMessage = (userId, data) => dispatch => {
-  console.log(data)
   data.admin = checkMessageAuthor(userId, data.user._id)
   dispatch({
     type: SET_NEW_MESSAGE, 
