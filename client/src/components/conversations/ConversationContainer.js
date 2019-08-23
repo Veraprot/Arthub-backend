@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from "react";
 import { connect } from 'react-redux'
-import openSocket from 'socket.io-client'
+import {socket} from '../../utils/socket'
 import { getMessages, getConversations, sendMessage, setNewMessage } from '../../actions/conversationActions'
 
-const socket = openSocket('http://localhost:3001')
 function ConverstationContainer(props) {
   const [userInput, setUserInput] = useState('')
   const [loaded, setLoaded] = useState(false)
   const messageContainerRef = React.createRef();
-
+  
   useEffect(() => {
-      // Connected, let's sign-up for to receive messages for this room
     socket.on('message', data => {
       console.log('data', data)
       console.log(props.currentUser._id)
@@ -19,8 +17,9 @@ function ConverstationContainer(props) {
   }, [])
   
   useEffect(() => {    
-    console.log('chatroom is', props.conversations.active)
-    socket.emit('chatroom', props.conversations.active)
+    // console.log('chatroom is', props.conversations.active)
+    socket.emit('subscribe', props.conversations.active)
+
     props.getMessages(props.currentUser._id, props.conversations.active)
   }, [props.conversations.active])
 

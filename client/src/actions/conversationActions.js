@@ -23,9 +23,8 @@ export const setActiveConversation = (conversationId) => dispatch => {
 export const getMessages = (userId, conversationId) => dispatch => {
   axios.get(`${apiRoot}/conversations/${conversationId}/messages`)
     .then(res => {
-      console.log(res.data)
-      res.data.forEach(message => {
-        checkMessageAuthor(userId, message)
+      res.data.map(message => {
+        message.admin = checkMessageAuthor(userId, message.user)
       })
 
       dispatch({
@@ -44,16 +43,14 @@ export const sendMessage = (userId, conversationId, message) => dispatch => {
 }
 
 export const setNewMessage = (userId, data) => dispatch => {
-  console.log(data)
-  checkMessageAuthor(userId, data)
+  data.admin = checkMessageAuthor(userId, data.user._id)
+
   dispatch({
     type: SET_NEW_MESSAGE, 
     payload: data
   })
 }
 
-const checkMessageAuthor = (userId, message) => {
-  if(userId === message.user._id) {
-    message.admin = true
-  }
+const checkMessageAuthor = (currentUser, userId) => {
+  return currentUser === userId
 }
