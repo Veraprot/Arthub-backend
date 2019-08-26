@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   return (
@@ -10,6 +11,9 @@ function Dashboard() {
             <img className="profile-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPSysKN4CPaJbicNW2tNU-CgOiL6UxNkrNpmkH1VootIR6MkqXQ" alt=""/>
         </div>
         <div>firstName LastName</div>
+        <Link to="/friends">
+          friends
+        </Link>
         </div>
       </div>
       <div className="profile-feed-container">
