@@ -38,12 +38,12 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
       <Navbar/>
+      <PrivateRoute exact path="/conversations/" component={MessageBoard}/>
         <div className="main">
           <Route exact path="/about" component={About} />
           <PrivateRoute exact path="/user" component={Dashboard} />
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
-          <PrivateRoute exact path="/conversations/" component={MessageBoard}/>
           <PrivateRoute exact path="/friends" component={FriendsList} />
         </div>
       </BrowserRouter>

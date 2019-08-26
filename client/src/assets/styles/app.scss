@@ -8,6 +8,13 @@
 @import url('form.scss');
 @import url('messageBoard.scss');
 
+body,
+.navbar-wrapper, 
+.main {
+  background-color: $dark-white;
+  font-family: $roboto-regular;
+}
+
 .navbar-wrapper {
   height: $navbar-height;
   border-bottom: 1px solid rgba(0, 0, 0, .06);
@@ -19,12 +26,8 @@
 
 .main {
   min-height: $main-height;
-}
-
-.navbar-wrapper, 
-.main {
-  background-color: $dark-white;
-  font-family: $roboto-regular;
+  width: 80vw;
+  margin: 0 auto;
 }
 
 .toasts-container {

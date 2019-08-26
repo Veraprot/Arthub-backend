@@ -27,6 +27,9 @@ function Navbar(props) {
       <Link to="/friends">
         friends
       </Link>
+      <Link to="/user">
+        user
+      </Link>
     </>
   );
   return (
