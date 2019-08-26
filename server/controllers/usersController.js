@@ -132,7 +132,7 @@ exports.acceptFriend = async (req, res) => {
 }
 
 exports.getFriends = async (req, res) => {
-  let {id} = req.body
+  let {id} = req.params
 
   User.findById(id)
     .populate('friends.user', ['name', 'email', 'avatar'])
