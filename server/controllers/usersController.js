@@ -85,7 +85,8 @@ exports.editUser = async (req, res) => {
 }
 
 exports.addFriend = async (req, res) => {
-  let {id, friendId} = req.body
+  let {id} = req.params
+  let {friendId} = req.body
 
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
@@ -105,11 +106,9 @@ exports.addFriend = async (req, res) => {
     })
 }
 
-
 exports.acceptFriend = async (req, res) => {
-  // please refactor this 
-  // also you can accept friend request yourself right now which defeats the purpose of all this IDIOT
-  let {id, friendId} = req.body
+  const {id} = req.params
+  let {friendId} = req.body
 
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
