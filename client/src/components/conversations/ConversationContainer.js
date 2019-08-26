@@ -17,7 +17,6 @@ function ConverstationContainer(props) {
   }, [])
   
   useEffect(() => {    
-    // console.log('chatroom is', props.conversations.active)
     socket.emit('subscribe', props.conversations.active)
 
     props.getMessages(props.currentUser._id, props.conversations.active)

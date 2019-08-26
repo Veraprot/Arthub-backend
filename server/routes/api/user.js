@@ -9,9 +9,9 @@ router.post('/login', users.loginUser)
 
 router.patch('/edit', users.editUser)
 
-router.patch('/add-friend', users.addFriend)
+router.patch('/:id/add-friend', users.addFriend)
 
-router.patch('/accept-friend', users.acceptFriend)
+router.patch('/:id/accept-friend', users.acceptFriend)
 
 router.get('/friends', users.getFriends)
 

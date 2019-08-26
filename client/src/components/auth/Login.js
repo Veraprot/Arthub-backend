@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
 import {Form, Button } from 'semantic-ui-react'
-import { loginUser } from '../../actions/authActions'
+import { loginUser, clearErrors } from '../../actions/authActions'
 
 function Login(props) {
   useEffect(() => {
@@ -11,6 +11,7 @@ function Login(props) {
     }
     else if(props.errors.notFound) {
       props.history.push('/register')
+      props.clearErrors()
     }
   }, [props.auth.isAuthenticated, props.errors, props.history])
 
@@ -42,4 +43,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser, clearErrors })(Login);
