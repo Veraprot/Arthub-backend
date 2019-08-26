@@ -1,5 +1,4 @@
 const Conversation = require('../models/Conversation');
-const User = require('../models/User');
 const Message = require('../models/Message');
 
 const io = require('../socketUtils/socket')
