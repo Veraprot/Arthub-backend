@@ -1,0 +1,39 @@
+//variables 
+@import "utilities/variables";
+
+.profile-dashboard {
+  display: flex;
+  flex-direction: column;
+
+  .profile-info-container {
+    background-color: rgba(116, 255, 253, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .cover-photo-container {
+      height: 300px;
+      width: 100%;
+      background-color: ivory;
+    }
+
+    .user-info-navbar {
+      display: flex;
+      flex-direction: row;
+      width: calc(100% - 30px);
+      align-items: center;
+      border-bottom: 1px solid black;
+      padding: 5px 15px;
+
+      .avatar-container {
+        width: 100px;
+        height: 100px;
+        margin-top: -104px;
+      }
+    }
+  }
+
+  .profile-feed-container {
+    background-color: beige;
+  }
+}

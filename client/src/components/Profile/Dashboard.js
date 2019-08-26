@@ -2,11 +2,19 @@ import React from "react";
 
 function Dashboard() {
   return (
-    <div className="profile-dashboard">
-      <div className="profile-info">
-        this is user page
+    <div className="profile-dashboard full-hd">
+      <div className="profile-info-container">
+        <div className="cover-photo-container"></div>
+        <div className="user-info-navbar">
+        <div className="avatar-container">
+            <img className="profile-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPSysKN4CPaJbicNW2tNU-CgOiL6UxNkrNpmkH1VootIR6MkqXQ" alt=""/>
+        </div>
+        <div>firstName LastName</div>
+        </div>
       </div>
-      <div className="profile-feed"></div>
+      <div className="profile-feed-container">
+        use feed
+      </div>
     </div>
   )
 }

@@ -7,6 +7,11 @@
 //styles
 @import url('form.scss');
 @import url('messageBoard.scss');
+@import url('profileDashboard.scss');
+
+.full-hd {
+  min-height: $main-height
+}
 
 body,
 .navbar-wrapper, 
@@ -40,4 +45,13 @@ body,
   width: 100%;
   text-align: center;
   height: 100%;
+}
+
+.avatar-container {
+  overflow: hidden;
+  border-radius: 100%;
+
+  .profile-icon {
+    height: 100%;
+  }
 }
