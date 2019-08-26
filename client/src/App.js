@@ -5,7 +5,7 @@ import About from './components/layout/About'
 import Dashboard from './components/profile/Dashboard'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
-
+import FriendsList from './components/friends/FriendsList'
 import MessageBoard from './components/conversations/MessageBoard'
 import { Provider } from 'react-redux';
 import store from './store';
@@ -44,6 +44,7 @@ function App() {
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <PrivateRoute exact path="/conversations/" component={MessageBoard}/>
+          <PrivateRoute exact path="/friends" component={FriendsList} />
         </div>
       </BrowserRouter>
     </Provider>

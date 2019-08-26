@@ -24,6 +24,9 @@ function Navbar(props) {
     <>
       <button onClick={handleClick}>logout</button>
       <Link to={`/conversations/`}>messages</Link>
+      <Link to="/friends">
+        friends
+      </Link>
     </>
   );
   return (
