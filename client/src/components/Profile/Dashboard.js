@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import UploadImageModal from '../common/UploadImageModal'
 
 function Dashboard() {
-  const[uploadModal, setUploadModal] = useState(false)
+  const[uploadModal, setUploadModal] = useState(true)
 
   const toggleUploadView = (e) => {
     e.stopPropagation();

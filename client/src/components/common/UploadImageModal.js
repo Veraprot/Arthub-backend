@@ -12,7 +12,10 @@ function UploadImageModal(props) {
           <div className="close-btn" onClick={props.close}>x</div>
         </div>
         <div className="upload-section">
-          <div className="upload-btn">+ Upload Photo</div>
+          <div className="upload-btn">
+            {/* + Upload Photo */}
+            <input type="file" accept="image/*, image/heic, image/heif"/>
+          </div>
         </div>
       </div>
     </div>
