@@ -9,10 +9,9 @@ const express = require('express'),
       mongoose = require('mongoose');
       multer = require('multer')
 
-const  upload = multer({ dest: 'uploads/' })
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(upload.single('image'))
+app.use(multer().single('image'))
 
 const corsOptions = {
   origin: '*',
