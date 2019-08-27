@@ -6,10 +6,13 @@ dotenv.config();
 const express = require('express'),
       app = express(), 
       bodyParser = require('body-parser');
-      mongoose = require('mongoose')
+      mongoose = require('mongoose');
+      multer = require('multer')
 
-app.use(bodyParser.urlencoded({ extended: false }));
+const  upload = multer({ dest: 'uploads/' })
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(upload.single('image'))
 
 const corsOptions = {
   origin: '*',

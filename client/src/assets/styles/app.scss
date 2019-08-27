@@ -92,11 +92,20 @@ body,
     }
 
     .upload-section {
+      overflow: hidden;
       min-height: 300px;
       background-color: $white;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      justify-content: space-around;
       align-items: center;
+
+      img {
+        max-height: 100px;
+        max-width: 100px;
+        height: auto;
+        width: 100%;
+      }
 
       .upload-btn {
         margin: auto;

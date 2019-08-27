@@ -6,8 +6,6 @@ function Dashboard() {
   const[uploadModal, setUploadModal] = useState(true)
 
   const toggleUploadView = (e) => {
-    e.stopPropagation();
-    console.log('hi')
     setUploadModal(!uploadModal)
   }
 
