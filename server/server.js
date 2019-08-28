@@ -6,10 +6,12 @@ dotenv.config();
 const express = require('express'),
       app = express(), 
       bodyParser = require('body-parser');
-      mongoose = require('mongoose')
+      mongoose = require('mongoose');
+      multer = require('multer')
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(multer().single('image'))
 
 const corsOptions = {
   origin: '*',
@@ -18,14 +20,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const user = require('./routes/api/user');
-app.use('/users', user)
-
-const conversation = require('./routes/api/conversation');
-app.use('/users/:userId/conversations', conversation)
-
-const message = require('./routes/api/message');
-app.use('/conversations/:conversationId/messages', message)
+const routes = require('./routes/routes');
+app.use('/api/', routes)
 
 const port = process.env.PORT || 3001;
 
@@ -39,3 +35,10 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
   })
   .catch(err => console.log(err))
 
+  // todo notes 
+  // add auth on backend 
+  // add message batches 
+  // add friends functionality on front end 
+  // upload images
+  // search people
+  // deploy?

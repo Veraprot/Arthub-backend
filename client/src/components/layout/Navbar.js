@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 
 function Navbar(props) {
   const handleClick = () => {
-    props.logoutUser(props.history)
+    props.logoutUser()
   }
 
   const guestLinks = (
