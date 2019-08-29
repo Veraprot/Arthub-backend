@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 dotenv.config();
+const path = require('path');
 
 const express = require('express'),
       app = express(), 
@@ -18,7 +19,7 @@ const fileStorage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     console.log(file)
-    cb(null, Date.now() + "-" + file.originalname)
+    cb(null, file.originalname)
   }
 })
 
@@ -46,6 +47,7 @@ app.use(cors(corsOptions));
 
 const routes = require('./routes/routes');
 app.use('/api/', routes)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const port = process.env.PORT || 3001;
 

@@ -3,6 +3,8 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const fs =  require('fs')
+
 const secretOrKey = process.env.SECRET_OR_KEY;
 
 exports.registerUser = (req, res) => {
@@ -81,6 +83,8 @@ exports.editUser = async (req, res) => {
 
   if(image) {
     user.avatar = image.path;
+    // let file = fs.readFileSync(image.path)
+    // console.log('file', file)
   }
 
   user.save()
