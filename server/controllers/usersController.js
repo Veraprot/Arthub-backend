@@ -3,11 +3,12 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const fs =  require('fs')
+
 const secretOrKey = process.env.SECRET_OR_KEY;
 
 exports.registerUser = (req, res) => {
-  const {name, email, password, avatar} = req.body
-
+  const {name, email, password} = req.body
   User.findOne({ email }).then(user => {
     if (user) {
       return res.status(400).json({error: 'Email already exists'});
@@ -15,7 +16,7 @@ exports.registerUser = (req, res) => {
       const newUser = new User({
         name,
         email,
-        avatar,
+        avatar: '',
         password
       });
 
@@ -72,10 +73,18 @@ exports.loginUser = (req, res) => {
 }
 
 exports.editUser = async (req, res) => {
-  const user = await User.findById(req.body.id)
+  const user = await User.findById(req.params.id)
 
   for( key in req.body) {
     user[key] = req.body[key]
+  }
+
+  const image = req.file
+
+  if(image) {
+    user.avatar = image.path;
+    // let file = fs.readFileSync(image.path)
+    // console.log('file', file)
   }
 
   user.save()
