@@ -20,7 +20,6 @@ if (localStorage.jwtToken) {
   setHeaders(localStorage.jwtToken);
   // Decode token and get user info and exp
   const decoded = jwt_decode(localStorage.jwtToken);
-  console.log(decoded._id)
   // Set user and isAuthenticated
   store.dispatch(getCurrentUser(decoded._id));
 
@@ -34,7 +33,6 @@ if (localStorage.jwtToken) {
   }
 }
 
-console.log('this runs')
 function App() {
   return (
     <Provider store={store}>

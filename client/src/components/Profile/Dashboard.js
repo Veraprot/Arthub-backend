@@ -10,7 +10,6 @@ function Dashboard(props) {
     setUploadModal(!uploadModal)
   }
 
-  console.log(props.currentUser)
   return (
     <div className="profile-dashboard full-hd">
       <div className="profile-info-container">

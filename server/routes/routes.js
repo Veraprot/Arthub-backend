@@ -5,11 +5,6 @@ const users = require('../controllers/usersController')
 const conversations = require('../controllers/conversationsController')
 const messages = require('../controllers/messagesController')
 
-router.post('/', (req, res) => {
-  console.log(req.file)
-  res.json({msg: 'hi'})
-})
-
 //user routes
 router.post('/users/register', users.registerUser)
 router.post('/users/login', users.loginUser)

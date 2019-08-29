@@ -9,7 +9,6 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
-      console.log(action.payload)
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
@@ -17,7 +16,6 @@ export default function(state = initialState, action) {
       };
 
     case SET_PROFILE_IMAGE:
-    console.log(action.payload)
     return {
       ...state,
       info: {

@@ -10,7 +10,6 @@ export const loginUser = (userData) => dispatch => {
       const { token } = res.data
       localStorage.setItem('jwtToken', token);
       setHeaders(token);
-      console.log(res.data.user)
       dispatch(setCurrentUser(res.data.user));
     })
     .catch(err => {
@@ -20,8 +19,7 @@ export const loginUser = (userData) => dispatch => {
     })
 }
 
-export const registerUser = (userData, history) => dispatch => {
-  console.log(history)
+export const registerUser = (userData, history) => {
   axios.post(`${apiRoot}/users/register`, userData)
     .then(res => {
       history.push('/login')
@@ -32,7 +30,6 @@ export const registerUser = (userData, history) => dispatch => {
 export const getCurrentUser = (userId) => dispatch => {
   axios.get(`${apiRoot}/users/${userId}`)
   .then(res => {
-    console.log(res.data)
     dispatch(setCurrentUser(res.data));
   })
 }
