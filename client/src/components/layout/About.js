@@ -9,7 +9,7 @@ function About(props) {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, About);

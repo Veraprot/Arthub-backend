@@ -1,6 +1,5 @@
 import {SET_CURRENT_USER, GET_ERRORS, CLEAR_ERRORS} from './types';
 import axios from 'axios'
-import jwt_decode from 'jwt-decode';
 import setHeaders from '../utils/setHeaders'
 
 const apiRoot = process.env.REACT_APP_API_ROOT
@@ -10,9 +9,9 @@ export const loginUser = (userData) => dispatch => {
     .then(res => {
       const { token } = res.data
       localStorage.setItem('jwtToken', token);
-      const decoded = jwt_decode(token);
       setHeaders(token);
-      dispatch(setCurrentUser(decoded));
+      console.log(res.data.user)
+      dispatch(setCurrentUser(res.data.user));
     })
     .catch(err => {
       if(err.response.status === 404) {
@@ -30,11 +29,18 @@ export const registerUser = (userData, history) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const getCurrentUser = (userId) => dispatch => {
+  axios.get(`${apiRoot}/users/${userId}`)
+  .then(res => {
+    dispatch(setCurrentUser(res.data.user));
+  })
+}
+
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = userInfo => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: userInfo
   };
 };
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Form, Button} from 'semantic-ui-react'
-import { registerUser } from '../../actions/authActions'
+import { registerUser } from '../../actions/userActions'
 import { connect } from 'react-redux';
 
 function Register(props) {

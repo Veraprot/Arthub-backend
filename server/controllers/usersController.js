@@ -50,7 +50,7 @@ exports.loginUser = (req, res) => {
       .then(isMatch => {
         if (isMatch) {
           // User Matched
-          const payload = { user }; // Create JWT Payload
+          const payload = { _id: user.id }; // Create JWT Payload
   
           // Sign Token
           jwt.sign(
@@ -60,7 +60,8 @@ exports.loginUser = (req, res) => {
             (err, token) => {
               res.json({
                 success: true,
-                token: 'Bearer ' + token
+                token: 'Bearer ' + token,
+                user
               });
             }
           );

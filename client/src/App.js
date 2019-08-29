@@ -12,7 +12,7 @@ import store from './store';
 import './assets/styles/app.scss'
 import setHeaders from './utils/setHeaders';
 import jwt_decode from 'jwt-decode';
-import { setCurrentUser, logoutUser } from './actions/authActions';
+import { setCurrentUser, logoutUser } from './actions/userActions';
 import PrivateRoute from './components/common/PrivateRoute';
 
 if (localStorage.jwtToken) {
@@ -32,7 +32,8 @@ if (localStorage.jwtToken) {
     window.location.href = '/login';
   }
 }
- 
+
+console.log('this runs')
 function App() {
   return (
     <Provider store={store}>

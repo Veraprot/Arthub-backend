@@ -58,7 +58,7 @@ function ConversationsList(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.user, 
+  currentUser: state.user.user, 
   conversations: state.conversations.all,
   activeConversation: state.conversations.active
 })
