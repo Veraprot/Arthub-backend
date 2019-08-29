@@ -34,6 +34,22 @@ exports.registerUser = (req, res) => {
   });
 }
 
+exports.getUser = (req, res) => {
+  const {id} = req.params
+  console.log(req.params)
+  User.findById(id)
+  .select('-conversations')
+  .populate('friends.user', ['name', 'email', 'avatar'])
+  .then(user => {
+    console.log(user)
+    if (!user) {
+      return res.status(404).json({error: 'User not found'});
+    }
+
+    res.json({user});
+  })
+}
+
 exports.loginUser = (req, res) => {
   const {email, password} = req.body
   User.findOne({email})

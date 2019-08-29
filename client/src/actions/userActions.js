@@ -32,6 +32,7 @@ export const registerUser = (userData, history) => dispatch => {
 export const getCurrentUser = (userId) => dispatch => {
   axios.get(`${apiRoot}/users/${userId}`)
   .then(res => {
+    console.log(res.data)
     dispatch(setCurrentUser(res.data.user));
   })
 }

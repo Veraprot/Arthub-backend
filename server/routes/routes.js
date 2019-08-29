@@ -13,6 +13,7 @@ router.post('/', (req, res) => {
 //user routes
 router.post('/users/register', users.registerUser)
 router.post('/users/login', users.loginUser)
+router.get('/users/:id', users.getUser)
 router.patch('/users/:id/edit', users.editUser)
 router.patch('/users/:id/users/add-friend', users.addFriend)
 router.patch('/users/:id/users/accept-friend', users.acceptFriend)

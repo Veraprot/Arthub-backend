@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Navbar from './components/layout/Navbar'
 import About from './components/layout/About'
@@ -12,7 +12,7 @@ import store from './store';
 import './assets/styles/app.scss'
 import setHeaders from './utils/setHeaders';
 import jwt_decode from 'jwt-decode';
-import { setCurrentUser, logoutUser } from './actions/userActions';
+import { getCurrentUser, setCurrentUser, logoutUser } from './actions/userActions';
 import PrivateRoute from './components/common/PrivateRoute';
 
 if (localStorage.jwtToken) {
@@ -20,8 +20,9 @@ if (localStorage.jwtToken) {
   setHeaders(localStorage.jwtToken);
   // Decode token and get user info and exp
   const decoded = jwt_decode(localStorage.jwtToken);
+  console.log(decoded._id)
   // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
+  store.dispatch(getCurrentUser(decoded._id));
 
   // Check for expired token
   const currentTime = Date.now() / 1000;
