@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Link } from 'react-router-dom';
 import UploadImageModal from '../common/UploadImageModal'
 import {connect} from 'react-redux'
+const resourceRoot = process.env.REACT_APP_RESOURCE_ROOT
 
 function Dashboard(props) {
   const[uploadModal, setUploadModal] = useState(false)
@@ -16,7 +17,7 @@ function Dashboard(props) {
         <div className="cover-photo-container"></div>
         <div className="user-info-navbar">
           <div className="avatar-container">
-            <img className="profile-icon" src={`http://localhost:3001/${props.currentUser.avatar}`} alt=""/>
+            <img className="profile-icon" src={`${resourceRoot}/${props.currentUser.avatar}`} alt=""/>
             <div className="profile-pic-selector">
               <div className="update-photo-btn" onClick={toggleUploadView}>update</div>
             </div>

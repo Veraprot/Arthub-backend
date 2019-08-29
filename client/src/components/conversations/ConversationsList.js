@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { connect } from 'react-redux'
 import { getConversations, setActiveConversation } from '../../actions/conversationActions'
 import {socket} from '../../utils/socket'
+const resourceRoot = process.env.REACT_APP_RESOURCE_ROOT
 
 function ConversationsList(props) {
   useEffect(() => {
@@ -39,7 +40,7 @@ function ConversationsList(props) {
     <div className="convertations-list">
       <div className="profile-view-container">
         <div className="avatar-container">
-            <img className="profile-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPSysKN4CPaJbicNW2tNU-CgOiL6UxNkrNpmkH1VootIR6MkqXQ" alt=""/>
+            <img className="profile-icon" src={`${resourceRoot}/${props.currentUser.avatar}`} alt=""/>
         </div>
         <div className="user-settings-container"> 
             {props.currentUser.name}
