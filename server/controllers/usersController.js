@@ -34,20 +34,26 @@ exports.registerUser = (req, res) => {
   });
 }
 
-exports.getUser = (req, res) => {
-  const {id} = req.params
-  console.log(req.params)
-  User.findById(id)
+const findUserBy = (userAttr) => {
+  return User.findOne(userAttr)
   .select('-conversations')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .then(user => {
-    console.log(user)
     if (!user) {
-      return res.status(404).json({error: 'User not found'});
+      return {error: 'User not found'};
     }
 
-    res.json({user});
+    return user
   })
+}
+exports.getUser = async (req, res) => {
+  const responce = await findUserBy({_id: req.params.id})
+  if (!responce.error) {
+    res.json(responce);
+
+  } else {
+    res.status(404).json(responce);
+  }
 }
 
 exports.loginUser = (req, res) => {
@@ -100,8 +106,6 @@ exports.editUser = async (req, res) => {
 
   if(image) {
     user.avatar = image.path;
-    // let file = fs.readFileSync(image.path)
-    // console.log('file', file)
   }
 
   user.save()
