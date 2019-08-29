@@ -9,14 +9,14 @@ router.post('/', (req, res) => {
   console.log(req.file)
   res.json({msg: 'hi'})
 })
+
 //user routes
 router.post('/users/register', users.registerUser)
 router.post('/users/login', users.loginUser)
-router.patch('/users/edit', users.editUser)
+router.patch('/users/:id/edit', users.editUser)
 router.patch('/users/:id/users/add-friend', users.addFriend)
 router.patch('/users/:id/users/accept-friend', users.acceptFriend)
 router.get('/users/:id/friends', users.getFriends)
-
 
 // conversation routes 
 router.post('/users/:userId/conversations/create', conversations.create)

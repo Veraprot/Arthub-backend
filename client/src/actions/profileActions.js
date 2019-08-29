@@ -1,7 +1,7 @@
 import axios from 'axios'
 const apiRoot = process.env.REACT_APP_API_ROOT
 
-export const setProfileImage = (file) => {
+export const setProfileImage = (userId, file) => {
   console.log('hi there')
   console.log(file)
 
@@ -10,9 +10,9 @@ export const setProfileImage = (file) => {
 
   console.log(formData)
   
-  axios.post(apiRoot, formData)
-    .then(res => {
-      console.log(res)
+  axios.patch(`${apiRoot}/users/${userId}/edit`, formData)
+    .then(data => {
+      console.log(data)
     })
   return {
     type: ''

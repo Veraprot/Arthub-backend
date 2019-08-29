@@ -8,7 +8,7 @@ function UploadImageModal(props) {
 
   const changeUploadFile = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]))
-    props.setProfileImage(e.target.files[0])
+    props.setProfileImage(props.currentUser._id, e.target.files[0])
   }
 
   return (
@@ -33,5 +33,8 @@ function UploadImageModal(props) {
   )
 }
 
-export default connect(null, {setProfileImage})(UploadImageModal);
+const mapStateToProps = state => ({
+  currentUser: state.auth.user, 
+}); 
+export default connect(mapStateToProps, {setProfileImage})(UploadImageModal);
 
