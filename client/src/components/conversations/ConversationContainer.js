@@ -10,8 +10,6 @@ function ConverstationContainer(props) {
   
   useEffect(() => {
     socket.on('message', data => {
-      console.log('data', data)
-      console.log(props.currentUser._id)
       props.setNewMessage(props.currentUser._id, data)
     })
   }, [])
@@ -77,7 +75,7 @@ function ConverstationContainer(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.user, 
+  currentUser: state.user.info, 
   conversations: state.conversations
 }); 
 

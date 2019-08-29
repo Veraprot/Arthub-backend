@@ -5,14 +5,10 @@ const users = require('../controllers/usersController')
 const conversations = require('../controllers/conversationsController')
 const messages = require('../controllers/messagesController')
 
-router.post('/', (req, res) => {
-  console.log(req.file)
-  res.json({msg: 'hi'})
-})
-
 //user routes
 router.post('/users/register', users.registerUser)
 router.post('/users/login', users.loginUser)
+router.get('/users/:id', users.getUser)
 router.patch('/users/:id/edit', users.editUser)
 router.patch('/users/:id/users/add-friend', users.addFriend)
 router.patch('/users/:id/users/accept-friend', users.acceptFriend)

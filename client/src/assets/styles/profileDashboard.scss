@@ -27,7 +27,7 @@
 
       .avatar-container {
         position: relative;
-        width: 100px;
+        width: $avatar-width-md;
         height: 100px;
         margin-top: -104px;
 
@@ -55,6 +55,13 @@
             color: white;
           }
         }
+      }
+
+      .nav-items {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: calc(100% - #{$avatar-width-md});
       }
     }
   }

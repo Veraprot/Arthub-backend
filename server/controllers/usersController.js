@@ -34,6 +34,28 @@ exports.registerUser = (req, res) => {
   });
 }
 
+const findUserBy = (userAttr) => {
+  return User.findOne(userAttr)
+  .select('-conversations')
+  .populate('friends.user', ['name', 'email', 'avatar'])
+  .then(user => {
+    if (!user) {
+      return {error: 'User not found'};
+    }
+
+    return user
+  })
+}
+exports.getUser = async (req, res) => {
+  const responce = await findUserBy({_id: req.params.id})
+  if (!responce.error) {
+    res.json(responce);
+
+  } else {
+    res.status(404).json(responce);
+  }
+}
+
 exports.loginUser = (req, res) => {
   const {email, password} = req.body
   User.findOne({email})
@@ -50,7 +72,7 @@ exports.loginUser = (req, res) => {
       .then(isMatch => {
         if (isMatch) {
           // User Matched
-          const payload = { user }; // Create JWT Payload
+          const payload = { _id: user.id }; // Create JWT Payload
   
           // Sign Token
           jwt.sign(
@@ -60,7 +82,8 @@ exports.loginUser = (req, res) => {
             (err, token) => {
               res.json({
                 success: true,
-                token: 'Bearer ' + token
+                token: 'Bearer ' + token,
+                user
               });
             }
           );
@@ -83,8 +106,6 @@ exports.editUser = async (req, res) => {
 
   if(image) {
     user.avatar = image.path;
-    // let file = fs.readFileSync(image.path)
-    // console.log('file', file)
   }
 
   user.save()

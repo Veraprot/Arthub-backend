@@ -2,18 +2,18 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
 import {Form, Button } from 'semantic-ui-react'
-import { loginUser, clearErrors } from '../../actions/authActions'
+import { loginUser, clearErrors } from '../../actions/userActions'
 
 function Login(props) {
   useEffect(() => {
-    if(props.auth.isAuthenticated) {
+    if(props.user.isAuthenticated) {
       props.history.push('/user')
     }
     else if(props.errors.notFound) {
       props.history.push('/register')
       props.clearErrors()
     }
-  }, [props.auth.isAuthenticated, props.errors, props.history])
+  }, [props.user.isAuthenticated, props.errors, props.history])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -39,7 +39,7 @@ function Login(props) {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  user: state.user,
   errors: state.errors
 });
 

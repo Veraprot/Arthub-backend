@@ -1,7 +1,7 @@
 import  React  from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logoutUser } from '../../actions/authActions'
+import { logoutUser } from '../../actions/userActions'
 import { withRouter } from 'react-router'
 
 function Navbar(props) {
@@ -34,12 +34,12 @@ function Navbar(props) {
   );
   return (
     <div className="navbar-wrapper">
-      {props.auth.isAuthenticated ? authLinks : guestLinks}
+      {props.user.isAuthenticated ? authLinks : guestLinks}
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  user: state.user
 })
 export default connect(mapStateToProps, {logoutUser})(withRouter(Navbar));
