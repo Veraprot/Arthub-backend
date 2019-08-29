@@ -3,7 +3,7 @@ import { SET_CURRENT_USER, SET_PROFILE_IMAGE } from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  info: {}
 };
 
 export default function(state = initialState, action) {
@@ -13,15 +13,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        info: action.payload
       };
 
     case SET_PROFILE_IMAGE:
     console.log(action.payload)
     return {
       ...state,
-      user: {
-        ...state.user, 
+      info: {
+        ...state.info, 
         avatar: action.payload
       }
     };

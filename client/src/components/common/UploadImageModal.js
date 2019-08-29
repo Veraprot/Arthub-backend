@@ -34,7 +34,7 @@ function UploadImageModal(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user.user, 
+  currentUser: state.user.info, 
 }); 
 export default connect(mapStateToProps, {setProfileImage})(UploadImageModal);
 
