@@ -11,6 +11,7 @@ function UploadImageModal(props) {
     props.setProfileImage(props.currentUser._id, e.target.files[0])
   }
 
+  console.log(props)
   return (
     <div className="modal">
       add new friends module

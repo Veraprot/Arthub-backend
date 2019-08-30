@@ -115,6 +115,20 @@ exports.editUser = async (req, res) => {
   })
 }
 
+exports.updateCoverPhoto = async (req, res) => {
+  const user = await User.findById(req.params.id)
+  const image = req.file
+
+  if(image) {
+    user.coverPhoto = image.path;
+  }
+
+  user.save()
+  .then(user => {
+    res.json({user})
+  })
+}
+ 
 exports.addFriend = async (req, res) => {
   let {id} = req.params
   let {friendId} = req.body
