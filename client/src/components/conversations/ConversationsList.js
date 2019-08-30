@@ -63,4 +63,5 @@ const mapStateToProps = state => ({
   conversations: state.conversations.all,
   activeConversation: state.conversations.active
 })
+
 export default connect(mapStateToProps, {getConversations, setActiveConversation})(ConversationsList);

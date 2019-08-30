@@ -46,6 +46,7 @@ const findUserBy = (userAttr) => {
     return user
   })
 }
+
 exports.getUser = async (req, res) => {
   const responce = await findUserBy({_id: req.params.id})
   if (!responce.error) {
