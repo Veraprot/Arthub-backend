@@ -12,7 +12,7 @@ import store from './store';
 import './assets/styles/app.scss'
 import setHeaders from './utils/setHeaders';
 import jwt_decode from 'jwt-decode';
-import { getCurrentUser, setCurrentUser, logoutUser } from './actions/userActions';
+import { getCurrentUser, logoutUser } from './actions/userActions';
 import PrivateRoute from './components/common/PrivateRoute';
 
 if (localStorage.jwtToken) {
