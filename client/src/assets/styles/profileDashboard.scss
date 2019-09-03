@@ -81,9 +81,10 @@
     display: flex;
     flex-direction: row;
     padding: 15px 0px;
+    flex-wrap: wrap;
     
     .item-container {
-      width: 33%;
+      width: calc(33% - 16px);
       overflow: hidden;
       margin-right: 28px;
 
