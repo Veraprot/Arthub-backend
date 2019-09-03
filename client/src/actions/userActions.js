@@ -28,6 +28,7 @@ export const registerUser = (userData, history) => {
 }
 
 export const getCurrentUser = (userId) => dispatch => {
+  console.log(userId)
   axios.get(`${apiRoot}/users/${userId}`)
   .then(res => {
     dispatch(setCurrentUser(res.data));
