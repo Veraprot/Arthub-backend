@@ -6,7 +6,6 @@
   flex-direction: column;
 
   .profile-info-container {
-    background-color: rgba(116, 255, 253, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,8 +33,8 @@
       flex-direction: row;
       width: calc(100% - 30px);
       align-items: center;
-      border-bottom: 1px solid black;
-      padding: 5px 15px;
+      border-bottom: $border-shadow;
+      padding: 15px;
 
       .avatar-container {
         position: relative;
@@ -79,10 +78,10 @@
   }
 
   .profile-feed-container {
-    background-color: beige;
     display: flex;
     flex-direction: row;
-
+    padding: 15px 0px;
+    
     .item-container {
       width: 33%;
       overflow: hidden;
