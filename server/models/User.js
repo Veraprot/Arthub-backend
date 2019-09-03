@@ -18,6 +18,11 @@ const UserSchema = new Schema({
   avatar: {
     type: String
   },
+
+  coverPhoto: {
+    type: String
+  }, 
+
   date: {
     type: Date,
     default: Date.now
@@ -37,6 +42,13 @@ const UserSchema = new Schema({
     { 
       type: Schema.Types.ObjectId,
       ref: 'conversations'
+    }
+  ],
+
+  items: [
+    { 
+      type: Schema.Types.ObjectId,
+      ref: 'items'
     }
   ]
 });

@@ -2,6 +2,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const auth = require("../utils/auth");
 
 const fs =  require('fs')
 
@@ -36,7 +37,7 @@ exports.registerUser = (req, res) => {
 
 const findUserBy = (userAttr) => {
   return User.findOne(userAttr)
-  .select('-conversations')
+  .select('-conversations, -items')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .then(user => {
     if (!user) {
@@ -49,6 +50,7 @@ const findUserBy = (userAttr) => {
 
 exports.getUser = async (req, res) => {
   const responce = await findUserBy({_id: req.params.id})
+
   if (!responce.error) {
     res.json(responce);
 
@@ -60,7 +62,7 @@ exports.getUser = async (req, res) => {
 exports.loginUser = (req, res) => {
   const {email, password} = req.body
   User.findOne({email})
-  .select('-conversations')
+  .select('-conversations, -items')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .exec((err, user) => {
     // Check for user
@@ -115,6 +117,21 @@ exports.editUser = async (req, res) => {
   })
 }
 
+exports.updateCoverPhoto = async (req, res) => {
+  const user = await User.findById(req.params.id)
+  const image = req.file
+
+  if(image) {
+    user.coverPhoto = image.path;
+  }
+
+  user.save()
+  .then(user => {
+    console.log(user)
+    res.json({_id: user.id, coverPhoto: user.coverPhoto})
+  })
+}
+ 
 exports.addFriend = async (req, res) => {
   let {id} = req.params
   let {friendId} = req.body
