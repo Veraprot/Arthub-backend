@@ -8,10 +8,9 @@ function UploadImageModal(props) {
 
   const changeUploadFile = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]))
-    props.setProfileImage(props.currentUser._id, e.target.files[0])
+    props.setProfileImage(props.currentUser._id, props.options, e.target.files[0])
   }
 
-  console.log(props)
   return (
     <div className="modal">
       add new friends module

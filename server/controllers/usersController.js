@@ -125,7 +125,8 @@ exports.updateCoverPhoto = async (req, res) => {
 
   user.save()
   .then(user => {
-    res.json({user})
+    console.log(user)
+    res.json({_id: user.id, coverPhoto: user.coverPhoto})
   })
 }
  

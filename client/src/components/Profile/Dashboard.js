@@ -11,12 +11,14 @@ function Dashboard(props) {
   const toggleUploadView = (imageType) => {
     setUploadModal(!uploadModal)
     setUploadModalOpitons({type: imageType})
+
   }
 
   return (
     <div className="profile-dashboard full-hd">
       <div className="profile-info-container">
         <div className="cover-photo-container">
+          <img src={`${resourceRoot}/${props.currentUser.coverPhoto}`} alt=""/>
           <div className="photo-icon" onClick={() => toggleUploadView('coverPhoto')}></div>
         </div>
         <div className="user-info-navbar">
