@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { Link } from 'react-router-dom';
 import UploadImageModal from '../common/UploadImageModal'
+import UserFeed from './UserFeed'
+
 import {connect} from 'react-redux'
 const resourceRoot = process.env.REACT_APP_RESOURCE_ROOT
 
@@ -36,9 +38,7 @@ function Dashboard(props) {
           </div>
         </div>
       </div>
-      <div className="profile-feed-container">
-        use feed
-      </div>
+      <UserFeed/>
       {
          uploadModal && 
         <UploadImageModal close={toggleUploadView} options={uploadModalOptions}/>
