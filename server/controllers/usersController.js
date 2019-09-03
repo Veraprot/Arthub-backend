@@ -37,8 +37,7 @@ exports.registerUser = (req, res) => {
 
 const findUserBy = (userAttr) => {
   return User.findOne(userAttr)
-  .select('-conversations')
-  .select('-items')
+  .select('-conversations, -items')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .then(user => {
     if (!user) {
@@ -63,7 +62,7 @@ exports.getUser = async (req, res) => {
 exports.loginUser = (req, res) => {
   const {email, password} = req.body
   User.findOne({email})
-  .select('-conversations', '-items')
+  .select('-conversations, -items')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .exec((err, user) => {
     // Check for user

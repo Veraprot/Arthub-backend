@@ -8,10 +8,11 @@ function UserFeed(props) {
   }, [])
   
   const renderItems = () => {
-    console.log(props.items)
-    return (
-      <div>ho</div>
-    )
+    return props.items.map(item => {
+      return (
+        <div key={item._id}>{item.description}</div>
+      )
+    })
   }
 
   return (
