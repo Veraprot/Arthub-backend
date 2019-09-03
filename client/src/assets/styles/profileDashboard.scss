@@ -16,12 +16,16 @@
       width: 100%;
       background-color: ivory;
       overflow: hidden;
+      position: relative;
 
       .photo-icon {
         height: 20px;
         width: 20px;
         background-color: purple;
         margin: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     }
 

@@ -13,7 +13,6 @@ function Dashboard(props) {
   const toggleUploadView = (imageType) => {
     setUploadModal(!uploadModal)
     setUploadModalOpitons({type: imageType})
-
   }
 
   return (
@@ -35,6 +34,7 @@ function Dashboard(props) {
               <Link to="/friends">
                 friends
               </Link>
+              <div onClick={() => toggleUploadView('add item')}>+ add photos</div>
           </div>
         </div>
       </div>

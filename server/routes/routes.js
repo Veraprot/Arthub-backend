@@ -28,7 +28,7 @@ router.post('/conversations/:conversationId/messages/create', auth, messages.add
 router.get('/conversations/:conversationId/messages/', auth, messages.getMessages)
 
 // ITEMS
-router.get('/user/:id/items', items.userItems)
-router.post('/user/:id/items/create', items.createItem)
+router.get('/users/:id/items', items.userItems)
+router.post('/users/:id/items', items.createItem)
 
 module.exports = router

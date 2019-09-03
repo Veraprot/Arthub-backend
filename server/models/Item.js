@@ -3,12 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ItemSchema = new Schema({
-  images: [
-    {
+  image: {
     type: String,
     required: true
-    }
-  ],
+  },
 
   description: {
     type: String, 
