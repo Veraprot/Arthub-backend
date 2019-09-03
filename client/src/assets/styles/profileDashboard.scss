@@ -80,5 +80,22 @@
 
   .profile-feed-container {
     background-color: beige;
+    display: flex;
+    flex-direction: row;
+
+    .item-container {
+      width: 33%;
+      overflow: hidden;
+      margin-right: 28px;
+
+      &:nth-child(3n) {
+        margin-right: 0px;
+      }
+
+      img {
+        object-fit: cover;
+        max-width: 100%;
+      }
+    }
   }
 }
