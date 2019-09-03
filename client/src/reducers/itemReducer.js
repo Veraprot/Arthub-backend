@@ -10,14 +10,13 @@ export default function(state = initialState, action) {
     case ADD_ITEM:
       return {
         ...state,
-        active: action.payload[0]._id,
-        all: action.payload
+        all: [...state.all, action.payload]
       };
 
     case GET_ITEMS:
         return {
           ...state,
-          active: action.payload,
+          all: action.payload
         };
 
     default:

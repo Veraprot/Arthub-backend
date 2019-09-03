@@ -1,11 +1,17 @@
 const Item = require('../models/Item');
 const User = require('../models/User');
 
-exports.userItems = (req, res) => {
-  console.log(req)
+exports.userItems = async (req, res) => {
+
+  User.findById(req.params.id)
+  .populate('items', ['description', 'user', 'image'])
+  .exec((err, user)=> {
+    console.log(user)
+    res.json(user.items)
+  })
 }
 
-exports.createItem = (req, res) => {
+exports.createItem = async (req, res) => {
   const userId = req.params.id
   const image = req.file
   const description = req.body.description
@@ -17,6 +23,10 @@ exports.createItem = (req, res) => {
       user: userId, 
       reviews: []
     });
+    
+    const user = await User.findById(req.params.id)
+    user.items.unshift(newItem)
+    user.save()
 
     newItem.save()
       .then(item => {
