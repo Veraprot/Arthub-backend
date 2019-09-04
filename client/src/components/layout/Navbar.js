@@ -22,6 +22,13 @@ function Navbar(props) {
 
   const authLinks = (
     <>
+      <div>
+        <form action="">
+          <div>
+            <input type="text" placeholder="Search..."/>
+          </div>
+        </form>
+      </div>
       <button onClick={handleClick}>logout</button>
       <Link to={`/conversations/`}>messages</Link>
       <Link to="/friends">
