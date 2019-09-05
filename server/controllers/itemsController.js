@@ -6,7 +6,6 @@ exports.userItems = async (req, res) => {
   User.findById(req.params.id)
   .populate('items', ['description', 'user', 'image'])
   .exec((err, user)=> {
-    console.log(user)
     res.json(user.items)
   })
 }
