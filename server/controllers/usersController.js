@@ -120,16 +120,21 @@ exports.editUser = async (req, res) => {
 exports.updateCoverPhoto = async (req, res) => {
   const user = await User.findById(req.params.id)
   const image = req.file
-
+  console.log(image.path)
   if(image) {
-    user.coverPhoto = image.path;
-    krakenService.compressImage(image.path)    
+    krakenService.compressImage(image.path, (err, data) => {
+      if (err) {
+        console.log('Failed. Error message: %s', err);
+      } else {
+          console.log('Success. Optimized image URL: %s', data.kraked_url);
+          user.coverPhoto = data.kraked_url;
+          user.save()
+          .then(user => {
+            res.json({_id: user.id, coverPhoto: user.coverPhoto})
+          })
+      }
+    })    
   }
-
-  user.save()
-  .then(user => {
-    res.json({_id: user.id, coverPhoto: user.coverPhoto})
-  })
 }
  
 exports.addFriend = async (req, res) => {

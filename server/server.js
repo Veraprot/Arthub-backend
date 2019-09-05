@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const cors = require('cors');
 const imagePath = require('./utils/imagePath')
-const krakenService = require('./utils/krakenService')
+
 dotenv.config();
 const path = require('path');
 
@@ -16,10 +16,10 @@ app.use(bodyParser.json());
 
 const fileStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, 'uploads')
   },
   filename: function (req, file, cb) {
-    console.log(imagePath.generate(file.originalname))
+    console.log(file)
     cb(null, imagePath.generate(file.originalname))
   }
 })
