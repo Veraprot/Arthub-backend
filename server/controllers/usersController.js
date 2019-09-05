@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require("../utils/auth");
 
-const fs =  require('fs')
+const krakenService = require('../utils/krakenService')
 
 const secretOrKey = process.env.SECRET_OR_KEY;
 
@@ -123,6 +123,7 @@ exports.updateCoverPhoto = async (req, res) => {
 
   if(image) {
     user.coverPhoto = image.path;
+    krakenService.compressImage(image.path)    
   }
 
   user.save()

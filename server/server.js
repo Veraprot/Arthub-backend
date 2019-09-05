@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const cors = require('cors');
 const imagePath = require('./utils/imagePath')
-
+const krakenService = require('./utils/krakenService')
 dotenv.config();
 const path = require('path');
 
