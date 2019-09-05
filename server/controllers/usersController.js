@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require("../utils/auth");
-const imagePath = require('../utils/imagePath')
+
 const fs =  require('fs')
 
 const secretOrKey = process.env.SECRET_OR_KEY;
@@ -108,7 +108,7 @@ exports.editUser = async (req, res) => {
   const image = req.file
 
   if(image) {
-    user.avatar = imagePath.generate(image.path);
+    user.avatar = image.path;
   }
 
   user.save()
@@ -122,7 +122,7 @@ exports.updateCoverPhoto = async (req, res) => {
   const image = req.file
 
   if(image) {
-    user.coverPhoto = imagePath.generate(image.path);
+    user.coverPhoto = image.path;
   }
 
   user.save()

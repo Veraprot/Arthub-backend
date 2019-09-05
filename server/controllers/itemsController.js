@@ -1,5 +1,6 @@
 const Item = require('../models/Item');
 const User = require('../models/User');
+const imagePath = require('../utils/imagePath')
 
 exports.userItems = async (req, res) => {
 
