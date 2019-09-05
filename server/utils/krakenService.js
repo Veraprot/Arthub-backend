@@ -23,7 +23,6 @@ exports.compressImage = (imageUrl, cb) => {
   console.log(imageUrl)
 
   kraken.upload(options, (err, data) => {
-    cb(err, data)
     if (err) {
         console.log('Failed. Error message: %s', err);
     } else {
@@ -32,6 +31,7 @@ exports.compressImage = (imageUrl, cb) => {
           console.log('done')
         })
     }
+    cb()
   });
 }
 
