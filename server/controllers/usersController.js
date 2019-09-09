@@ -2,7 +2,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const auth = require("../utils/auth");
 
 const krakenService = require('../utils/krakenService')
 
@@ -108,7 +107,9 @@ exports.editUser = async (req, res) => {
   const image = req.file
 
   if(image) {
-    user.avatar = image.path;
+    krakenService.compressImage(image.path, () => {
+      user.avatar = image.path
+    })    
   }
 
   user.save()
