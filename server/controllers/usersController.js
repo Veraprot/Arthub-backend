@@ -123,14 +123,16 @@ exports.updateCoverPhoto = async (req, res) => {
   const image = req.file
   if(image) {
     krakenService.compressImage(image.path, responce => {
-      console.log(responce)
-      user.coverPhoto.push(responce.data)
+      console.log('here dude wtffff', responce)
+      user.coverPhoto = responce
 
-      // user.save()
-      // .then(user => {
-      //   console.log('this runs now')
-      //   res.json({_id: user.id, coverPhoto: user.coverPhoto})
-      // })
+      user.save()
+      .then(user => {
+        console.log('and now this')
+        console.log(user)
+        // undo hardcoded value later 
+        res.json({_id: user.id, coverPhoto: user.coverPhoto[2]})
+      })
     })    
   }
 }

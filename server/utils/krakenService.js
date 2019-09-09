@@ -41,28 +41,39 @@ exports.compressImage = (imageUrl, cb) => {
         console.log('Failed. Error message: %s', err);
         cb({err})
     } else {
-      let response = {data: []}
+      let responsePromises = []
       
       for(let key in data.results) {
-        request({
-            url: data.results[`${key}`].kraked_url, 
-            encoding: 'binary'
-          }, (err, res, body) => {
-            if (!err && res.statusCode === 200) {
-              body = new Buffer(body, 'binary');
-              response.data.push({
-                size: key, 
-                data: body, 
-                contentType: 'jpg'
-              })
-            }
-          }
-        );
+        responsePromises.push(getImage(key, data))
       }
-      console.log(response)
 
-      cb(response)
+      Promise.all(responsePromises)
+        .then(results => cb(results))
     }
   });
+}
+
+const getImage = async (key, data) => {
+  return new Promise((resolve, reject) => {
+    request(
+      {
+        url: data.results[`${key}`].kraked_url, 
+        encoding: 'binary'
+      }, 
+      (err, res, body) => {
+        if (!err && res.statusCode === 200) {
+          body = new Buffer(body, 'binary');
+          
+          resolve({
+              size: key, 
+              data: body, 
+              contentType: 'jpg'
+          })
+        } else {
+          reject(Error(request.statusText))
+        }
+      }
+    );
+  })
 }
 
