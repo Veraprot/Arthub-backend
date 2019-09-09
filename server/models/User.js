@@ -19,9 +19,13 @@ const UserSchema = new Schema({
     type: String
   },
 
-  coverPhoto: {
-    type: String
-  }, 
+  coverPhoto: [
+    {
+    size: String,
+    data: Buffer, 
+    contentType: String,
+    }
+  ], 
 
   date: {
     type: Date,

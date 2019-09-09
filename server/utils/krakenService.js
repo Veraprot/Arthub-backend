@@ -4,6 +4,7 @@ const path = require('path');
 const request = require('request');
 
 exports.compressImage = (imageUrl, cb) => {
+  console.log('this runs')
   const kraken = new Kraken({
     api_key: process.env.KRAKEN_API_KEY,
     api_secret: process.env.KRAKEN_API_SECRET
@@ -14,29 +15,54 @@ exports.compressImage = (imageUrl, cb) => {
   const options = {
     file: fs.createReadStream(filePath), 
     wait: true,
-    resize: {
-      width: 100,
-      height: 75,
-      strategy: 'crop'
-    }
+    resize: [
+      {
+            id: "small",
+            strategy: "fit",
+            width: 100,
+            height: 100
+        },
+        {
+            id: "medium",
+            strategy: "fit",
+            width: 300,
+            height: 300
+        },
+        {
+          id: "large",
+          strategy: "square",
+          size:400
+        }
+      ]
   }
-  console.log(imageUrl)
 
-  kraken.upload(options, (err, data) => {
+  kraken.upload(options, async (err, data) => {
     if (err) {
         console.log('Failed. Error message: %s', err);
+        cb({err})
     } else {
-        console.log('Success. Optimized image URL: %s', data.kraked_url);
-        download(data.kraked_url, imageUrl, () => {
-          console.log('done')
-        })
+      let response = {data: []}
+      
+      for(let key in data.results) {
+        request({
+            url: data.results[`${key}`].kraked_url, 
+            encoding: 'binary'
+          }, (err, res, body) => {
+            if (!err && res.statusCode === 200) {
+              body = new Buffer(body, 'binary');
+              response.data.push({
+                size: key, 
+                data: body, 
+                contentType: 'jpg'
+              })
+            }
+          }
+        );
+      }
+      console.log(response)
+
+      cb(response)
     }
-    cb()
   });
 }
 
-const download = function(uri, filePath, callback){
-  request.head(uri, function(err, res, body){
-    request(uri).pipe(fs.createWriteStream(filePath)).on('close', callback);
-  });
-};

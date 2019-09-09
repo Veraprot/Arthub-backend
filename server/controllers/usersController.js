@@ -107,9 +107,9 @@ exports.editUser = async (req, res) => {
   const image = req.file
 
   if(image) {
-    krakenService.compressImage(image.path, () => {
-      user.avatar = image.path
-    })    
+    // krakenService.compressImage(image.path, () => {
+    //   user.avatar = image.path
+    // })    
   }
 
   user.save()
@@ -122,12 +122,15 @@ exports.updateCoverPhoto = async (req, res) => {
   const user = await User.findById(req.params.id)
   const image = req.file
   if(image) {
-    krakenService.compressImage(image.path, () => {
-      user.coverPhoto = image.path
-      user.save()
-      .then(user => {
-        res.json({_id: user.id, coverPhoto: user.coverPhoto})
-      })
+    krakenService.compressImage(image.path, responce => {
+      console.log(responce)
+      user.coverPhoto.push(responce.data)
+
+      // user.save()
+      // .then(user => {
+      //   console.log('this runs now')
+      //   res.json({_id: user.id, coverPhoto: user.coverPhoto})
+      // })
     })    
   }
 }
