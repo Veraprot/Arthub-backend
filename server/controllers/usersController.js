@@ -133,12 +133,19 @@ exports.updateCoverPhoto = async (req, res) => {
 
         // undo hardcoded value later 
         // delete file from uploads folder after its saved to db
+        console.log(data)
         res.json({_id: user.id, coverPhoto: user.coverPhoto[2]})
       })
     })    
   }
 }
- 
+
+exports.getCoverPhoto = async (req, res) => {
+  const user = await User.findById(req.params.id)
+  let data = fs.readFileSync(user.coverPhoto[0].data)
+  console.log(data)
+}
+
 exports.addFriend = async (req, res) => {
   let {id} = req.params
   let {friendId} = req.body
