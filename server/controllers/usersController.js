@@ -130,6 +130,7 @@ exports.updateCoverPhoto = async (req, res) => {
       .then(user => {
         console.log('and now this')
         console.log(user)
+        
         // undo hardcoded value later 
         res.json({_id: user.id, coverPhoto: user.coverPhoto[2]})
       })

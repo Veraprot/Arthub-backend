@@ -64,6 +64,7 @@ const getImage = async (key, data) => {
         if (!err && res.statusCode === 200) {
           body = new Buffer(body, 'binary');
           
+          // rename contentType late to match image file types 
           resolve({
               size: key, 
               data: body, 
