@@ -24,6 +24,7 @@ const UserSchema = new Schema({
     size: String,
     data: Buffer, 
     contentType: String,
+    S3Key: String
     }
   ], 
 
