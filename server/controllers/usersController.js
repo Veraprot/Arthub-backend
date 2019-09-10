@@ -122,24 +122,20 @@ exports.updateCoverPhoto = async (req, res) => {
   const user = await User.findById(req.params.id)
   const image = req.file
   if(image) {
-    krakenService.compressImage(image.path, responce => {
+    let S3BasePath = `users/${user.id}/coverPhoto`
+    krakenService.compressImage(image.path, S3BasePath, responce => {
       user.coverPhoto = responce
-
+      console.log('stuff passed back', responce)
       user.save()
       .then(user => {
+        console.log('stuff in db', user.coverPhoto)
         // undo hardcoded value later 
         // delete file from uploads folder after its saved to db
-        res.json({_id: user.id, coverPhoto: user.coverPhoto[2]})
+        res.json({_id: user.id, coverPhoto: user.coverPhoto[1]})
       })
     })    
   }
 }
-
-// exports.getCoverPhoto = async (req, res) => {
-//   const user = await User.findById(req.params.id)
-//   let data = fs.readFileSync(user.coverPhoto[0].data)
-//   console.log(data)
-// }
 
 exports.addFriend = async (req, res) => {
   let {id} = req.params
