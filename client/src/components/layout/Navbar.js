@@ -45,9 +45,9 @@ function Navbar(props) {
         <Link to="/friends">
           <Icon name='group' size='large' />
         </Link>
-        <a href="">
+        <span>
           <Icon onClick={handleClick} name='cog' size='large'/>
-        </a>
+        </span>
       </div>
     </>
   );

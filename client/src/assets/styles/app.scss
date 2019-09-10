@@ -47,7 +47,8 @@ body,
     }
   }
 
-  a {
+  a,
+  span {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
