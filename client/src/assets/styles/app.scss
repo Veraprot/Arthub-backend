@@ -31,6 +31,12 @@ body,
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+
+
+  .avatar-container {
+    height: 30px;
+    width: 30px;
+  }
 }
 
 .main {
