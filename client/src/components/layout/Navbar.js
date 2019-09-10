@@ -24,26 +24,29 @@ function Navbar(props) {
 
   const authLinks = (
     <>
-      <div>
+      <div className="search-wrapper">
         <form action="">
           <div>
             <input type="text" placeholder="Search..."/>
           </div>
         </form>
       </div>
-      <button onClick={handleClick}>logout</button>
-      <Link to={`/conversations/`}>
-        <Icon name='comment alternate' size='large' />
-      </Link>
-      <Link to="/friends">
-        <Icon name='group' size='large' />
-      </Link>
-      <Link to="/user">
-        {/* <Icon name='user' size='large' /> */}
-        <div className="avatar-container">
-            <img className="profile-icon" src={`${resourceRoot}/${props.user.info.avatar}`} alt=""/>
-        </div>
-      </Link>
+      <div class="navigation-links">
+        <button onClick={handleClick}>logout</button>
+        <Link to={`/conversations/`}>
+          <Icon name='comment alternate' size='large' />
+        </Link>
+        <Link to="/friends">
+          <Icon name='group' size='large' />
+        </Link>
+        <Link to="/user">
+          {/* <Icon name='user' size='large' /> */}
+          <div className="avatar-container">
+              <img className="profile-icon" src={`${resourceRoot}/${props.user.info.avatar}`} alt=""/>
+          </div>
+          <span>{props.user.info.name}</span>
+        </Link>
+      </div>
     </>
   );
   return (
