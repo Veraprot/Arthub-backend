@@ -32,13 +32,13 @@ function Navbar(props) {
       </div>
       <button onClick={handleClick}>logout</button>
       <Link to={`/conversations/`}>
-        <Icon name='talk' size='large' />
+        <Icon name='comment alternate' size='large' />
       </Link>
       <Link to="/friends">
-        friends
+        <Icon name='group' size='large' />
       </Link>
       <Link to="/user">
-        user
+        <Icon name='user' size='large' />
       </Link>
     </>
   );
