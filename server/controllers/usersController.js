@@ -108,7 +108,7 @@ exports.editUser = async (req, res) => {
 
   if(image) {
     // krakenService.compressImage(image.path, () => {
-    //   user.avatar = image.path
+      user.avatar = image.path
     // })    
   }
 

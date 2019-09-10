@@ -13,6 +13,10 @@
   min-height: $main-height
 }
 
+a {
+  color: #262626;
+}
+
 body,
 .navbar-wrapper, 
 .main {
@@ -42,6 +46,9 @@ body,
 
 .modal {
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   text-align: center;
   height: 100%;

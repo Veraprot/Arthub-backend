@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/userActions'
 import { withRouter } from 'react-router'
+import { Icon } from 'semantic-ui-react';
 
 function Navbar(props) {
   const handleClick = () => {
@@ -30,7 +31,9 @@ function Navbar(props) {
         </form>
       </div>
       <button onClick={handleClick}>logout</button>
-      <Link to={`/conversations/`}>messages</Link>
+      <Link to={`/conversations/`}>
+        <Icon name='talk' size='large' />
+      </Link>
       <Link to="/friends">
         friends
       </Link>

@@ -14,7 +14,6 @@ function UserFeed(props) {
         props.items.map(item => {
           return (
             <div key={item._id} className="item-container">
-              {item.description}
               <img src={`${resourceRoot}/${item.image}`} alt=""/>
             </div>
           )
