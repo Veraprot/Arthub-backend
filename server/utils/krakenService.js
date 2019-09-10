@@ -23,26 +23,26 @@ exports.compressImage = (imageUrl, cb) => {
     },
     resize: [
       {
-            id: "small",
-            strategy: "fit",
-            width: 100,
-            height: 100, 
-            storage_path: 'small'
-        },
-        {
-            id: "medium",
-            strategy: "fit",
-            width: 300,
-            height: 300, 
-            storage_path: 'medium'
-        },
-        {
-          id: "large",
-          strategy: "square",
-          size:400, 
-          storage_path: 'large'
-        }
-      ]
+        id: "small",
+        strategy: "fit",
+        width: 100,
+        height: 100, 
+        storage_path: 'small'
+      },
+      {
+        id: "medium",
+        strategy: "fit",
+        width: 300,
+        height: 300, 
+        storage_path: 'medium'
+      },
+      {
+        id: "large",
+        strategy: "square",
+        size:400, 
+        storage_path: 'large'
+      }
+    ]
   }
 
   kraken.upload(options, async (err, data) => {
