@@ -2,9 +2,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const auth = require("../utils/auth");
 
-const fs =  require('fs')
+const krakenService = require('../utils/krakenService')
 
 const secretOrKey = process.env.SECRET_OR_KEY;
 
@@ -108,7 +107,9 @@ exports.editUser = async (req, res) => {
   const image = req.file
 
   if(image) {
-    user.avatar = image.path;
+    // krakenService.compressImage(image.path, () => {
+    //   user.avatar = image.path
+    // })    
   }
 
   user.save()
@@ -120,18 +121,22 @@ exports.editUser = async (req, res) => {
 exports.updateCoverPhoto = async (req, res) => {
   const user = await User.findById(req.params.id)
   const image = req.file
-
   if(image) {
-    user.coverPhoto = image.path;
+    let S3BasePath = `users/${user.id}/coverPhoto`
+    krakenService.compressImage(image.path, S3BasePath, responce => {
+      user.coverPhoto = responce
+      console.log('stuff passed back', responce)
+      user.save()
+      .then(user => {
+        console.log('stuff in db', user.coverPhoto)
+        // undo hardcoded value later 
+        // delete file from uploads folder after its saved to db
+        res.json({_id: user.id, coverPhoto: user.coverPhoto[1]})
+      })
+    })    
   }
-
-  user.save()
-  .then(user => {
-    console.log(user)
-    res.json({_id: user.id, coverPhoto: user.coverPhoto})
-  })
 }
- 
+
 exports.addFriend = async (req, res) => {
   let {id} = req.params
   let {friendId} = req.body

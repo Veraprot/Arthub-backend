@@ -19,7 +19,9 @@ function Dashboard(props) {
     <div className="profile-dashboard full-hd">
       <div className="profile-info-container">
         <div className="cover-photo-container">
-          <img src={`${resourceRoot}/${props.currentUser.coverPhoto}`} alt=""/>
+          <img 
+          srcSet={`${resourceRoot}/${props.currentUser.coverPhoto} 1900w`}
+           alt=""/>
           <div className="photo-icon" onClick={() => toggleUploadView('coverPhoto')}></div>
         </div>
         <div className="user-info-navbar">

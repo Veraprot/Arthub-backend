@@ -19,9 +19,12 @@ const UserSchema = new Schema({
     type: String
   },
 
-  coverPhoto: {
-    type: String
-  }, 
+  coverPhoto: [
+    {
+    contentSize: String,
+    S3Key: String
+    }
+  ], 
 
   date: {
     type: Date,
