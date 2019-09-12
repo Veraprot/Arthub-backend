@@ -33,7 +33,6 @@ function Navbar(props) {
       </div>
       <div class="navigation-links">
         <Link to="/user">
-          {/* <Icon name='user' size='large' /> */}
           <div className="avatar-container">
               <img className="profile-icon" src={`${resourceRoot}/${props.user.info.avatar}`} alt=""/>
           </div>
