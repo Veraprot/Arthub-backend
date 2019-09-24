@@ -24,6 +24,10 @@ body,
   font-family: $roboto-regular;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .navbar-wrapper {
   height: $navbar-height;
   border-bottom: 1px solid rgba(0, 0, 0, .06);

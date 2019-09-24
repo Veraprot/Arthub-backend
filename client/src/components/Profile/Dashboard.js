@@ -42,7 +42,7 @@ function Dashboard(props) {
             <Link to="/friends">
               friends
             </Link>
-            <div onClick={() => toggleUploadView('add item')}>+ add photos</div>
+            <div className="pointer" onClick={() => toggleUploadView('add item')}>+ Add photos</div>
           </div>
         </div>
       </div>
