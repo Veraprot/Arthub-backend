@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Link } from 'react-router-dom';
 import UploadImageModal from '../common/UploadImageModal'
 import UserFeed from './UserFeed'
-
+import { Icon } from 'semantic-ui-react';
 import {connect} from 'react-redux'
 const resourceRoot = process.env.REACT_APP_RESOURCE_ROOT
 
@@ -23,7 +23,10 @@ function Dashboard(props) {
           <img 
           srcSet={`${props.currentUser.coverPhoto[1].S3Key} 1900w`}
            alt=""/>
-          <div className="photo-icon" onClick={() => toggleUploadView('coverPhoto')}></div>
+          <div className="photo-icon" onClick={() => toggleUploadView('coverPhoto')}>
+            <Icon name='photo' size='small' />
+            Update cover Photo
+          </div>
         </div>
         <div className="user-info-navbar">
           <div className="cover-overlay-container">
