@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 import {Form, Button } from 'semantic-ui-react'
 import { loginUser, clearErrors } from '../../actions/userActions'
 
@@ -32,7 +32,11 @@ function Login(props) {
         <Form.Field>
           <input type="password" name="password" placeholder='Password' />
         </Form.Field>
-        <Button type='submit'>Submit</Button>
+        <Button type='submit'>Log In</Button>
+        <div>
+          <span>Dont have an account? </span>
+          <Link to='/register'>Sign up</Link>
+        </div>
       </Form>
     </div>
   )

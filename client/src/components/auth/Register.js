@@ -2,6 +2,7 @@ import React from 'react'
 import {Form, Button} from 'semantic-ui-react'
 import { registerUser } from '../../actions/userActions'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function Register(props) {
 
@@ -41,6 +42,10 @@ function Register(props) {
           </Form.Field>
           <Button primary type='submit'>Submit</Button>
         </Form>
+        <div>
+          <span>Already have an Account? </span>
+          <Link to='/login'>Log in</Link>
+        </div>
       </div>
   )
 }

@@ -13,12 +13,9 @@ function Navbar(props) {
 
   const guestLinks = (
     <>
-      <Link to="/register">
-        Sign Up
-      </Link>
-      <Link to="/login">
-        Login
-      </Link>
+      {/* <Link to="/about">
+        About
+      </Link> */}
     </>
   );
 
