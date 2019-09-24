@@ -28,7 +28,7 @@ function Navbar(props) {
           </div>
         </form>
       </div>
-      <div class="navigation-links">
+      <div className="navigation-links">
         <Link to="/user">
           <div className="avatar-container">
               <img className="profile-icon" src={`${resourceRoot}/${props.user.info.avatar}`} alt=""/>

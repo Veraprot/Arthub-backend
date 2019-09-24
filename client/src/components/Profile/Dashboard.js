@@ -26,18 +26,20 @@ function Dashboard(props) {
           <div className="photo-icon" onClick={() => toggleUploadView('coverPhoto')}></div>
         </div>
         <div className="user-info-navbar">
-          <div className="avatar-container">
-            <img className="profile-icon" src={`${resourceRoot}/${props.currentUser.avatar}`} alt=""/>
-            <div className="profile-pic-selector">
-              <div className="update-photo-btn" onClick={() => toggleUploadView('avatar')}>update</div>
+          <div className="cover-overlay-container">
+            <div className="avatar-container">
+              <img className="profile-icon" src={`${resourceRoot}/${props.currentUser.avatar}`} alt=""/>
+              <div className="profile-pic-selector">
+                <div className="update-photo-btn" onClick={() => toggleUploadView('avatar')}>update</div>
+              </div>
             </div>
+            <div className="profile-info">{props.currentUser.name}</div>
           </div>
           <div className="nav-items">
-              <div>{props.currentUser.name}</div>
-              <Link to="/friends">
-                friends
-              </Link>
-              <div onClick={() => toggleUploadView('add item')}>+ add photos</div>
+            <Link to="/friends">
+              friends
+            </Link>
+            <div onClick={() => toggleUploadView('add item')}>+ add photos</div>
           </div>
         </div>
       </div>

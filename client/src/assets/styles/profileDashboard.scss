@@ -13,7 +13,7 @@
     .cover-photo-container {
       height: 300px;
       width: 100%;
-      background-color: ivory;
+      background: linear-gradient(rgba(0,0,0,0) 71%, rgba(0,0,0, .53));
       overflow: hidden;
       position: relative;
 
@@ -36,35 +36,49 @@
       border-bottom: $border-shadow;
       padding: 15px;
 
-      .avatar-container {
+      .cover-overlay-container {
         position: relative;
-        width: $avatar-width-md;
-        height: 100px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         margin-top: -104px;
 
-        &:hover {
+        .avatar-container {
+          position: relative;
+          width: $avatar-width-md;
+          height: 100px;
+  
+          &:hover {
+            .profile-pic-selector {
+              opacity: 1;
+            }
+          }
+  
           .profile-pic-selector {
-            opacity: 1;
+            position: absolute;
+            top: 50%;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color: rgba(0, 0, 0, 0.8);
+  
+            .update-photo-btn {
+              text-align: center;
+              cursor: pointer;
+              color: white;
+            }
           }
         }
 
-        .profile-pic-selector {
-          position: absolute;
-          top: 50%;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 100%;
-          width: 100%;
-          opacity: 0;
-          transition: .5s ease;
-          background-color: rgba(0, 0, 0, 0.8);
-
-          .update-photo-btn {
-            text-align: center;
-            cursor: pointer;
-            color: white;
-          }
+        .profile-info {
+          margin-left: 10px;
+          color: #fff;
+          text-rendering: optimizelegibility;
+          text-shadow: 0 0 3px rgba(0, 0, 0, .8);
         }
       }
 
