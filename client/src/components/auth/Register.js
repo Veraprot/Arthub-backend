@@ -19,7 +19,7 @@ function Register(props) {
       password, 
       passwordConfirm
     };
-
+    console.log('this hits')
     props.registerUser(newUser, props.history)
   }
 

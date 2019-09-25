@@ -20,9 +20,9 @@ function Dashboard(props) {
     <div className="profile-dashboard full-hd">
       <div className="profile-info-container">
         <div className={`cover-photo-container ${loading}`}>
-          <img 
+          {/* <img 
           srcSet={`${props.currentUser.coverPhoto[1].S3Key} 1900w`}
-           alt=""/>
+           alt=""/> */}
           <div className="photo-icon" onClick={() => toggleUploadView('coverPhoto')}>
             <Icon name='photo' size='small' />
             Update cover Photo
