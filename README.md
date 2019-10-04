@@ -1,6 +1,6 @@
 # DevConnector
 
-> Small social app built with the MERN stack.
+> Small social app made for artists built with the MERN stack.
 
 ## Quick Start Client
 
