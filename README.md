@@ -1,4 +1,4 @@
-# DevConnector
+# ArtHub
 
 > Small social app made for artists built with the MERN stack.
 
