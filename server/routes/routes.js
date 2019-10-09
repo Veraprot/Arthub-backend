@@ -22,14 +22,14 @@ const {
 router.route('/users')
   .post(registerUser)
   
-// router.post('/users/register', users.registerUser)
+router.post('/users/register', users.registerUser)
 router.post('/users/login', loginUser)
 
 // router.get('/users/:id', auth, users.getUser)
 router.route('/users/:id') 
   .post(getUser)
+  .patch(users.editUser)
 
-router.patch('/users/:id/edit', auth, users.editUser)
 router.patch('/users/:id/updateCoverPhoto',auth, users.updateCoverPhoto)
 
 router.patch('/users/:id/users/add-friend',auth, users.addFriend)

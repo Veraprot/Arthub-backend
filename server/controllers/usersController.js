@@ -104,7 +104,7 @@ exports.editUser = async (req, res) => {
 
   for( key in req.body) {
     user[key] = req.body[key]
-  }
+  }  
 
   const image = req.file
 

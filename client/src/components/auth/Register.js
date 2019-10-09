@@ -19,7 +19,6 @@ function Register(props) {
       password, 
       passwordConfirm
     };
-    console.log('this hits')
     props.registerUser(newUser, props.history)
   }
 
@@ -54,4 +53,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { registerUser })(Register);
+export default connect(mapStateToProps, {registerUser })(Register);
