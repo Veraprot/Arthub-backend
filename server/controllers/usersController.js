@@ -58,24 +58,26 @@ exports.getUser = async (req, res) => {
   }
 }
 
-exports.loginUser = (req, res) => {
+exports.loginUser = async (req, res) => {
   const {email, password} = req.body
+
   User.findOne({email})
   .select('-conversations, -items')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .exec((err, user) => {
+    console.log('this is it')
+    console.log(user)
     // Check for user
     if (!user) {
       return res.status(404).json({error: 'User not found'});
     }
 
-    // check password 
     bcrypt.compare(password, user.password)
       .then(isMatch => {
         if (isMatch) {
           // User Matched
           const payload = { _id: user.id }; // Create JWT Payload
-  
+          console.log(user)
           // Sign Token
           jwt.sign(
             payload,
@@ -102,7 +104,7 @@ exports.editUser = async (req, res) => {
 
   for( key in req.body) {
     user[key] = req.body[key]
-  }
+  }  
 
   const image = req.file
 

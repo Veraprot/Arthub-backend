@@ -7,12 +7,29 @@ const conversations = require('../controllers/conversationsController')
 const messages = require('../controllers/messagesController')
 const items = require('../controllers/itemsController')
 
+const {
+  getUser,
+  editUser,
+  registerUser,
+  loginUser,
+  updateCoverPhoto,
+  addFriend,
+  acceptFriend,
+  getFriends
+} = require('../controllers/usersController')
 //USER 
-router.post('/users/register', users.registerUser)
-router.post('/users/login', users.loginUser)
 
-router.get('/users/:id', auth, users.getUser)
-router.patch('/users/:id/edit', auth, users.editUser)
+router.route('/users')
+  .post(registerUser)
+  
+router.post('/users/register', users.registerUser)
+router.post('/users/login', loginUser)
+
+// router.get('/users/:id', auth, users.getUser)
+router.route('/users/:id') 
+  .post(getUser)
+  .patch(users.editUser)
+
 router.patch('/users/:id/updateCoverPhoto',auth, users.updateCoverPhoto)
 
 router.patch('/users/:id/users/add-friend',auth, users.addFriend)

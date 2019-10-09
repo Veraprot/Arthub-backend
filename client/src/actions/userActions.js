@@ -7,6 +7,7 @@ const apiRoot = process.env.REACT_APP_API_ROOT
 export const loginUser = (userData) => dispatch => {
   axios.post(`${apiRoot}/users/login`, userData)
     .then(res => {
+      console.log(res)
       const { token } = res.data
       localStorage.setItem('jwtToken', token);
       setHeaders(token);
@@ -19,12 +20,17 @@ export const loginUser = (userData) => dispatch => {
     })
 }
 
-export const registerUser = (userData, history) => {
+export const registerUser = (userData, history) => dispatch => {
+  console.log('this registers')
   axios.post(`${apiRoot}/users/register`, userData)
     .then(res => {
+      console.log(res)
+      // dispatch(setCurrentUser(res.data.user)); // send data back from the server and login user right away 
       history.push('/login')
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      dispatch(setErrors({notFound: err.response.data.error}))
+    })
 }
 
 export const getCurrentUser = (userId) => dispatch => {
