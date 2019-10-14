@@ -7,7 +7,6 @@ const apiRoot = process.env.REACT_APP_API_ROOT
 export const loginUser = (userData) => dispatch => {
   axios.post(`${apiRoot}/users/login`, userData)
     .then(res => {
-      console.log(res)
       const { token } = res.data
       localStorage.setItem('jwtToken', token);
       setHeaders(token);
@@ -15,7 +14,7 @@ export const loginUser = (userData) => dispatch => {
     })
     .catch(err => {
       if(err.response.status === 404) {
-        dispatch(setErrors({notFound: err.response.data.error}))
+        dispatch(setErrors(err.response.data))
       }
     })
 }
