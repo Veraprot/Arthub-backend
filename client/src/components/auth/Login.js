@@ -30,8 +30,10 @@ function Login(props) {
         >
         </Form.Input>
         <Form.Input
+          error={props.errors.password}  
           type="password" 
-          name="password" placeholder='Password'
+          name="password" 
+          placeholder='Password'
         >
         </Form.Input>
         <Button type='submit'>Log In</Button>

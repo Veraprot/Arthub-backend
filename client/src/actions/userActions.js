@@ -13,9 +13,7 @@ export const loginUser = (userData) => dispatch => {
       dispatch(setCurrentUser(res.data.user));
     })
     .catch(err => {
-      if(err.response.status === 404) {
-        dispatch(setErrors(err.response.data))
-      }
+      dispatch(setErrors(err.response.data))
     })
 }
 
