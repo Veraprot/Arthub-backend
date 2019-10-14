@@ -69,7 +69,7 @@ exports.loginUser = async (req, res) => {
     console.log(user)
     // Check for user
     if (!user) {
-      return res.status(404).json({error: 'User not found'});
+      return res.status(404).json({email: 'User not found'});
     }
 
     bcrypt.compare(password, user.password)
@@ -92,8 +92,7 @@ exports.loginUser = async (req, res) => {
             }
           );
         } else {
-          errors.password = 'Password incorrect';
-          return res.status(400).json(errors);
+          return res.status(400).json({password: "Password Incorrect"});
         }
       })
   })
