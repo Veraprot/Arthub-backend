@@ -26,19 +26,25 @@ function Register(props) {
       <div className="form-container">
         <h1 className="logo-field">Arthub</h1>
 
-        <Form onSubmit={handleSubmit}>
-        <Form.Field>
-            <input name="name" placeholder='name' />
-          </Form.Field>
-          <Form.Field>
-            <input name="email" placeholder='Username or Email' />
-          </Form.Field>
-          <Form.Field>
-            <input name="password" placeholder='Password' />
-          </Form.Field>
-          <Form.Field>
-            <input name="confirmation" placeholder='Password Confirmation' />
-          </Form.Field>
+        <Form 
+          error 
+          onSubmit={handleSubmit}>
+          <Form.Input 
+            error={props.errors.username}
+            name="name" placeholder='name'>
+          </Form.Input>
+          <Form.Input
+            error={props.errors.email}
+            name="email" placeholder='Username or Email'>
+          </Form.Input>
+          <Form.Input
+            error={props.errors.password}
+            name="password" placeholder='Password'>
+          </Form.Input>
+          <Form.Input
+            error={props.errors.password}
+            name="confirmation" placeholder='Password Confirmation'>
+          </Form.Input>
           <Button primary type='submit'>Submit</Button>
         </Form>
         <div>

@@ -11,7 +11,7 @@ exports.registerUser = (req, res) => {
   const {name, email, password} = req.body
   User.findOne({ email }).then(user => {
     if (user) {
-      return res.status(400).json({error: 'Email already exists'});
+      return res.status(400).json({email: 'Email already exists'});
     } else {
       const newUser = new User({
         name,
@@ -27,7 +27,7 @@ exports.registerUser = (req, res) => {
           newUser
             .save()
             .then(user => res.json(user))
-            .catch(err => console.log(err));
+            .catch(err => res.json(err));
         });
       });
     }
