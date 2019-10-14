@@ -18,7 +18,10 @@ export const loginUser = (userData) => dispatch => {
 }
 
 export const registerUser = (userData, history) => dispatch => {
-  console.log('this registers')
+  if(userData.password !== userData.passwordConfirm) {
+    dispatch(setErrors({password: "passwords don't match"}))
+    return 
+  }
   axios.post(`${apiRoot}/users/register`, userData)
     .then(res => {
       console.log(res)
@@ -26,7 +29,7 @@ export const registerUser = (userData, history) => dispatch => {
       history.push('/login')
     })
     .catch(err => {
-      dispatch(setErrors({notFound: err.response.data.error}))
+      dispatch(setErrors(err.response.data))
     })
 }
 
