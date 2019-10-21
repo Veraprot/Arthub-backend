@@ -1,15 +1,18 @@
 import axios from 'axios'
 import {GET_CONVERSATIONS, GET_MESSAGES, SET_NEW_MESSAGE, SET_CONVERSATION} from './types'
-
+import isEmpty from '../validation/isEmpty'
 const apiRoot = process.env.REACT_APP_API_ROOT
 
 export const getConversations = (userId) => dispatch => {
+  // if the user just registers, it should never make that request
   axios.get(`${apiRoot}/users/${userId}/conversations`)
     .then(res => {
-      dispatch({
-        type: GET_CONVERSATIONS, 
-        payload: res.data
-      })
+      if(!isEmpty(res.data)) {
+        dispatch({
+          type: GET_CONVERSATIONS, 
+          payload: res.data
+        })
+      }
     })
 }
 

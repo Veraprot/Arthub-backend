@@ -1,7 +1,7 @@
 import { GET_CONVERSATIONS, SET_CONVERSATION, GET_MESSAGES, SET_NEW_MESSAGE } from '../actions/types';
 
 const initialState = {
-  active: '',
+  active: {},
   all: [], 
   messages: []
 };

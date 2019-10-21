@@ -1,4 +1,4 @@
-import isEmpty from '../validation/is-empty';
+import isEmpty from '../validation/isEmpty';
 import { SET_CURRENT_USER, SET_PROFILE_IMAGE, SET_COVER_PHOTO_IMAGE } from '../actions/types';
 
 const initialState = {
