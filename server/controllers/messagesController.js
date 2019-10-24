@@ -29,7 +29,6 @@ exports.addMessage = async (req, res) => {
     
     function(err, message) {
       if(err) {
-        console.log(err)
         return
       }
 

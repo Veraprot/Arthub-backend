@@ -65,8 +65,6 @@ exports.loginUser = async (req, res) => {
   .select('-conversations, -items')
   .populate('friends.user', ['name', 'email', 'avatar'])
   .exec((err, user) => {
-    console.log('this is it')
-    console.log(user)
     // Check for user
     if (!user) {
       return res.status(404).json({email: 'User not found'});
@@ -77,7 +75,6 @@ exports.loginUser = async (req, res) => {
         if (isMatch) {
           // User Matched
           const payload = { _id: user.id }; // Create JWT Payload
-          console.log(user)
           // Sign Token
           jwt.sign(
             payload,
@@ -126,10 +123,8 @@ exports.updateCoverPhoto = async (req, res) => {
     let S3BasePath = `users/${user.id}/coverPhoto`
     krakenService.compressImage(image.path, S3BasePath, responce => {
       user.coverPhoto = responce
-      console.log('stuff passed back', responce)
       user.save()
       .then(user => {
-        console.log('stuff in db', user.coverPhoto)
         // undo hardcoded value later 
         // delete file from uploads folder after its saved to db
         res.json({_id: user.id, coverPhoto: user.coverPhoto[1]})
