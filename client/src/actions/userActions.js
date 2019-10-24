@@ -24,7 +24,6 @@ export const registerUser = (userData, history) => dispatch => {
   }
   axios.post(`${apiRoot}/users/register`, userData)
     .then(res => {
-      console.log(res)
       // dispatch(setCurrentUser(res.data.user)); // send data back from the server and login user right away 
       history.push('/login')
     })
@@ -34,7 +33,6 @@ export const registerUser = (userData, history) => dispatch => {
 }
 
 export const getCurrentUser = (userId) => dispatch => {
-  console.log(userId)
   axios.get(`${apiRoot}/users/${userId}`)
   .then(res => {
     dispatch(setCurrentUser(res.data));

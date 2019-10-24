@@ -8,10 +8,8 @@ export const addItem = (userId, file, description) => dispatch => {
   formData.append('image', file)
   formData.append('description', description)
 
-  console.log(file)
   axios.post(`${apiRoot}/users/${userId}/items`, formData)
   .then(res => {
-    console.log(res.data)
     dispatch({
       type: ADD_ITEM,
       payload: res.data

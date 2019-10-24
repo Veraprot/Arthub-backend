@@ -9,7 +9,6 @@ const kraken = new Kraken({
 });
 
 exports.compressImage = (imageUrl, S3BasePath, cb) => {
-  console.log('this runs')
   const filePath = path.join(__dirname, '..', imageUrl);
 
   const options = {
@@ -47,7 +46,6 @@ exports.compressImage = (imageUrl, S3BasePath, cb) => {
 
   kraken.upload(options, async (err, data) => {
     if (err) {
-        console.log('Failed. Error message: %s', err);
         cb({err})
     } else {
       let responce = []

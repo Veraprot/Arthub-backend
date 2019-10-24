@@ -27,7 +27,7 @@ router.post('/users/login', loginUser)
 
 // router.get('/users/:id', auth, users.getUser)
 router.route('/users/:id') 
-  .post(getUser)
+  .get(getUser)
   .patch(users.editUser)
 
 router.patch('/users/:id/updateCoverPhoto',auth, users.updateCoverPhoto)
