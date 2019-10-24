@@ -49,7 +49,7 @@ const findUserBy = (userAttr) => {
 
 exports.getUser = async (req, res) => {
   const responce = await findUserBy({_id: req.params.id})
-
+  console.log("wtf")
   if (!responce.error) {
     res.json(responce);
 
