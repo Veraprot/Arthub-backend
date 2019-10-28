@@ -34,19 +34,6 @@ exports.registerUser = (req, res) => {
   });
 }
 
-const findUserBy = (userAttr) => {
-  return User.findOne(userAttr)
-  .select('-conversations, -items')
-  .populate('friends.user', ['name', 'email', 'avatar'])
-  .then(user => {
-    if (!user) {
-      return {error: 'User not found'};
-    }
-
-    return user
-  })
-}
-
 exports.getUser = async (req, res) => {
   const responce = await findUserBy({_id: req.params.id})
   if (!responce.error) {
@@ -133,6 +120,7 @@ exports.updateCoverPhoto = async (req, res) => {
 }
 
 exports.addFriend = async (req, res) => {
+  console.log("this hits")
   let {id} = req.params
   let {friendId} = req.body
 
@@ -186,5 +174,18 @@ exports.getFriends = async (req, res) => {
     .populate('friends.user', ['name', 'email', 'avatar'])
     .exec((error, user) => {
       res.json({user})
+  })
+}
+
+const findUserBy = (userAttr) => {
+  return User.findOne(userAttr)
+  .select('-conversations, -items')
+  .populate('friends.user', ['name', 'email', 'avatar'])
+  .then(user => {
+    if (!user) {
+      return {error: 'User not found'};
+    }
+
+    return user
   })
 }

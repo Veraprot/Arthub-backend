@@ -32,8 +32,8 @@ router.route('/users/:id')
 
 router.patch('/users/:id/updateCoverPhoto',auth, users.updateCoverPhoto)
 
-router.patch('/users/:id/users/add-friend',auth, users.addFriend)
-router.patch('/users/:id/users/accept-friend', auth, users.acceptFriend)
+router.patch('/users/:id/add-friend', auth, users.addFriend)
+router.patch('/users/:id/accept-friend', auth, users.acceptFriend)
 router.get('/users/:id/friends', users.getFriends)
 
 // CONVERSATION  
