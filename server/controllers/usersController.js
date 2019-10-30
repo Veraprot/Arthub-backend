@@ -49,7 +49,7 @@ exports.loginUser = async (req, res) => {
 
   User.findOne({email})
   .select('-conversations, -items')
-  .populate('friends.user', ['name', 'email', 'avatar'])
+  .populate('friends.accepted', ['name', 'email', 'avatar'])
   .exec((err, user) => {
     // Check for user
     if (!user) {
@@ -120,18 +120,17 @@ exports.updateCoverPhoto = async (req, res) => {
 }
 
 exports.addFriend = async (req, res) => {
-  console.log("this hits")
   let {id} = req.params
   let {friendId} = req.body
 
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  user.friends.unshift({ user: friendId, status: 'requested' });
+  user.friends.unshift({ requested: friendId, status: 'requested' });
   let updatedUser = user.save()
 
 
-  friend.friends.unshift({user: id, status: 'pending'})
+  friend.friends.unshift({sent: id, status: 'sent'})
   let updatedFriend = friend.save()
   
   Promise.all([updatedUser, updatedFriend])
@@ -149,29 +148,29 @@ exports.acceptFriend = async (req, res) => {
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
+  // let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
 
-  let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
+  // let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
 
-  userFriendRef.status = 'accepted'
-  friendsFriendRef.status = 'accepted'
+  // userFriendRef.status = 'accepted'
+  // friendsFriendRef.status = 'accepted'
 
-  updatedUser = user.save()
-  updatedFriend = friend.save()
+  // updatedUser = user.save()
+  // updatedFriend = friend.save()
 
-  Promise.all([updatedUser, updatedFriend])
-  .then(() => {
-    res.json({
-      message: 'friend request accepted'
-    })
-  })
+  // Promise.all([updatedUser, updatedFriend])
+  // .then(() => {
+  //   res.json({
+  //     message: 'friend request accepted'
+  //   })
+  // })
 }
 
 exports.getFriends = async (req, res) => {
   let {id} = req.params
 
   User.findById(id)
-    .populate('friends.user', ['name', 'email', 'avatar'])
+    .populate('friends.accepted', ['name', 'email', 'avatar'])
     .exec((error, user) => {
       res.json({user})
   })
@@ -186,6 +185,10 @@ const findUserBy = (userAttr) => {
       return {error: 'User not found'};
     }
 
+    console.log(user.friends)
     return user
+  })
+  .catch(err => {
+    return err
   })
 }

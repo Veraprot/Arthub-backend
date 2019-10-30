@@ -33,11 +33,18 @@ const UserSchema = new Schema({
   
   friends: [
     {
-      user: {
+      requested: {
         type: Schema.Types.ObjectId,
         ref: 'users',
       },
-      status: String
+      sent: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+      },
+      accepted: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+      }
     }
   ], 
 
