@@ -221,24 +221,41 @@ exports.rejectFriendRequest = async (req, res) => {
 // Get all friends and check whether the logged in user is friend of that user or not
 exports.getFriends = async (req, res) => {
   let {id} = req.params
+  // let user = await User.aggregate([
+  //   { "$lookup": {
+  //     "from": Friend.collection.name,
+  //     "let": { "friends": "$friends" },
+  //     "pipeline": [
+  //       { "$match": {
+  //         "recipient": id,
+  //         "$expr": { "$in": [ "$_id", "$$friends" ] }
+  //       }},
+  //       { "$project": { "status": 1 } }
+  //     ],
+  //     "as": "friends"
+  //   }},
+  //   { "$addFields": {
+  //     "friendsStatus": {
+  //       "$ifNull": [ { "$min": "$friends.status" }, 0 ]
+  //     }
+  //   }}
+  // ])
+
   let user = await User.aggregate([
-    { "$lookup": {
-      "from": Friend.collection.name,
-      "let": { "friends": "$friends" },
-      "pipeline": [
-        { "$match": {
-          "recipient": id,
-          "$expr": { "$in": [ "$_id", "$$friends" ] }
-        }},
-        { "$project": { "status": 1 } }
-      ],
-      "as": "friends"
-    }},
-    { "$addFields": {
-      "friendsStatus": {
-        "$ifNull": [ { "$min": "$friends.status" }, 0 ]
+    {
+      "$lookup": {
+        "from": Friend.collection.name,
+        "let": { "friends": "$friends" },
+        "pipeline": [
+          {
+            "$match": {
+              "recipient": "5afaab572c4ec049aeb0bcba",
+            }
+          }
+        ], 
+        "as": "friends"
       }
-    }}
+    }
   ])
   res.json({
     user
