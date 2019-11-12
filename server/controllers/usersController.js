@@ -161,22 +161,51 @@ exports.acceptFriend = async (req, res) => {
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  // let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
+  updatedUser = Friend.findOneAndUpdate(
+    { requester: user, recipient: friend },
+    { $set: { status: 3 }}
+  )
+  updatedFriend = Friend.findOneAndUpdate(
+      { recipient: user, requester: friend },
+      { $set: { status: 3 }}
+  )
 
-  // let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
+  Promise.all([updatedUser, updatedFriend])
+  .then(() => {
+    res.json({
+      message: 'friend request accepted'
+    })
+  })
+}
 
-  // userFriendRef.status = 'accepted'
-  // friendsFriendRef.status = 'accepted'
+exports.rejectFriendRequest = async (req, res) => {
+  const {id} = req.params
+  let {friendId} = req.body
 
-  // updatedUser = user.save()
-  // updatedFriend = friend.save()
+  let user = await User.findById(id)
+  let friend = await User.findById(friendId)
 
-  // Promise.all([updatedUser, updatedFriend])
-  // .then(() => {
-  //   res.json({
-  //     message: 'friend request accepted'
-  //   })
-  // })
+  const docA = await Friend.findOneAndRemove(
+    { requester: user, recipient: friend }
+  )
+  const docB = await Friend.findOneAndRemove(
+    { recipient: user, requester: friend }
+  )
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: user },
+    { $pull: { friends: docA._id }}
+  )
+  const updatedFriend = await User.findOneAndUpdate(
+    { _id: friend },
+    { $pull: { friends: docB._id }}
+  )
+
+  Promise.all([updatedUser, updatedFriend])
+  .then(() => {
+    res.json({
+      message: 'friend request rejected'
+    })
+  })
 }
 
 exports.getFriends = async (req, res) => {
