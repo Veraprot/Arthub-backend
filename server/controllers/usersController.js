@@ -1,5 +1,7 @@
 // Load User model
 const User = require('../models/User');
+const Item = require('../models/Item');
+const Friend = require('../models/Friend');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -51,7 +53,6 @@ exports.loginUser = async (req, res) => {
   .select('-conversations, -items')
   .exec((err, user) => {
     // Check for user
-    console.log(user)
     if (!user) {
       return res.status(404).json({email: 'User not found'});
     }
@@ -125,8 +126,7 @@ exports.addFriend = async (req, res) => {
 
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
-  console.log(user.friends)
-  console.log('what')
+
   const docA = await Friend.findOneAndUpdate(
     { requester: user, recipient: friend },
     { $set: { status: 1 }},
