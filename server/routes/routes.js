@@ -32,9 +32,10 @@ router.route('/users/:id')
 
 router.patch('/users/:id/updateCoverPhoto',auth, users.updateCoverPhoto)
 
+// Adding Friends 
 router.patch('/users/:id/add-friend', auth, users.addFriend)
 router.patch('/users/:id/accept-friend', auth, users.acceptFriend)
-router.get('/users/:id/friends', users.getFriends)
+router.get('/users/:id/friends', auth, users.getFriends)
 
 // CONVERSATION  
 router.post('/users/:userId/conversations/create', auth, conversations.create)

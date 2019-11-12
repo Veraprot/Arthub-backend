@@ -49,9 +49,9 @@ exports.loginUser = async (req, res) => {
 
   User.findOne({email})
   .select('-conversations, -items')
-  .populate('friends.accepted', ['name', 'email', 'avatar'])
   .exec((err, user) => {
     // Check for user
+    console.log(user)
     if (!user) {
       return res.status(404).json({email: 'User not found'});
     }
@@ -125,21 +125,33 @@ exports.addFriend = async (req, res) => {
 
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
-
   console.log(user.friends)
-  // user.friends.requested.unshift({ user: friendId });
-  // let updatedUser = user.save()
+  console.log('what')
+  const docA = await Friend.findOneAndUpdate(
+    { requester: user, recipient: friend },
+    { $set: { status: 1 }},
+    { upsert: true, new: true }
+  )
+  const docB = await Friend.findOneAndUpdate(
+      { recipient: user, requester: friend },
+      { $set: { status: 2 }},
+      { upsert: true, new: true }
+  )
+  const updatedUser = await User.findOneAndUpdate(
+      { _id: user },
+      { $push: { friends: docA._id }}
+  )
+  const updatedFriend = await User.findOneAndUpdate(
+      { _id: friend },
+      { $push: { friends: docB._id }}
+  )
 
-
-  // friend.friends.sent.unshift({user: id })
-  // let updatedFriend = friend.save()
-  
-  // Promise.all([updatedUser, updatedFriend])
-  //   .then(() => {
-  //     res.json({
-  //       message: 'friend request sent'
-  //     })
-  //   })
+  Promise.all([updatedUser, updatedFriend])
+  .then(() => {
+    res.json({
+      message: 'friend request accepted'
+    })
+  })
 }
 
 exports.acceptFriend = async (req, res) => {

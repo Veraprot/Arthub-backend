@@ -31,22 +31,28 @@ const UserSchema = new Schema({
     default: Date.now
   }, 
   
+  // friends: [
+  //   {
+  //     requested: {
+  //       type: Schema.Types.ObjectId,
+  //       ref: 'users',
+  //     },
+  //     sent: {
+  //       type: Schema.Types.ObjectId,
+  //       ref: 'users',
+  //     },
+  //     accepted: {
+  //       type: Schema.Types.ObjectId,
+  //       ref: 'users',
+  //     }
+  //   }
+  // ], 
+  
   friends: [
-    {
-      requested: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-      },
-      sent: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-      },
-      accepted: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-      }
+    { 
+      type: Schema.Types.ObjectId, ref: 'Friends'
     }
-  ], 
+  ],
 
   conversations: [
     { 
