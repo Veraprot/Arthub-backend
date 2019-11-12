@@ -33,6 +33,7 @@ router.route('/users/:id')
 router.patch('/users/:id/updateCoverPhoto',auth, users.updateCoverPhoto)
 
 // Adding Friends 
+router.get('/users/:id/friends', users.getFriends)
 router.patch('/users/:id/add-friend', auth, users.addFriend)
 router.patch('/users/:id/accept-friend', auth, users.acceptFriend)
 router.get('/users/:id/friends', auth, users.getFriends)
