@@ -31,11 +31,11 @@ function Register(props) {
           onSubmit={handleSubmit}>
           <Form.Input 
             error={props.errors.username}
-            name="name" placeholder='name'>
+            name="name" placeholder='Username'>
           </Form.Input>
           <Form.Input
             error={props.errors.email}
-            name="email" placeholder='Username or Email'>
+            name="email" placeholder='Email'>
           </Form.Input>
           <Form.Input
             error={props.errors.password}
