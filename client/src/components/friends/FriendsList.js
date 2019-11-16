@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import ReceivedRequests from './ReceivedRequests'
 import SentRequests from './SentRequests'
+import { connect } from 'react-redux'
 
-function FriendsList() {
-  const [requestType, setRequestType] = useState('received');
-
+function FriendsList(props) {
+  console.log(props)
   return (
     <>
       <div className="invitations-container">
@@ -18,4 +18,7 @@ function FriendsList() {
   )
 }
 
-export default FriendsList;
+const mapStateToProps = state => ({
+  friends: state.user.info.friends
+}); 
+export default connect(mapStateToProps, {})(FriendsList);
