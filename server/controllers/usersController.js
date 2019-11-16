@@ -194,95 +194,6 @@ exports.rejectFriendRequest = async (req, res) => {
   })
 }
 
-// exports.addFriend = async (req, res) => {
-//   let {id} = req.params
-//   let {friendId} = req.body
-
-//   let user = await User.findById(id)
-//   let friend = await User.findById(friendId)
-
-//   const docA = await Friend.findOneAndUpdate(
-//     { requester: user, recipient: friend },
-//     { $set: { status: 1 }},
-//     { upsert: true, new: true }
-//   )
-//   const docB = await Friend.findOneAndUpdate(
-//       { recipient: user, requester: friend },
-//       { $set: { status: 2 }},
-//       { upsert: true, new: true }
-//   )
-//   const updatedUser = await User.findOneAndUpdate(
-//       { _id: user },
-//       { $push: { friends: docA._id }}
-//   )
-//   const updatedFriend = await User.findOneAndUpdate(
-//       { _id: friend },
-//       { $push: { friends: docB._id }}
-//   )
-
-//   Promise.all([updatedUser, updatedFriend])
-//   .then(() => {
-//     res.json({
-//       message: 'friend request sent'
-//     })
-//   })
-// }
-
-// exports.acceptFriend = async (req, res) => {
-//   const {id} = req.params
-//   let {friendId} = req.body
-
-//   let user = await User.findById(id)
-//   let friend = await User.findById(friendId)
-
-//   updatedUser = Friend.findOneAndUpdate(
-//     { requester: user, recipient: friend },
-//     { $set: { status: 3 }}
-//   )
-//   updatedFriend = Friend.findOneAndUpdate(
-//       { recipient: user, requester: friend },
-//       { $set: { status: 3 }}
-//   )
-
-//   Promise.all([updatedUser, updatedFriend])
-//   .then(() => {
-//     res.json({
-//       message: 'friend request accepted'
-//     })
-//   })
-// }
-
-// exports.rejectFriendRequest = async (req, res) => {
-//   const {id} = req.params
-//   let {friendId} = req.body
-
-//   let user = await User.findById(id)
-//   let friend = await User.findById(friendId)
-
-//   const docA = await Friend.findOneAndRemove(
-//     { requester: user, recipient: friend }
-//   )
-//   const docB = await Friend.findOneAndRemove(
-//     { recipient: user, requester: friend }
-//   )
-//   const updatedUser = await User.findOneAndUpdate(
-//     { _id: user },
-//     { $pull: { friends: docA._id }}
-//   )
-//   const updatedFriend = await User.findOneAndUpdate(
-//     { _id: friend },
-//     { $pull: { friends: docB._id }}
-//   )
-
-//   Promise.all([updatedUser, updatedFriend])
-//   .then(() => {
-//     res.json({
-//       message: 'friend request rejected'
-//     })
-//   })
-// }
-
-// Get all friends and check whether the logged in user is friend of that user or not
 exports.getFriends = async (req, res) => {
   let {id} = req.params
   let user = await User.aggregate([
@@ -305,29 +216,6 @@ exports.getFriends = async (req, res) => {
     }}, 
   ])
 
-  res.json({
-    user
-  })
-}
-
-exports.getFriendsTest = async (req, res) => {
-  let {id} = req.params
-  // let user = await User.findById(id)
-  // .populate({
-  //   path: 'friends',
-  //   select: ['recipient'],
-  //   populate: {
-  //     path: 'recipient',
-  //     select: ['_id', 'name']
-  //   }
-  // })
-
-  // let user = await User.aggregate([
-  //   {
-  //     $match: {}
-  //   }
-  // ])
-  
   res.json({
     user
   })
