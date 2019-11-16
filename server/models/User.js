@@ -48,6 +48,21 @@ const UserSchema = new Schema({
   //   }
   // ], 
   
+  // testF: [
+  //   {
+  //     user: {
+  //       type: Schema.Types.ObjectId,
+  //       ref: 'users',
+  //     },
+  //     status: Number, 
+  //     enums: [
+  //       1,    //'requested',
+  //       2,    //'pending',
+  //       3,    //'friends'
+  //     ]
+  //   }
+  // ], 
+
   friends: [
     { 
       type: Schema.Types.ObjectId, ref: 'friends'

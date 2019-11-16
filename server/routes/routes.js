@@ -32,10 +32,10 @@ router.route('/users/:id')
 
 router.patch('/users/:id/updateCoverPhoto',auth, users.updateCoverPhoto)
 
-// Adding Friends 
+// Adding Friends (wihtout auth, fix that later)
 router.get('/users/:id/friends', users.getFriends)
-router.patch('/users/:id/add-friend', auth, users.addFriend)
-router.patch('/users/:id/accept-friend', auth, users.acceptFriend)
+router.patch('/users/:id/add-friend', users.addFriend)
+router.patch('/users/:id/accept-friend', users.acceptFriend)
 router.get('/users/:id/friends', auth, users.getFriends)
 
 // CONVERSATION  
