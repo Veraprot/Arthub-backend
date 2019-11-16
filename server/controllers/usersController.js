@@ -239,26 +239,8 @@ exports.getFriendSuggestions = async (req, res) => {
 
 exports.getFriends = async (req, res) => {
   let {id} = req.params
-  let user = await User.aggregate([
-    { "$lookup": {
-      "from": Friend.collection.name,
-      "let": { "friends": "$friends" },
-      "pipeline": [
-        { "$match": {
-          "recipient": ObjectId(id),
-          "$expr": { "$in": [ "$_id", "$$friends" ] }
-        }},
-        { "$project": { "status": 1 } }
-      ],
-      "as": "friends"
-    }},
-    { "$addFields": {
-      "friendsStatus": {
-        "$ifNull": [ { "$min": "$friends.status" }, 0 ]
-      }
-    }}
-  ])
-
+  let user = await User.findById(id)
+  .populate('friends', ['recipient'])
   res.json({
     user
   })
