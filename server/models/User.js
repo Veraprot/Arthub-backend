@@ -46,11 +46,27 @@ const UserSchema = new Schema({
   //   }
   // ], 
 
+  // friends: [
+  //   { 
+  //     type: Schema.Types.ObjectId, ref: 'friends'
+  //   }
+  // ],
+
   friends: [
-    { 
-      type: Schema.Types.ObjectId, ref: 'friends'
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+      },
+      status: Number,
+      enums: [
+        0,    //'add friend',
+        1,    //'requested',
+        2,    //'pending',
+        3,    //'friends'
+    ]
     }
-  ],
+  ], 
 
   conversations: [
     { 

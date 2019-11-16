@@ -122,37 +122,26 @@ exports.updateCoverPhoto = async (req, res) => {
 }
 
 exports.addFriend = async (req, res) => {
+  console.log("this hits")
   let {id} = req.params
   let {friendId} = req.body
 
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  const docA = await Friend.findOneAndUpdate(
-    { requester: user, recipient: friend },
-    { $set: { status: 1 }},
-    { upsert: true, new: true }
-  )
-  const docB = await Friend.findOneAndUpdate(
-      { recipient: user, requester: friend },
-      { $set: { status: 2 }},
-      { upsert: true, new: true }
-  )
-  const updatedUser = await User.findOneAndUpdate(
-      { _id: user },
-      { $push: { friends: docA._id }}
-  )
-  const updatedFriend = await User.findOneAndUpdate(
-      { _id: friend },
-      { $push: { friends: docB._id }}
-  )
+  user.friends.unshift({ user: friendId, status: 1 }); //requested
+  let updatedUser = user.save()
 
+
+  friend.friends.unshift({user: id, status: 2})
+  let updatedFriend = friend.save()
+  
   Promise.all([updatedUser, updatedFriend])
-  .then(() => {
-    res.json({
-      message: 'friend request accepted'
+    .then(() => {
+      res.json({
+        message: 'friend request sent'
+      })
     })
-  })
 }
 
 exports.acceptFriend = async (req, res) => {
@@ -162,14 +151,15 @@ exports.acceptFriend = async (req, res) => {
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  updatedUser = Friend.findOneAndUpdate(
-    { requester: user, recipient: friend },
-    { $set: { status: 3 }}
-  )
-  updatedFriend = Friend.findOneAndUpdate(
-      { recipient: user, requester: friend },
-      { $set: { status: 3 }}
-  )
+  let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
+
+  let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
+
+  userFriendRef.status = 3
+  friendsFriendRef.status = 3
+
+  updatedUser = user.save()
+  updatedFriend = friend.save()
 
   Promise.all([updatedUser, updatedFriend])
   .then(() => {
@@ -186,20 +176,15 @@ exports.rejectFriendRequest = async (req, res) => {
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  const docA = await Friend.findOneAndRemove(
-    { requester: user, recipient: friend }
-  )
-  const docB = await Friend.findOneAndRemove(
-    { recipient: user, requester: friend }
-  )
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: user },
-    { $pull: { friends: docA._id }}
-  )
-  const updatedFriend = await User.findOneAndUpdate(
-    { _id: friend },
-    { $pull: { friends: docB._id }}
-  )
+  let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
+
+  let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
+
+  userFriendRef.status = 0
+  friendsFriendRef.status = 0
+
+  updatedUser = user.save()
+  updatedFriend = friend.save()
 
   Promise.all([updatedUser, updatedFriend])
   .then(() => {
@@ -209,27 +194,115 @@ exports.rejectFriendRequest = async (req, res) => {
   })
 }
 
+// exports.addFriend = async (req, res) => {
+//   let {id} = req.params
+//   let {friendId} = req.body
+
+//   let user = await User.findById(id)
+//   let friend = await User.findById(friendId)
+
+//   const docA = await Friend.findOneAndUpdate(
+//     { requester: user, recipient: friend },
+//     { $set: { status: 1 }},
+//     { upsert: true, new: true }
+//   )
+//   const docB = await Friend.findOneAndUpdate(
+//       { recipient: user, requester: friend },
+//       { $set: { status: 2 }},
+//       { upsert: true, new: true }
+//   )
+//   const updatedUser = await User.findOneAndUpdate(
+//       { _id: user },
+//       { $push: { friends: docA._id }}
+//   )
+//   const updatedFriend = await User.findOneAndUpdate(
+//       { _id: friend },
+//       { $push: { friends: docB._id }}
+//   )
+
+//   Promise.all([updatedUser, updatedFriend])
+//   .then(() => {
+//     res.json({
+//       message: 'friend request sent'
+//     })
+//   })
+// }
+
+// exports.acceptFriend = async (req, res) => {
+//   const {id} = req.params
+//   let {friendId} = req.body
+
+//   let user = await User.findById(id)
+//   let friend = await User.findById(friendId)
+
+//   updatedUser = Friend.findOneAndUpdate(
+//     { requester: user, recipient: friend },
+//     { $set: { status: 3 }}
+//   )
+//   updatedFriend = Friend.findOneAndUpdate(
+//       { recipient: user, requester: friend },
+//       { $set: { status: 3 }}
+//   )
+
+//   Promise.all([updatedUser, updatedFriend])
+//   .then(() => {
+//     res.json({
+//       message: 'friend request accepted'
+//     })
+//   })
+// }
+
+// exports.rejectFriendRequest = async (req, res) => {
+//   const {id} = req.params
+//   let {friendId} = req.body
+
+//   let user = await User.findById(id)
+//   let friend = await User.findById(friendId)
+
+//   const docA = await Friend.findOneAndRemove(
+//     { requester: user, recipient: friend }
+//   )
+//   const docB = await Friend.findOneAndRemove(
+//     { recipient: user, requester: friend }
+//   )
+//   const updatedUser = await User.findOneAndUpdate(
+//     { _id: user },
+//     { $pull: { friends: docA._id }}
+//   )
+//   const updatedFriend = await User.findOneAndUpdate(
+//     { _id: friend },
+//     { $pull: { friends: docB._id }}
+//   )
+
+//   Promise.all([updatedUser, updatedFriend])
+//   .then(() => {
+//     res.json({
+//       message: 'friend request rejected'
+//     })
+//   })
+// }
+
 // Get all friends and check whether the logged in user is friend of that user or not
-exports.getFriendSuggestions = async (req, res) => {
+exports.getFriends = async (req, res) => {
   let {id} = req.params
   let user = await User.aggregate([
+    { "$match": { "_id": ObjectId(id) } },
     { "$lookup": {
-      "from": Friend.collection.name,
+      "from": User.collection.name,
       "let": { "friends": "$friends" },
       "pipeline": [
         { "$match": {
-          "recipient": ObjectId(id),
-          "$expr": { "$in": [ "$_id", "$$friends" ] }
+          "friends.status": 2,
         }},
-        { "$project": { "status": 1 } }
+        { "$project": { 
+            "name": 1, 
+            "email": 1,
+            "avatar": 1
+          }
+        }
       ],
       "as": "friends"
-    }},
-    { "$addFields": {
-      "friendsStatus": {
-        "$ifNull": [ { "$min": "$friends.status" }, 0 ]
-      }
-    }}
+    }}, 
   ])
 
   res.json({
@@ -237,10 +310,24 @@ exports.getFriendSuggestions = async (req, res) => {
   })
 }
 
-exports.getFriends = async (req, res) => {
+exports.getFriendsTest = async (req, res) => {
   let {id} = req.params
-  let user = await User.findById(id)
-  .populate('friends', ['recipient'])
+  // let user = await User.findById(id)
+  // .populate({
+  //   path: 'friends',
+  //   select: ['recipient'],
+  //   populate: {
+  //     path: 'recipient',
+  //     select: ['_id', 'name']
+  //   }
+  // })
+
+  // let user = await User.aggregate([
+  //   {
+  //     $match: {}
+  //   }
+  // ])
+  
   res.json({
     user
   })
@@ -249,7 +336,6 @@ exports.getFriends = async (req, res) => {
 const findUserBy = (userAttr) => {
   return User.findOne(userAttr)
   .select('-conversations, -items')
-  .populate('friends.user', ['name', 'email', 'avatar'])
   .then(user => {
     if (!user) {
       return {error: 'User not found'};
