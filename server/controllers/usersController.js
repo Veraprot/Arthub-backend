@@ -2,7 +2,6 @@
 const ObjectId = mongoose.Types.ObjectId;
 const User = require('../models/User');
 const Item = require('../models/Item');
-const Friend = require('../models/Friend');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
