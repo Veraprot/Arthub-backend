@@ -1,12 +1,17 @@
 import React, {useEffect} from "react";
 import { connect } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { getConversations, setActiveConversation } from '../../actions/conversationActions'
 import {socket} from '../../utils/socket'
 const resourceRoot = process.env.REACT_APP_RESOURCE_ROOT
 
 function ConversationsList(props) {
+  const currentUser = useSelector(state => state.user.info);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    props.getConversations(props.currentUser._id)
+    // props.getConversations(props.currentUser._id)
+    dispatch(getConversations(currentUser._id))
   }, [])
 
   const conversationParticipants = (conversation) => {

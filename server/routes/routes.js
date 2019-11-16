@@ -39,7 +39,7 @@ router.patch('/users/:id/accept-friend', auth, users.acceptFriend)
 router.get('/users/:id/friends', auth, users.getFriends)
 
 // CONVERSATION  
-router.post('/users/:userId/conversations/create', auth, conversations.create)
+router.post('/users/:userId/conversations/create', conversations.create)
 router.get('/users/:userId/conversations/', auth, conversations.getUserConversations)
 
 // MESSAGES  
