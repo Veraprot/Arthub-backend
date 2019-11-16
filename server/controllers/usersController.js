@@ -209,17 +209,34 @@ exports.rejectFriendRequest = async (req, res) => {
   })
 }
 
-// exports.getFriends = async (req, res) => {
-//   let {id} = req.params
-// aggregate match 3 ==> friends 
-//   User.findById(id)
-//     .populate('friends', ['name', 'email', 'avatar'])
-//     .exec((error, user) => {
-//       res.json({user})
-//   })
-// }
-
 // Get all friends and check whether the logged in user is friend of that user or not
+exports.getFriendSuggestions = async (req, res) => {
+  let {id} = req.params
+  let user = await User.aggregate([
+    { "$lookup": {
+      "from": Friend.collection.name,
+      "let": { "friends": "$friends" },
+      "pipeline": [
+        { "$match": {
+          "recipient": ObjectId(id),
+          "$expr": { "$in": [ "$_id", "$$friends" ] }
+        }},
+        { "$project": { "status": 1 } }
+      ],
+      "as": "friends"
+    }},
+    { "$addFields": {
+      "friendsStatus": {
+        "$ifNull": [ { "$min": "$friends.status" }, 0 ]
+      }
+    }}
+  ])
+
+  res.json({
+    user
+  })
+}
+
 exports.getFriends = async (req, res) => {
   let {id} = req.params
   let user = await User.aggregate([
@@ -245,7 +262,6 @@ exports.getFriends = async (req, res) => {
   res.json({
     user
   })
-  console.log(user)
 }
 
 const findUserBy = (userAttr) => {
