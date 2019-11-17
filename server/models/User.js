@@ -37,7 +37,13 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users',
       },
-      status: String
+      status: Number,
+      enums: [
+        0,    //'add friend',
+        1,    //'requested',
+        2,    //'pending',
+        3,    //'friends'
+    ]
     }
   ], 
 

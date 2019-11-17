@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { connect } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import {socket} from '../../utils/socket'
 import { getMessages, getConversations, sendMessage, setNewMessage } from '../../actions/conversationActions'
 

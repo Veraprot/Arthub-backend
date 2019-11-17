@@ -1,5 +1,7 @@
 // Load User model
+const ObjectId = mongoose.Types.ObjectId;
 const User = require('../models/User');
+const Item = require('../models/Item');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -49,7 +51,6 @@ exports.loginUser = async (req, res) => {
 
   User.findOne({email})
   .select('-conversations, -items')
-  .populate('friends.user', ['name', 'email', 'avatar'])
   .exec((err, user) => {
     // Check for user
     if (!user) {
@@ -127,11 +128,11 @@ exports.addFriend = async (req, res) => {
   let user = await User.findById(id)
   let friend = await User.findById(friendId)
 
-  user.friends.unshift({ user: friendId, status: 'requested' });
+  user.friends.unshift({ user: friendId, status: 1 }); //requested
   let updatedUser = user.save()
 
 
-  friend.friends.unshift({user: id, status: 'pending'})
+  friend.friends.unshift({user: id, status: 2})
   let updatedFriend = friend.save()
   
   Promise.all([updatedUser, updatedFriend])
@@ -153,8 +154,8 @@ exports.acceptFriend = async (req, res) => {
 
   let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
 
-  userFriendRef.status = 'accepted'
-  friendsFriendRef.status = 'accepted'
+  userFriendRef.status = 3
+  friendsFriendRef.status = 3
 
   updatedUser = user.save()
   updatedFriend = friend.save()
@@ -167,25 +168,70 @@ exports.acceptFriend = async (req, res) => {
   })
 }
 
+exports.rejectFriendRequest = async (req, res) => {
+  const {id} = req.params
+  let {friendId} = req.body
+
+  let user = await User.findById(id)
+  let friend = await User.findById(friendId)
+
+  let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
+
+  let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
+
+  userFriendRef.status = 0
+  friendsFriendRef.status = 0
+
+  updatedUser = user.save()
+  updatedFriend = friend.save()
+
+  Promise.all([updatedUser, updatedFriend])
+  .then(() => {
+    res.json({
+      message: 'friend request rejected'
+    })
+  })
+}
+
 exports.getFriends = async (req, res) => {
   let {id} = req.params
+  let user = await User.aggregate([
+    { "$match": { "_id": ObjectId(id) } },
+    { "$lookup": {
+      "from": User.collection.name,
+      "let": { "friends": "$friends" },
+      "pipeline": [
+        { "$match": {
+          "friends.status": 2,
+        }},
+        { "$project": { 
+            "name": 1, 
+            "email": 1,
+            "avatar": 1
+          }
+        }
+      ],
+      "as": "friends"
+    }}, 
+  ])
 
-  User.findById(id)
-    .populate('friends.user', ['name', 'email', 'avatar'])
-    .exec((error, user) => {
-      res.json({user})
+  res.json({
+    user
   })
 }
 
 const findUserBy = (userAttr) => {
   return User.findOne(userAttr)
   .select('-conversations, -items')
-  .populate('friends.user', ['name', 'email', 'avatar'])
   .then(user => {
     if (!user) {
       return {error: 'User not found'};
     }
 
+    console.log(user.friends)
     return user
+  })
+  .catch(err => {
+    return err
   })
 }

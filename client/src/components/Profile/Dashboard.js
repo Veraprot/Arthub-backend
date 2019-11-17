@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
 const resourceRoot = process.env.REACT_APP_RESOURCE_ROOT
 
 function Dashboard(props) {
-  const[loading, setLoading] = useState('loading')
   const[uploadModal, setUploadModal] = useState(false)
   const[uploadModalOptions, setUploadModalOpitons] = useState({})
   
@@ -19,7 +18,7 @@ function Dashboard(props) {
   return (
     <div className="profile-dashboard full-hd">
       <div className="profile-info-container">
-        <div className={`cover-photo-container ${loading}`}>
+        <div className="cover-photo-container">
           {/* <img 
           srcSet={`${props.currentUser.coverPhoto[1].S3Key} 1900w`}
            alt=""/> */}
