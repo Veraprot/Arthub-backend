@@ -13,9 +13,9 @@ function Navbar(props) {
 
   const guestLinks = (
     <>
-      {/* <Link to="/about">
+      <Link to="/about">
         About
-      </Link> */}
+      </Link>
     </>
   );
 
@@ -29,12 +29,12 @@ function Navbar(props) {
         </form>
       </div>
       <div className="navigation-links">
-        <Link to="/user">
+        {/* <Link to="/user">
           <div className="avatar-container">
               <img className="profile-icon" src={`${resourceRoot}/${props.user.info.avatar}`} alt=""/>
           </div>
           <span>{props.user.info.name}</span>
-        </Link>
+        </Link> */}
         <Link to={`/conversations/`}>
           <Icon name='comment alternate' size='large' />
         </Link>
