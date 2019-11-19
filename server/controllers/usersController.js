@@ -121,7 +121,6 @@ exports.updateCoverPhoto = async (req, res) => {
 }
 
 exports.addFriend = async (req, res) => {
-  console.log("this hits")
   let {id} = req.params
   let {friendId} = req.body
 
@@ -216,7 +215,7 @@ exports.getFriends = async (req, res) => {
   ])
 
   res.json({
-    user
+    friends: user[0].friends
   })
 }
 
