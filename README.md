@@ -43,6 +43,7 @@ MONGO_URI = 'YOUR_OWN_MONGO_URI'
 SECRET_OR_KEY = 'YOUR_OWN_SECRET'
 ```
 
+In order to persist data you will also need to run a mongodb server 
 ### Author
 
 Vera Protopopova
