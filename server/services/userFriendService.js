@@ -8,14 +8,14 @@ class UserFriendService {
 
     user.friends.unshift({ user: friend_id, status: 1 }); //requested
     let updatedUser = user.save()
-
     friend.friends.unshift({user: id, status: 2})
     let updatedFriend = friend.save()
-    
-    Promise.all([updatedUser, updatedFriend])
+    return Promise.all([updatedUser, updatedFriend])
     .then(() => {
+      console.log('ok')
       return 'friend request sent'
     })
+    .catch(err => err)
   }
 
   async acceptFriend(id, friend_id) {
@@ -29,10 +29,10 @@ class UserFriendService {
     userFriendRef.status = 3
     friendsFriendRef.status = 3
   
-    updatedUser = user.save()
-    updatedFriend = friend.save()
+    let updatedUser = user.save()
+    let updatedFriend = friend.save()
   
-    Promise.all([updatedUser, updatedFriend])
+    return Promise.all([updatedUser, updatedFriend])
     .then(() => {
       return 'friend request accepted'
     })
@@ -52,7 +52,7 @@ class UserFriendService {
     updatedUser = user.save()
     updatedFriend = friend.save()
   
-    Promise.all([updatedUser, updatedFriend])
+    return Promise.all([updatedUser, updatedFriend])
     .then(() => {
        return 'friend request rejected'
     })

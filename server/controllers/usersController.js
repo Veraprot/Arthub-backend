@@ -1,9 +1,10 @@
 // Load User model
 const User = require('../models/User');
 const UserFriendService = require('../services/userFriendService')
+const UserAuthService = require('../services/userAuthService')
 const Item = require('../models/Item');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const krakenService = require('../utils/krakenService')
 
@@ -11,29 +12,8 @@ const secretOrKey = process.env.SECRET_OR_KEY;
 
 exports.registerUser = (req, res) => {
   const {name, email, password} = req.body
-  User.findOne({ email }).then(user => {
-    if (user) {
-      return res.status(400).json({email: 'Email already exists'});
-    } else {
-      const newUser = new User({
-        name,
-        email,
-        avatar: '',
-        password
-      });
-
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => res.json(err));
-        });
-      });
-    }
-  });
+  let registeredUser = UserAuthService.registerUser(name, email, password)
+  res.json({user: registeredUser})
 }
 
 exports.getUser = async (req, res) => {
@@ -123,73 +103,27 @@ exports.updateCoverPhoto = async (req, res) => {
 exports.addFriend = async (req, res) => {
   let {id} = req.params
   let {friendId} = req.body
-
-  let user = await User.findById(id)
-  let friend = await User.findById(friendId)
-
-  user.friends.unshift({ user: friendId, status: 1 }); //requested
-  let updatedUser = user.save()
-
-
-  friend.friends.unshift({user: id, status: 2})
-  let updatedFriend = friend.save()
-  
-  Promise.all([updatedUser, updatedFriend])
-    .then(() => {
-      res.json({
-        message: 'friend request sent'
-      })
-    })
+  let addedFriend = await UserFriendService.addFriend(id, friendId)
+  console.log('this is', addedFriend)
+  res.json({message: addedFriend})
 }
 
 exports.acceptFriend = async (req, res) => {
   const {id} = req.params
   let {friendId} = req.body
 
-  let user = await User.findById(id)
-  let friend = await User.findById(friendId)
-
-  let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
-
-  let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
-
-  userFriendRef.status = 3
-  friendsFriendRef.status = 3
-
-  updatedUser = user.save()
-  updatedFriend = friend.save()
-
-  Promise.all([updatedUser, updatedFriend])
-  .then(() => {
-    res.json({
-      message: 'friend request accepted'
-    })
+  let acceptRecord = await UserFriendService.acceptFriend(id, friendId)
+  res.json({
+    message: acceptRecord
   })
 }
 
 exports.rejectFriendRequest = async (req, res) => {
   const {id} = req.params
   let {friendId} = req.body
+  const rejection = await UserFriendService.rejectFriendRequest(id, friendId)
 
-  let user = await User.findById(id)
-  let friend = await User.findById(friendId)
-
-  let userFriendRef = user.friends.find(userFriends => userFriends.user.toString() === friendId)
-
-  let friendsFriendRef = friend.friends.find(friend => friend.user.toString() === id)
-
-  userFriendRef.status = 0
-  friendsFriendRef.status = 0
-
-  updatedUser = user.save()
-  updatedFriend = friend.save()
-
-  Promise.all([updatedUser, updatedFriend])
-  .then(() => {
-    res.json({
-      message: 'friend request rejected'
-    })
-  })
+  res.json({message: rejection})
 }
 
 exports.getFriends = async (req, res) => {
