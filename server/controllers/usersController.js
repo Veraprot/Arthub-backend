@@ -201,7 +201,8 @@ exports.getFriends = async (req, res) => {
       "let": { "friends": "$friends" },
       "pipeline": [
         { "$match": {
-          "friends.status": 2,
+          "friends.user": ObjectId(id),
+          "friends.status": 3,
         }},
         { "$project": { 
             "name": 1, 
