@@ -1,6 +1,6 @@
 // Load User model
-const ObjectId = mongoose.Types.ObjectId;
 const User = require('../models/User');
+const UserFriendService = require('../services/userFriendService')
 const Item = require('../models/Item');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -194,29 +194,10 @@ exports.rejectFriendRequest = async (req, res) => {
 
 exports.getFriends = async (req, res) => {
   let {id} = req.params
-  let user = await User.aggregate([
-    { "$match": { "_id": ObjectId(id) } },
-    { "$lookup": {
-      "from": User.collection.name,
-      "let": { "friends": "$friends" },
-      "pipeline": [
-        { "$match": {
-          "friends.user": ObjectId(id),
-          "friends.status": 3,
-        }},
-        { "$project": { 
-            "name": 1, 
-            "email": 1,
-            "avatar": 1
-          }
-        }
-      ],
-      "as": "friends"
-    }}, 
-  ])
+  let userFriends = await UserFriendService.getFriends(id)
 
   res.json({
-    friends: user[0].friends
+    friends: userFriends
   })
 }
 
