@@ -1,5 +1,5 @@
 import isEmpty from '../validation/isEmpty';
-import { SET_CURRENT_USER, SET_PROFILE_IMAGE, SET_COVER_PHOTO_IMAGE } from '../actions/types';
+import { SET_CURRENT_USER, SET_PROFILE_IMAGE, SET_COVER_PHOTO_IMAGE, GET_FRIENDS } from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -23,6 +23,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         coverPhoto: action.payload
+      };
+    case GET_FRIENDS:
+      return {
+        ...state,
+        ...action.payload
       };
     default:
       return state;

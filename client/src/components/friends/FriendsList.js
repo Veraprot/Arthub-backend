@@ -1,10 +1,28 @@
-import React, {useState} from "react";
+import React, {useEffect} from "react";
 import ReceivedRequests from './ReceivedRequests'
 import SentRequests from './SentRequests'
-import { connect } from 'react-redux'
+import { getFriends } from '../../actions/friendActions'
+import { useDispatch, useSelector } from 'react-redux'
 
-function FriendsList(props) {
-  console.log(props)
+function FriendsList() {
+  const currentUser = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFriends(currentUser._id))
+  }, [])
+
+  const renderFriends = () => {
+    console.log(currentUser)
+    if(currentUser.friends) {
+      return currentUser.friends.map(friend => {
+        return(
+          <div key={friend._id}>{friend.name}</div>
+        )
+      })
+    }
+  }
+
   return (
     <>
       <div className="invitations-container">
@@ -12,13 +30,10 @@ function FriendsList(props) {
         <SentRequests />
       </div>
       <div className="friends-container">
-        friends 
+        {renderFriends()} 
       </div>
     </>
   )
 }
 
-const mapStateToProps = state => ({
-  friends: state.user.friends
-}); 
-export default connect(mapStateToProps, {})(FriendsList);
+export default FriendsList;
