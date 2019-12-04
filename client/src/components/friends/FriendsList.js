@@ -19,6 +19,6 @@ function FriendsList(props) {
 }
 
 const mapStateToProps = state => ({
-  friends: state.user.friends
+  friends: state.user.info.friends
 }); 
 export default connect(mapStateToProps, {})(FriendsList);
