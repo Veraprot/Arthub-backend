@@ -6,7 +6,7 @@ import {socket} from '../../utils/socket'
 const resourceRoot = process.env.REACT_APP_RESOURCE_ROOT
 
 function ConversationsList(props) {
-  const currentUser = useSelector(state => state.user.info);
+  const currentUser = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function ConversationsList(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user.info, 
+  currentUser: state.user, 
   conversations: state.conversations.all,
   activeConversation: state.conversations.active
 })
