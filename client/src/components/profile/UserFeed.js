@@ -24,7 +24,7 @@ function UserFeed(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user, 
+  currentUser: state.user.info, 
   items: state.items.all
 })
 

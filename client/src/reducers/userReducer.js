@@ -3,6 +3,7 @@ import { SET_CURRENT_USER, SET_PROFILE_IMAGE, SET_COVER_PHOTO_IMAGE, GET_FRIENDS
 
 const initialState = {
   isAuthenticated: false,
+  info: {}
 };
 
 export default function(state = initialState, action) {
@@ -11,18 +12,24 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        ...action.payload
+        info: action.payload
       };
 
     case SET_PROFILE_IMAGE:
       return {
         ...state,
-        avatar: action.payload
+        info: {
+          ...state.info, 
+          avatar: action.payload
+        }
       };
     case SET_COVER_PHOTO_IMAGE:
       return {
         ...state,
-        coverPhoto: action.payload
+        info: {
+          ...state.info, 
+          coverPhoto: action.payload
+        }
       };
     case GET_FRIENDS:
       return {

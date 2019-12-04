@@ -76,7 +76,7 @@ function ConverstationContainer(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user, 
+  currentUser: state.user.info, 
   conversations: state.conversations
 }); 
 
