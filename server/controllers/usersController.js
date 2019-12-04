@@ -30,7 +30,7 @@ exports.loginUser = async (req, res) => {
   const {email, password} = req.body
 
   User.findOne({email})
-  .select('-conversations, -items, -friends')
+  .select('-conversations, -items')
   .exec((err, user) => {
     // Check for user
     if (!user) {
@@ -104,6 +104,7 @@ exports.addFriend = async (req, res) => {
   let {id} = req.params
   let {friendId} = req.body
   let addedFriend = await UserFriendService.addFriend(id, friendId)
+  console.log('this is', addedFriend)
   res.json({message: addedFriend})
 }
 
@@ -129,7 +130,6 @@ exports.getFriends = async (req, res) => {
   let {id} = req.params
   let userFriends = await UserFriendService.getFriends(id)
 
-  console.log('friends')
   res.json({
     friends: userFriends
   })
@@ -137,11 +137,13 @@ exports.getFriends = async (req, res) => {
 
 const findUserBy = (userAttr) => {
   return User.findOne(userAttr)
-  .select('-conversations, -items, -friends')
+  .select('-conversations, -items')
   .then(user => {
     if (!user) {
       return {error: 'User not found'};
     }
+
+    console.log(user.friends)
     return user
   })
   .catch(err => {

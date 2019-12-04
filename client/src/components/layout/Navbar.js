@@ -31,9 +31,9 @@ function Navbar(props) {
       <div className="navigation-links">
         <Link to="/user">
           <div className="avatar-container">
-              {/* <img className="profile-icon" src={`${resourceRoot}/${props.user.avatar}`} alt=""/> */}
+              {/* <img className="profile-icon" src={`${resourceRoot}/${props.user.info.avatar}`} alt=""/> */}
           </div>
-          <span>{props.user.name}</span>
+          <span>{props.user.info.name}</span>
         </Link>
         <Link to={`/conversations/`}>
           <Icon name='comment alternate' size='large' />
