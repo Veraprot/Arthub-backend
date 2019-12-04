@@ -142,8 +142,6 @@ const findUserBy = (userAttr) => {
     if (!user) {
       return {error: 'User not found'};
     }
-
-    console.log(user.friends)
     return user
   })
   .catch(err => {

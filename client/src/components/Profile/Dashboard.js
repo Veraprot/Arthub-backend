@@ -55,7 +55,7 @@ function Dashboard(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user.info, 
+  currentUser: state.user, 
 })
 
 export default connect(mapStateToProps, {})(Dashboard);
