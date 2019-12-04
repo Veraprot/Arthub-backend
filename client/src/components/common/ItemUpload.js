@@ -35,7 +35,7 @@ function ItemUpload(props) {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user.info, 
+  currentUser: state.user, 
 }); 
 export default connect(mapStateToProps, {addItem})(ItemUpload);
 
