@@ -64,27 +64,66 @@ class UserFriendService {
   async getFriends(id) {
     let user = await User.aggregate([
       { "$match": { "_id": ObjectId(id) } },
-      { "$lookup": {
-        "from": User.collection.name,
-        "let": { "friends": "$friends" },
-        "pipeline": [
-          { "$match": {
-            "friends.user": ObjectId(id),
-            "friends.status": 3,
-          }},
-          { "$project": { 
-              "name": 1, 
-              "email": 1,
-              "avatar": 1
-            }
-          }
-        ],
-        "as": "friends"
+      { "$unwind": "$friends" },
+      {"$lookup": {
+        "from": User.collection.name, 
+        "localField": "friends.user",
+        "foreignField": "_id",
+        "as": "friends.user"
       }}, 
+      { "$unwind": "$friends.user" },
+      // Group back to arrays
+      // { "$addFields": {
+      //   "friends": { "$mergeObjects": ["$friends.user", "$friends"] }
+      // }},
+      { "$group": {
+          "_id": "$_id",
+          "friends": { "$push": "$friends"},
+      }},
+      { "$project": { 
+        "friends.status": 1,
+        "friends.user._id": 1,
+        "friends.user.avatar": 1,
+        "friends.user.email": 1,
+        "friends.user.name": 1, 
+      }}
     ])
 
     return user[0].friends
   }
+  // async getFriends(id) {
+  //   let user = await User.aggregate([
+  //     { "$match": { "_id": ObjectId(id) } },
+  //     { "$lookup": {
+  //       "from": User.collection.name,
+  //       "let": { "friends": "$friends" },
+  //       "pipeline": [
+  //         { 
+  //           "$match": {
+  //           "friends.user": ObjectId(id),
+  //           }, 
+  //         },
+  //         // {
+  //         //   "$sort": { "friends.status": -1 } 
+  //         // },
+  //         { "$project": { 
+  //             "name": 1, 
+  //             "email": 1,
+  //             "avatar": 1, 
+  //           }
+  //         }
+  //       ],
+  //       "as": "friends"
+  //     }}, 
+  //     { "$addFields": {
+  //       "friendsStatus": {
+  //         "$ifNull": [ { "$min": "$friends.name" }, 0 ]
+  //       }
+  //     }}
+  //   ])
+  //   console.log(user)
+  //   return user
+  // }
 }
 
 module.exports = new UserFriendService()
