@@ -91,39 +91,6 @@ class UserFriendService {
 
     return user[0].friends
   }
-  // async getFriends(id) {
-  //   let user = await User.aggregate([
-  //     { "$match": { "_id": ObjectId(id) } },
-  //     { "$lookup": {
-  //       "from": User.collection.name,
-  //       "let": { "friends": "$friends" },
-  //       "pipeline": [
-  //         { 
-  //           "$match": {
-  //           "friends.user": ObjectId(id),
-  //           }, 
-  //         },
-  //         // {
-  //         //   "$sort": { "friends.status": -1 } 
-  //         // },
-  //         { "$project": { 
-  //             "name": 1, 
-  //             "email": 1,
-  //             "avatar": 1, 
-  //           }
-  //         }
-  //       ],
-  //       "as": "friends"
-  //     }}, 
-  //     { "$addFields": {
-  //       "friendsStatus": {
-  //         "$ifNull": [ { "$min": "$friends.name" }, 0 ]
-  //       }
-  //     }}
-  //   ])
-  //   console.log(user)
-  //   return user
-  // }
 }
 
 module.exports = new UserFriendService()
