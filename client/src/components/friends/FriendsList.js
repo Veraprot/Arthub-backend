@@ -13,11 +13,11 @@ function FriendsList() {
   }, [])
 
   const renderFriends = () => {
-    console.log(currentUser)
     if(currentUser.friends) {
       return currentUser.friends.map(friend => {
+        console.log(friend)
         return(
-          <div key={friend._id}>{friend.name}</div>
+          <div key={friend.user._id}>{friend.user.name}</div>
         )
       })
     }
