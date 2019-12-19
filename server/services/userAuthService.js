@@ -29,6 +29,52 @@ class UserAuthService {
       }
     });
   }
+
+  signToken(user) {
+    return new Promise((resolve, reject) => {
+      const payload = {_id: user.id}
+      jwt.sign(
+        payload, 
+        secretOrKey, 
+        {expiresIn: 3600}, 
+        (err, token) => {
+          if(err) {
+            reject(err)
+          }
+          resolve({
+            success: true,
+            token: 'Bearer ' + token,
+            user
+          })
+        }
+      )
+    })
+  }
+
+  authorizeLogin(password, user) {
+    return bcrypt.compare(password, user.password)
+      .then(async isMatch => {
+        if (isMatch) {
+          return await this.signToken(user)
+        } else {
+          return {password: "password incorrect"}
+        }
+      })
+  }
+
+  async login(email, password) {
+    let user = await User.findOne({email})
+      if (!user) {
+        return res.status(404).json({email: 'User not found'});
+      } 
+    return this.authorizeLogin(password, user)
+      .then(signature => {
+        return signature
+      })
+      .catch(err => {
+        return err
+      })
+  }
 }
 
 module.exports = new UserAuthService()

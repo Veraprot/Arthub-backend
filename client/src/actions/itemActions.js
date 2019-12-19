@@ -5,9 +5,10 @@ const apiRoot = process.env.REACT_APP_API_ROOT
 
 export const addItem = (userId, file, description) => dispatch => {
   const formData = new FormData();
+  console.log(file)
   formData.append('image', file)
   formData.append('description', description)
-
+  console.log(formData)
   axios.post(`${apiRoot}/users/${userId}/items`, formData)
   .then(res => {
     dispatch({

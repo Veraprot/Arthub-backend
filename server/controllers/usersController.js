@@ -12,7 +12,7 @@ const secretOrKey = process.env.SECRET_OR_KEY;
 
 exports.registerUser = (req, res) => {
   const {name, email, password} = req.body
-  let registeredUser = UserAuthService.registerUser(name, email, password)
+  let registeredUser = UserAuthService.register(name, email, password)
   res.json({user: registeredUser})
 }
 
@@ -28,38 +28,11 @@ exports.getUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   const {email, password} = req.body
+  const authorizedUser = await UserAuthService.login(email, password)
 
-  User.findOne({email})
-  .select('-conversations, -items, -friends')
-  .exec((err, user) => {
-    // Check for user
-    if (!user) {
-      return res.status(404).json({email: 'User not found'});
-    }
-
-    bcrypt.compare(password, user.password)
-      .then(isMatch => {
-        if (isMatch) {
-          // User Matched
-          const payload = { _id: user.id }; // Create JWT Payload
-          // Sign Token
-          jwt.sign(
-            payload,
-            secretOrKey,
-            { expiresIn: 3600 },
-            (err, token) => {
-              res.json({
-                success: true,
-                token: 'Bearer ' + token,
-                user
-              });
-            }
-          );
-        } else {
-          return res.status(400).json({password: "Password Incorrect"});
-        }
-      })
-  })
+  if(authorizedUser) {
+    res.json(authorizedUser)
+  }
 }
 
 exports.editUser = async (req, res) => {
