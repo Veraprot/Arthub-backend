@@ -94,7 +94,7 @@ exports.rejectFriendRequest = async (req, res) => {
   const {id} = req.params
   let {friendId} = req.body
   const rejection = await UserFriendService.rejectFriendRequest(id, friendId)
-z
+
   res.json({message: rejection})
 }
 
