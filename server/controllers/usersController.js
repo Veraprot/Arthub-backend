@@ -29,7 +29,7 @@ exports.getUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   const {email, password} = req.body
   const authorizedUser = await UserAuthService.login(email, password)
-  console.log(authorizedUser)
+
   if(authorizedUser) {
     res.json(authorizedUser)
   }
