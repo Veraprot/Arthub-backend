@@ -69,27 +69,27 @@ class UserFriendService {
         "from": User.collection.name, 
         "localField": "friends.user",
         "foreignField": "_id",
-        "as": "friends.user"
+        "as": "friend"
       }}, 
-      { "$unwind": "$friends.user" },
-      // Group back to arrays
-      // { "$addFields": {
-      //   "friends": { "$mergeObjects": ["$friends.user", "$friends"] }
-      // }},
+      { "$unwind": "$friend" },
+      {"$project": {
+        "friends.status": 1,
+        "friend._id": 1,
+        "friend.avatar": 1,
+        "friend.email": 1,
+        "friend.name": 1, 
+      }},
+
+      { "$addFields": {
+        "friends": { "$mergeObjects": ["$friend", "$friends"] }
+      }},
       { "$group": {
           "_id": "$_id",
           "friends": { "$push": "$friends"},
       }},
-      { "$project": { 
-        "friends.status": 1,
-        "friends.user._id": 1,
-        "friends.user.avatar": 1,
-        "friends.user.email": 1,
-        "friends.user.name": 1, 
-      }}
     ])
 
-    return user[0].friends
+    return user
   }
 }
 
