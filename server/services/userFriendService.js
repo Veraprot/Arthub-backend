@@ -79,14 +79,20 @@ class UserFriendService {
         "friend.email": 1,
         "friend.name": 1, 
       }},
-
       { "$addFields": {
+        "status": "$friends.status",
         "friends": { "$mergeObjects": ["$friend", "$friends"] }
       }},
-      { "$group": {
-          "_id": "$_id",
-          "friends": { "$push": "$friends"},
-      }},
+      {
+      "$bucket": {
+          "groupBy": "$status",
+          "boundaries": [ 1, 2, 4 ],
+          "default": "Other",
+          "output": {
+            "friends" : { $push: "$friends" }
+          }
+        },
+      }
     ])
 
     return user
