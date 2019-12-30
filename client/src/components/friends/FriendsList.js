@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect} from "react"
 import FriendCard from './FriendCard'
 import { getFriends } from '../../actions/friendActions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ function FriendsList() {
   }, [])
 
   const renderFriends = (friendType) => {
-    if(currentUser.friends && friendType.length > 0) {
+    if(currentUser.friends && friendType &&friendType.length > 0) {
       return friendType.map(friend => {
         return(
           <FriendCard key={friend._id} user={friend}/>

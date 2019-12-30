@@ -5,7 +5,7 @@ import ItemUpload from './ItemUpload'
 function UploadImageModal(props) {
   return (
     <div className="modal">
-      <div className="upload-container">
+      <div className="modal-container upload">
         <div className="header">
           <span>
             Update Profile Picture
