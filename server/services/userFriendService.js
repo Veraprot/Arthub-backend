@@ -62,7 +62,7 @@ class UserFriendService {
   }
 
   async getFriends(id) {
-    let user = await User.aggregate([
+    let friends = await User.aggregate([
       { "$match": { "_id": ObjectId(id) } },
       { "$unwind": "$friends" },
       {"$lookup": {
@@ -82,20 +82,34 @@ class UserFriendService {
       { "$addFields": {
         "friends": { "$mergeObjects": ["$friend", "$friends"] }
       }},
-      { "$group" : { "_id" : "$friends.status", "friends": { "$push": "$friends" } } }
-      // {
-      // "$bucket": {
-      //     "groupBy": "$status",
-      //     "boundaries": [ 1, 2, 4 ],
-      //     "default": "Other",
-      //     "output": {
-      //       "friends" : { $push: "$friends" }
-      //     }
-      //   },
-      // }
+      { 
+        "$group" : { 
+          "_id" : "$friends.status", 
+          "friends": { "$push": "$friends" },
+        } 
+      }
     ])
 
-    return user
+    // figure out better way to do this w mongo
+    let friendsList = {
+      requested: [],
+      received: [], 
+      accepted: []
+    }
+    friends.map(friend => {
+      switch (friend._id) {
+        case 1: 
+          friendsList.requested = friend.friends
+        break;
+        case 2: 
+          friendsList.received = friend.friends
+        break; 
+        case 3: 
+          friendsList.accepted = friend.friends
+        break 
+      }
+    })
+    return friendsList
   }
 }
 

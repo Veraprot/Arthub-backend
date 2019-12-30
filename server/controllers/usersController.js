@@ -102,7 +102,7 @@ exports.getFriends = async (req, res) => {
   let {id} = req.params
   let userFriends = await UserFriendService.getFriends(id)
   res.json({
-    blah: userFriends
+    friends: userFriends
   })
 }
 

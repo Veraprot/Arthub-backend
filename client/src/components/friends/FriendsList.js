@@ -14,10 +14,11 @@ function FriendsList() {
 
   const renderFriends = () => {
     if(currentUser.friends) {
-      return currentUser.friends.map(friend => {
+      console.log(currentUser)
+      return currentUser.friends.accepted.map(friend => {
         console.log(friend)
         return(
-          <div key={friend.user._id}>{friend.user.name}</div>
+          <div key={friend._id}>{friend.name}</div>
         )
       })
     }

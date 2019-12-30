@@ -8,7 +8,6 @@ export const getFriends = (userId) => dispatch => {
   axios.get(`${apiRoot}/users/${userId}/friends`)
     .then(res => {
       if(!isEmpty(res.data)) {
-        console.log(res.data)
         dispatch({
           type: GET_FRIENDS, 
           payload: res.data
