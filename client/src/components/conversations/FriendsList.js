@@ -1,6 +1,7 @@
 import React, {useEffect}  from "react"
 import { getFriends } from '../../actions/friendActions'
-import {Form } from 'semantic-ui-react'
+import {Form} from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 
 function FriendsList(props) {
@@ -18,7 +19,14 @@ function FriendsList(props) {
     if(currentUser.friends && accepted &&accepted.length > 0) {
       return accepted.map(friend => {
         return(
-          <div key={friend._id}>{friend.name}</div>
+          <>
+            <div className="avatar-container">
+              <img className="profile-icon" src={`${friend.avatar}`} alt=""/>
+            </div>
+            <div className="profile-info">
+              <Link to={`/users/${friend._id}`}>{friend.name}</Link>
+            </div>
+          </>
         )
       })
     }
