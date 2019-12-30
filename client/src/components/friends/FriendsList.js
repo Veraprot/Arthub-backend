@@ -1,24 +1,27 @@
 import React, {useEffect} from "react";
 import ReceivedRequests from './ReceivedRequests'
-import SentRequests from './SentRequests'
+import FriendCard from './FriendCard'
 import { getFriends } from '../../actions/friendActions'
 import { useDispatch, useSelector } from 'react-redux'
 
 function FriendsList() {
   const currentUser = useSelector(state => state.user);
+  const {accepted, requested, received} = useSelector(state => state.user.friends || []);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getFriends(currentUser._id))
   }, [])
 
-  const renderFriends = () => {
-    if(currentUser.friends) {
-      console.log(currentUser)
-      return currentUser.friends.accepted.map(friend => {
-        console.log(friend)
+  // const renderFriendRequests = () => {
+  //   <ReceivedRequests/>
+  // }
+  const renderFriends = (friendType) => {
+    if(currentUser.friends && friendType.length > 0) {
+      return friendType.map(friend => {
         return(
-          <div key={friend._id}>{friend.name}</div>
+          <FriendCard key={friend._id} user={friend}/>
         )
       })
     }
@@ -27,11 +30,13 @@ function FriendsList() {
   return (
     <>
       <div className="invitations-container">
-        <ReceivedRequests/>
-        <SentRequests />
+        {renderFriends(requested)}
+      </div>
+      <div className="invitations-container">
+        {renderFriends(received)}
       </div>
       <div className="friends-container">
-        {renderFriends()} 
+        {renderFriends(accepted)} 
       </div>
     </>
   )
