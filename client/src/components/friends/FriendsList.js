@@ -25,10 +25,10 @@ function FriendsList() {
 
   return (
     <>
-      <div className="invitations-container">
+      <div className="friends-container">
         {renderFriends(requested)}
       </div>
-      <div className="invitations-container">
+      <div className="friends-container">
         {renderFriends(received)}
       </div>
       <div className="friends-container">
