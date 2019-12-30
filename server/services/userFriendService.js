@@ -80,19 +80,19 @@ class UserFriendService {
         "friend.name": 1, 
       }},
       { "$addFields": {
-        "status": "$friends.status",
         "friends": { "$mergeObjects": ["$friend", "$friends"] }
       }},
-      {
-      "$bucket": {
-          "groupBy": "$status",
-          "boundaries": [ 1, 2, 4 ],
-          "default": "Other",
-          "output": {
-            "friends" : { $push: "$friends" }
-          }
-        },
-      }
+      { "$group" : { "_id" : "$friends.status", "friends": { "$push": "$friends" } } }
+      // {
+      // "$bucket": {
+      //     "groupBy": "$status",
+      //     "boundaries": [ 1, 2, 4 ],
+      //     "default": "Other",
+      //     "output": {
+      //       "friends" : { $push: "$friends" }
+      //     }
+      //   },
+      // }
     ])
 
     return user
