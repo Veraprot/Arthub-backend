@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_CONVERSATIONS, GET_MESSAGES, SET_NEW_MESSAGE, SET_CONVERSATION} from './types'
+import {GET_CONVERSATIONS, CREATE_CONVERSATION, GET_MESSAGES, SET_NEW_MESSAGE, SET_CONVERSATION} from './types'
 import isEmpty from '../validation/isEmpty'
 const apiRoot = process.env.REACT_APP_API_ROOT
 
@@ -8,8 +8,27 @@ export const getConversations = (userId) => dispatch => {
   axios.get(`${apiRoot}/users/${userId}/conversations`)
     .then(res => {
       if(!isEmpty(res.data)) {
+        console.log(res.data)
         dispatch({
           type: GET_CONVERSATIONS, 
+          payload: res.data
+        })
+      }
+    })
+}
+
+export const createConversation = (user, recipient, conversationName = 'new chat idk') => dispatch => {
+  axios.post(
+    `${apiRoot}/users/${user}/conversations/create`, 
+    {
+      name: conversationName,
+      recipient
+    }
+  )
+    .then( res => {
+      if(!isEmpty(res.data)) {
+        dispatch({
+          type: CREATE_CONVERSATION, 
           payload: res.data
         })
       }

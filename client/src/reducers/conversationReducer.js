@@ -1,4 +1,4 @@
-import { GET_CONVERSATIONS, SET_CONVERSATION, GET_MESSAGES, SET_NEW_MESSAGE } from '../actions/types';
+import { GET_CONVERSATIONS, CREATE_CONVERSATION, SET_CONVERSATION, GET_MESSAGES, SET_NEW_MESSAGE } from '../actions/types';
 
 const initialState = {
   active: {},
@@ -35,6 +35,14 @@ export default function(state = initialState, action) {
           action.payload
         ],
       };
+
+    case CREATE_CONVERSATION:
+      return {
+        ...state,
+        active: action.payload.conversation._id, 
+        all: state.all.push(action.payload.conversation)
+      };
+
     default:
       return state;
   }

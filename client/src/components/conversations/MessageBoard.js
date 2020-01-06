@@ -5,7 +5,7 @@ import ConverstationContainer from './ConversationContainer'
 import FriendsList from './FriendsList'
 import { useDispatch, useSelector } from 'react-redux'
 
-function MessageBoard(props) {
+function MessageBoard() {
   const [friendsModal, setFriendsModal] = useState(false)
   const conversations = useSelector(state => state.conversations || [])
   // const {accepted} = useSelector(state => state.user.friends || []);

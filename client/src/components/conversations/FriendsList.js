@@ -3,6 +3,7 @@ import { getFriends } from '../../actions/friendActions'
 import {Form} from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import { getConversations, setActiveConversation, createConversation } from '../../actions/conversationActions'
 
 function FriendsList(props) {
   const currentUser = useSelector(state => state.user);
@@ -15,6 +16,11 @@ function FriendsList(props) {
     }
   },[])
 
+  const switchToConversation = (e, friendId) => {
+    e.preventDefault()
+    dispatch(createConversation(currentUser._id, friendId))
+  }
+
   const renderFriends = () => {
     if(currentUser.friends && accepted &&accepted.length > 0) {
       return accepted.map(friend => {
@@ -24,7 +30,7 @@ function FriendsList(props) {
               <img className="profile-icon" src={`${friend.avatar}`} alt=""/>
             </div>
             <div className="profile-info">
-              <Link to={`/users/${friend._id}`}>{friend.name}</Link>
+              <p onClick={(e) => switchToConversation(e, friend._id)}>{friend.name}</p>
             </div>
           </>
         )
@@ -34,7 +40,6 @@ function FriendsList(props) {
 
   return (
     <div className="modal" onClick={props.closeNewConversation}>
-      {/* go throug hfriends list, if conversation exists switch to that conversation otherwise switch to new empty conversation */}
       <div className="modal-container chat" onClick={(e) => e.stopPropagation()}>
         <div className="search-container">
           <Form>
