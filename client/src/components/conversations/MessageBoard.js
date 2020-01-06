@@ -3,19 +3,24 @@ import { connect } from 'react-redux'
 import ConversationsList from './ConversationsList'
 import ConverstationContainer from './ConversationContainer'
 import FriendsList from './FriendsList'
-import { getConversations} from '../../actions/conversationActions'
+import { useDispatch, useSelector } from 'react-redux'
 
 function MessageBoard(props) {
   const [friendsModal, setFriendsModal] = useState(false)
+  const conversations = useSelector(state => state.conversations || [])
+  // const {accepted} = useSelector(state => state.user.friends || []);
+
+  // const dispatch = useDispatch();
 
   const toggleFriendsModal = () => {
     setFriendsModal(!friendsModal)
   }
   
+  console.log(conversations)
   return (
     <div className="message-board">
       <ConversationsList openNewConversation={toggleFriendsModal} />
-      {(props.conversations.active.length > 0) &&
+      {(conversations.active.length > 0) &&
         <ConverstationContainer/>
       }
       {
@@ -26,8 +31,4 @@ function MessageBoard(props) {
   )
 }
 
-const mapStateToProps = state => ({
-  conversations: state.conversations
-}); 
-
-export default connect(mapStateToProps, {getConversations})(MessageBoard);
+export default MessageBoard;
